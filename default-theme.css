@@ -43,7 +43,7 @@ body {
 .slogan {
     padding: 120px 0px 135px 160px;
     color: white;
-    background-image: url(assets/bgi.png);
+    background-image: url(assets/bgi-lite.png);
     background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;
