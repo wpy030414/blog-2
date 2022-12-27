@@ -1,0 +1,83 @@
+* {
+    font-family: 思源黑体, 黑体;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #073042;
+}
+
+.top-bar {
+    background-color: white;
+    height: 50px;
+    border-bottom: 2px solid #dddddd;
+}
+
+.logo {
+    float: left;
+    height: 30px;
+    margin: 10px 53.3333px;
+}
+
+.intro {
+    float: left;
+    font-size: 16px;
+    line-height: 50px;
+    padding: 0px 24px;
+    background-color: #fff;
+    color: #5f6368;
+    text-decoration: none;
+}
+
+.intro:hover {
+    line-height: 43px;
+    color: black;
+    border-top: 3px solid black;
+}
+
+.intro:active {
+    border-top: 3px solid #3ddc84;
+}
+
+.slogan {
+    padding: 120px 0px 135px 160px;
+    color: white;
+    background-image: url(assets/bgi.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
+
+.title {
+    font-weight: 1000;
+    font-size: 70px;
+    line-height: 76px;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 100px;
+}
+
+.uni-button {
+    height: 48px;
+    border-radius: 24px;
+    padding: 0px 24px;
+    line-height: 48px;
+    font-size: 16px;
+    background-color: #3ddc84;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 50px;
+}
+
+.cr {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.1);
+}
