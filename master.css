@@ -13,10 +13,10 @@
     padding-right: 53.3333px;
     box-sizing: border-box;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
+    z-index: 233;
 }
 
 .logo {
-
     height: 30px;
     margin: 14px 53.3333px;
 }
