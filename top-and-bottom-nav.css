@@ -121,6 +121,7 @@ li {
 }
 
 .bottom-nav-abouts h4 {
+    color: white;
     font-size: 30px;
     line-height: 75px;
     border-bottom: 1px solid white;
