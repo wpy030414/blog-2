@@ -1,96 +1,26 @@
+:root {
+    --color-main-blue: #073042;
+    --color-main-green: #3ddc84;
+    --color-main-grey: #5f6368;
+    --color-bilibili: #fc8bab;
+    --color-netease: #c20c0c;
+}
+
 * {
-    font-family: 思源黑体, 黑体;
     margin: 0;
     padding: 0;
-}
-
-.top-bar {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    background-color: white;
-    height: 58px;
-    padding-right: 53.3333px;
-    box-sizing: border-box;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
-    z-index: 233;
-}
-
-.logo {
-    height: 30px;
-    margin: 14px 53.3333px;
-}
-
-.f-l {
-    float: left;
-}
-
-.f-r {
-    float: right;
-}
-
-.intro {
-    font-size: 16px;
-    line-height: 58px;
-    padding: 0px 24px;
-    background-color: #fff;
-    color: #5f6368;
-    text-decoration: none;
-}
-
-.intro:hover {
-    line-height: 50px;
-    color: black;
-    border-top: 4px solid black;
-}
-
-.intro:active {
-    border-top: 4px solid #3ddc84;
-    color: #3ddc84;
-}
-
-.uni-button-lite {
-    height: 30px;
-    border-radius: 17px;
-    margin: 12px 0 12px 25px;
-    padding: 0px 18px;
-    line-height: 30px;
-    font-size: 14px;
-    font-weight: 500;
-    background-color: transparent;
-    color: #5f6368;
-    border: 2px solid #5f6368;
-    text-align: center;
-    text-decoration: none;
-}
-
-#bilibili:hover {
-    background-color: #fc8bab;
-    color: white;
-    border: 2px solid #fc8bab;
-}
-
-#netease:hover {
-    background-color: #c20c0c;
-    color: white;
-    border: 2px solid #c20c0c;
-}
-
-.uni-button-lite-title {
-    padding: 14px 0;
-    line-height: 30px;
-    font-size: 14px;
-    color: #dddddd;
+    font-family: 思源黑体, 黑体;
 }
 
 .slogan {
     padding: 120px 160px 135px;
     color: white;
-    background-color: #073042;
+    background-color: var(--color-main-blue);
     background-image: url(https://i.328888.xyz/2022/12/27/U8LOp.png);
     background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;
+    white-space: nowrap;
 }
 
 .title {
@@ -113,7 +43,7 @@
     padding: 0px 24px;
     line-height: 48px;
     font-size: 16px;
-    background-color: #3ddc84;
+    background-color: var(--color-main-green);
     color: black;
     text-align: center;
     text-decoration: none;
@@ -126,6 +56,14 @@
 
 .uni-button:active {
     filter: brightness(90%);
+}
+
+.f-l {
+    float: left;
+}
+
+.f-r {
+    float: right;
 }
 
 .topics {
@@ -146,6 +84,7 @@
 
 .topic-detail {
     height: 400px;
+    overflow: hidden;
 }
 
 .topic-pic {
@@ -158,19 +97,9 @@
 }
 
 .topic-text {
-    width: 500px;
+    width: 50%;
     height: 400px;
     text-align: left;
     font-size: 16px;
     line-height: 28px;
-}
-
-.easter-egg {
-    width: 100%;
-    height: 60px;
-    margin-top: 72px;
-    line-height: 60px;
-    text-align: center;
-    color: grey;
-    background-image: linear-gradient(to top, #dddddd, white);
 }
