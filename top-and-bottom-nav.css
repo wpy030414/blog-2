@@ -115,7 +115,7 @@ li {
 .bottom-nav-abouts {
     display: grid;
     width: 70%;
-    margin: 60px auto 10px;
+    margin: 30px auto;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 100px;
 }
@@ -147,7 +147,7 @@ li {
 }
 
 .bottom-nav-abouts img {
-    width: 60%;
+    width: 50%;
 }
 
 .bottom-easter-egg {
