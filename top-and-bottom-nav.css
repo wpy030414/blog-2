@@ -42,20 +42,22 @@ li {
 .top-nav-menus a {
     display: block;
     font-size: 16px;
-    line-height: 60px;
+    line-height: 52px;
     padding: 0px 20px;
     background-color: white;
+    border-top: 4px solid white;
     color: var(--color-main-grey);
     text-decoration: none;
 }
 
 .top-nav-menus a:hover {
-    line-height: 52px;
-    color: black;
     border-top: 4px solid black;
+    color: black;
 }
 
-.top-nav-menus a:active {
+.top-nav-menus a:active,
+.top-nav-menus .chosen,
+.top-nav-menus .chosen:hover {
     border-top: 4px solid var(--color-main-green);
     color: var(--color-main-green);
 }
