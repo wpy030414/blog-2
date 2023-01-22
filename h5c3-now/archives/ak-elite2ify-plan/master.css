@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 30px 10%;
+}
+
+.datasheet {
+    display: grid;
+    grid-template-columns: calc(100% - 128px) 128px;
+}
+
+.bottom-bar {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: #dddddd;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.result {
+    margin-top: 12px;
+    font-style: italic;
+}
+
+.input {
+    text-align: right;
+}
+
+.input-area {
+    border: none;
+    background-color: #f8f9fa;
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 18px;
+    text-indent: 0.5em;
+}
+
+.input-area::placeholder {
+    color: #dddddd;
+}
+
+#op-star {
+    width: 6em;
+}
+
+#op-name {
+    width: 10em;
+}
+
+.op-del {
+    width: 18px;
+    border: none;
+    background-color: #f8f9fa;
+    color: #dddddd;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.op-del:hover {
+    background-color: #d5d7db;
+    color: #333333;
+}

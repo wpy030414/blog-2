@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 思源黑体;
+}
+
+body {
+    background-color: #dddddd;
+}
+
+.one-line {
+    margin: 64px auto;
+    text-align: center;
+}
+
+.topic {
+    width: 1350px;
+    height: 64px;
+    line-height: 64px;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    box-shadow: 0px 0px 30px 5px rgb(0 0 0 / 20%);
+    display: inline-block;
+}
+
+.info {
+    width: 320px;
+    height: 400px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 0px 10px;
+    box-shadow: 0px 0px 30px 5px rgb(0 0 0 / 20%);
+    display: inline-block;
+    text-align: left;
+}
+
+.info:hover {
+    background-color: #eeeeee;
+}
+
+.info:active {
+    background-color: #cccccc;
+}
+
+.thumb {
+    width: 320px;
+    height: 240px;
+    border-radius: 20px 20px 0px 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.discribe {
+    width: 272px;
+    height: 112px;
+    padding: 24px;
+    white-space: nowrap;
+}
+
+.title {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attribute {
+    color: grey;
+    font-size: 18px;
+    line-height: 46px;
+}
+
+.division-line {
+    color: #dddddd;
+    font-size: 18px;
+}
+
+.price {
+    font-size: 16px;
+}
+
+.present-price {
+    color: red;
+}
+
+.yuan {
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.original-price {
+    color: grey;
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
+.tag {
+    color: white;
+    background-image: linear-gradient(to top right, orange, red);
+    line-height: 16px;
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    transform: translateY(-5px);
+}

@@ -1,0 +1,53 @@
+.sd-new-gold-encapsulation {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    padding: 30px;
+    background-image: linear-gradient(to bottom right, #feeba7, #fff5ba, #feeba7, #fde198, #f2cc82);
+    border-radius: 10px;
+    border: 2px solid #cea36b;
+    box-shadow: 16px 16px 15px rgba(0, 0, 0, .2);
+    color: #ea1323;
+}
+
+.sd-new-gold-logo {
+    position: absolute;
+    right: -90px;
+    bottom: -30px;
+    width: 270px;
+    height: 270px;
+    background-image: url(https://img1.imgtp.com/2023/01/09/DspAbIdF.png);
+    background-size: contain;
+}
+
+.sd-new-gold-brand {
+    position: absolute;
+    top: 30px;
+    font-size: 52px;
+    line-height: 52px;
+}
+
+.sd-new-gold-brand-zh {
+    position: absolute;
+    top: 82px;
+    font-size: 40px;
+    line-height: 54px;
+    font-weight: 500;
+}
+
+.sd-new-gold-model {
+    position: absolute;
+    bottom: 58px;
+    font-size: 82px;
+    line-height: 82px;
+    font-weight: 200;
+}
+
+.sd-new-gold-gen {
+    position: absolute;
+    bottom: 30px;
+    font-size: 27px;
+    line-height: 27px;
+    font-weight: 550;
+}

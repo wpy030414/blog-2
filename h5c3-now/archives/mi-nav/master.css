@@ -1,0 +1,32 @@
+body {
+    background-color: #dddddd;
+}
+
+.bar {
+    background-color: #55585a;
+    color: #ffffff;
+    font-family: 思源黑体;
+    font-size: 14px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    width: 234px;
+}
+
+.sharp {
+    background-color: #888888;
+    height: 1px;
+    width: 234px;
+}
+
+a.bar {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+    padding: 0px 0px 0px 30px;
+    width: 204px;
+}
+
+a.bar:hover {
+    background-color: #ff6700;
+}

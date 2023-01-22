@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(https://i.328888.xyz/2022/12/30/nN81V.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.level {
+    width: 195px;
+    height: 65px;
+    text-align: right;
+    margin: 50px auto;
+}
+
+.level:hover {
+    filter: brightness(90%);
+}
+
+.level:active {
+    filter: brightness(80%);
+}
+
+.star {
+    width: 45px;
+    height: 45px;
+    background-color: #00b3fd;
+    border-radius: 24px;
+    box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, .4);
+    box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, .4) inset;
+    border: 3px solid white
+}
+
+.op-sign {
+    width: 195px;
+    height: 15px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.op-code {
+    width: 195px;
+    height: 50px;
+    background-image: linear-gradient(to top right,
+            #bbbbbb, white, white);
+    box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, .4);
+    text-align: center;
+    color: #333333;
+    font-size: 40px;
+    line-height: 50px;
+}
+
+.tr {
+    background-image: none;
+    background-color: #313131;
+    color: white;
+}
+
+.hard {
+    width: 191px;
+    height: 48px;
+    border: 2px solid #c0754e;
+    border-top: none;
+    background-image: linear-gradient(to top,
+            #672805, #341906);
+    color: white;
+}

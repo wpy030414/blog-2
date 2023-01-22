@@ -1,0 +1,53 @@
+.op {
+    display: inline-block;
+    padding: 0 16px;
+    height: 27px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 27px;
+    background-color: white;
+    color: #333333;
+    font-family: 思源宋体;
+    font-weight: 1000;
+    text-align: center;
+    text-decoration: none;
+    border-top: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    margin: 14px 16px 14px 0;
+}
+
+.op:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.op-vi {
+    border-image: linear-gradient(to right,
+            #e4751b, #e17a11, #fec830, #cdcd37, #adbe22) 10;
+}
+
+.op-v {
+    border-image: linear-gradient(to right, #fff6dc, #cdb579) 10;
+}
+
+.op-iv {
+    border-image: linear-gradient(to right, #ececf4, #beaebb) 10;
+}
+
+.op-iii {
+    border-image: linear-gradient(to right, #00b3fd, #079ae7) 10;
+}
+
+.op-ii {
+    border-image: linear-gradient(to right, #dce439, #e4e86f) 10;
+}
+
+.op-i {
+    border-image: linear-gradient(to right, #ffffff, #c6c6c6) 10;
+}
+
+.op-plus {
+    width: 27px;
+    padding: 0;
+    border: none;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>核酸检测报告</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="master.css">
+    <script src="global.js"></script>
+</head>
+
+<body>
+    <div class="top-bar">
+        <h2 onclick="counter()">核酸检测报告</h2>
+    </div>
+    <div class="info" id="first-frame">
+        <br />
+        <img src="https://i.328888.xyz/2022/12/30/nNrXb.png" width="60px" id="m-icon" />
+        <h1 class="green" id="morph">阴性</h1>
+        <h4 class="green" id="morph2">距离本次检测已过0天</h4>
+        <table>
+            <tr>
+                <td class="item-name"></td>
+                <td class="item-value">我的基本信息&nbsp;<img src="https://i.328888.xyz/2022/12/30/nNN0d.png" height="14px" />&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">姓名</td>
+                <td class="item-value entity">**娅</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">身份证号</td>
+                <td class="item-value entity">1000**********0001</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">采集机构</td>
+                <td class="item-value entity">泰拉罗德岛</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">采集时间</td>
+                <td class="item-value entity"><label id="a-time" onclick="redo()">2022-12-05</label> 13:16:52</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">检测机构</td>
+                <td class="item-value entity">泰拉罗德岛</td>
+            </tr>
+            <tr>
+                <td class="item-name entity">检测时间</td>
+                <td class="item-value entity"><label id="b-time" onclick="redo()">2022-12-05</label> 20:22:05</td>
+            </tr>
+            <tr>
+                <td class="item-name" colspan="3">
+                    <div class="notice">
+                        注：仅显示近14天内核酸检测记录。更多数据在不<br />断汇集和完善中，查询结果供参考。
+                    </div>
+                </td>
+        </table>
+    </div>
+    <div class="info cr">
+        <p onclick="alert('Powered by Penyo. All rights reserved.')">
+            <small>本页面仅供研究计算机原理，<b>禁止</b>用于干扰防疫政策。<br />
+                作者不对使用者的行为负任何责任！</small>
+        </p>
+    </div>
+</body>
+
+</html>

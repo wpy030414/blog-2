@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>装机配置单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="master.css">
+</head>
+
+<body>
+    <div class="main-frame">
+        <div class="title blue" onclick="switchPlatform()">
+            <h3>装机配置单</h3>
+        </div>
+        <table>
+            <tr>
+                <th></th>
+                <th class="p-name">名称</th>
+                <th class="p-price">价格</th>
+            </tr>
+            <tr>
+                <th class="items">CPU</th>
+                <td><input class="p-name" type="text" id="" placeholder="英特尔 酷睿 G5900"></td>
+                <td><input class="p-price" type="text" id="pr1" placeholder="180"></td>
+            </tr>
+            <tr>
+                <th class="items">主板</th>
+                <td><input class="p-name" type="text" id="" placeholder="梅捷 狂龙 H410M"></td>
+                <td><input class="p-price" type="text" id="pr2" placeholder="200"></td>
+            </tr>
+            <tr>
+                <th class="items">内存</th>
+                <td><input class="p-name" type="text" id="" placeholder="金士顿 骇客神条 DDR4-2666 8GB*2"></td>
+                <td><input class="p-price" type="text" id="pr3" placeholder="180"></td>
+            </tr>
+            <tr>
+                <th class="items">硬盘</th>
+                <td><input class="p-name" type="text" id="" placeholder="西数 蓝盘 HDD 500GB"></td>
+                <td><input class="p-price" type="text" id="pr4" placeholder="25"></td>
+            </tr>
+            <tr>
+                <th class="items">显卡</th>
+                <td><input class="p-name" type="text" id="" placeholder="卡诺基 GTX750Ti 2GB"></td>
+                <td><input class="p-price" type="text" id="pr5" placeholder="250"></td>
+            </tr>
+            <tr>
+                <th class="items">机箱</th>
+                <td><input class="p-name" type="text" id="" placeholder="华硕 ROG 太阳神 EVA限定"></td>
+                <td><input class="p-price" type="text" id="pr6" placeholder="3699"></td>
+            </tr>
+            <tr>
+                <th class="items">电源</th>
+                <td><input class="p-name" type="text" id="" placeholder="华硕 ROG 雷神II 1600W"></td>
+                <td><input class="p-price" type="text" id="pr7" placeholder="4499"></td>
+            </tr>
+            <tr>
+                <th class="items">散热</th>
+                <td><input class="p-name" type="text" id="" placeholder="华硕 ROG 龙神II 360"></td>
+                <td><input class="p-price" type="text" id="pr8" placeholder="2899"></td>
+            </tr>
+            <tr>
+                <th class="items">其它</th>
+                <td><input class="p-name" type="text" id="" placeholder="戴尔 E190s 18.5'' 720P 75Hz"></td>
+                <td><input class="p-price" type="text" id="pr9" placeholder="50"></td>
+            </tr>
+            <tr>
+                <th class="items total" colspan="3">
+                    <i id="date"></i><button id="total" onclick="calc()">共计...</button>
+                </th>
+            </tr>
+        </table>
+        <div class="cr">
+            ©Penyo.
+        </div>
+    </div>
+</body>
+
+<script src="global.js"></script>
+
+</html>

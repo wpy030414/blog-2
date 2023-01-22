@@ -1,0 +1,78 @@
+@font-face {
+    font-family: QualcommNext;
+    src: url(fonts/QualcommNext-Thin.woff);
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: QualcommNext;
+    src: url(fonts/QualcommNext-Regular.woff);
+    font-weight: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: QualcommNext, 思源黑体;
+}
+
+body {
+    padding: 0 15%;
+}
+
+body>.title {
+    padding: 30px 0;
+    line-height: 60px;
+    font-size: 50px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}
+
+.product-intro {
+    display: block;
+    text-decoration: none;
+    width: 240.8px;
+    height: 345.6px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    padding: 24px;
+}
+
+.product-intro:hover {
+    background-color: #f8f8f8;
+}
+
+.product-intro:active {
+    background-color: #f4f4f4;
+}
+
+.icon {
+    width: 50%;
+    padding: 12px 0 32px;
+}
+
+.soc {
+    zoom: 25%;
+}
+
+.soc-id>div {
+    margin: 30px auto;
+}
+
+.product-intro .title {
+    color: #3253dc;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.product-intro .subtitle {
+    color: #677283;
+    font-size: 16px;
+    line-height: 24px;
+    height: 159.6px;
+    overflow-y: scroll;
+}

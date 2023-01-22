@@ -1,0 +1,16 @@
+.cr {
+    padding: 0 24px;
+    background-color: #f8f9fa;
+    white-space: nowrap;
+    overflow: clip;
+}
+
+.cr-name {
+    padding: 0 24px;
+    font-size: 40px;
+    line-height: 57px;
+    background-color: #d5d7db;
+    color: white;
+    font-family: 思源宋体;
+    font-weight: 1000;
+}
