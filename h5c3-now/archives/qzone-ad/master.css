@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#ad-frame {
+    --top-height: 20px;
+    --flash-cycle: 5s;
+
+    position: relative;
+    top: 0;
+    margin: 30px auto;
+    padding: 8px;
+    overflow: hidden;
+    width: 264px;
+    height: 230.7px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    background: white;
+    transition: top 0.5s;
+}
+
+#ad-frame:hover {
+    top: -5px;
+}
+
+#ad-icon {
+    float: left;
+    width: var(--top-height);
+    height: var(--top-height);
+    border-radius: calc(var(--top-height) * 0.5);
+    background: center;
+    background-size: cover;
+}
+
+#ad-brand {
+    float: left;
+    line-height: var(--top-height);
+    font-size: 12px;
+    color: #cccccc;
+    text-indent: 6px;
+}
+
+#ad-fold {
+    float: right;
+    line-height: var(--top-height);
+    font-size: 12px;
+    text-decoration: none;
+    color: #888888;
+}
+
+#ad-fold::before {
+    content: "广告 ";
+}
+
+#ad-fold:hover {
+    border-radius: 4px;
+    background: #eeeeee;
+}
+
+#ad-title {
+    margin: calc(var(--top-height) + 8px) 0 6px;
+    font-size: 14px;
+    color: #333333;
+}
+
+#ad-pic {
+    width: 100%;
+    height: 148.5px;
+    border-radius: 3px;
+    background: center;
+    background-size: cover;
+}
+
+@keyframes display-and-hide {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+#ad-impact-dla {
+    position: absolute;
+    left: 12px;
+    bottom: 11px;
+    opacity: 0;
+    animation: display-and-hide var(--flash-cycle) 0s infinite;
+    font-size: 13px;
+    color: #888888;
+}
+
+#ad-impact-star {
+    position: absolute;
+    left: 12px;
+    bottom: 6.7px;
+    opacity: 0;
+    animation: display-and-hide var(--flash-cycle) calc(var(--flash-cycle) * 0.5) infinite;
+    font-size: 20px;
+    color: #ffdd00;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .2);
+    letter-spacing: 4px;
+}
+
+#ad-go {
+    position: absolute;
+    right: 12px;
+    bottom: 6.5px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid #00aaff;
+    font-size: 14px;
+    text-decoration: none;
+    color: #00aaff;
+}
+
+#ad-go:hover {
+    background: #f8f8f8;
+}
