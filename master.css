@@ -23,13 +23,13 @@
     white-space: nowrap;
 }
 
-.title {
+.slogan .title {
     font-weight: 1000;
     font-size: 70px;
     line-height: 76px;
 }
 
-.subtitle {
+.slogan .subtitle {
     font-weight: 500;
     font-size: 30px;
     line-height: 100px;
@@ -70,24 +70,24 @@
     text-align: center;
 }
 
-.topic {
+.topics .topic {
     width: 70%;
     margin: 0 auto;
 }
 
-.topic-title {
+.topics .topic-title {
     height: 144px;
     line-height: 144px;
     text-align: center;
     font-size: 40px;
 }
 
-.topic-detail {
+.topics .topic-detail {
     height: 400px;
     overflow: hidden;
 }
 
-.topic-pic {
+.topics .topic-pic {
     width: 400px;
     height: 400px;
     background-color: pink;
@@ -96,7 +96,7 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
 }
 
-.topic-text {
+.topics .topic-text {
     width: 50%;
     height: 400px;
     text-align: left;

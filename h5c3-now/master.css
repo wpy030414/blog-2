@@ -3,21 +3,20 @@
     padding: 0;
 }
 
-.useful-info {
+#h5c3-now {
     background-color: #fff;
     padding: 72px 0;
 }
 
-.useful-info * {
+#h5c3-now * {
     text-align: center;
-    color: #1d1d1f;
 }
 
-.real-title {
+#real-title {
     font-size: 48px;
 }
 
-.obj-grid {
+#obj-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
