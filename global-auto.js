@@ -101,7 +101,7 @@ function setPublic() {
             </div>
             <div>
                 <h4>捐助我们</h4>
-                <img src="http://img.i5e.cc/i/2023/01/31/j3dd9k.jpeg" alt="云闪付" />
+                <img src="https://pic.imgdb.cn/item/63db1c3cac6ef86016e774e9.png" alt="云闪付" />
             </div>
         </div>
         <div class="bottom-easter-egg">愿你出走半生，归来仍是少年。</div>
