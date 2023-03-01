@@ -33,7 +33,7 @@ function setPublic() {
                 </li>
                 <li>
                     <a href="https://penyoofficial.github.io/h5c3-now/">
-                        最新 Web 工程
+                        前端演示
                     </a>
                 </li>
             </ul>

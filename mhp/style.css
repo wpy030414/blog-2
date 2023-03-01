@@ -1,0 +1,147 @@
+:root {
+    --theme: rgb(255, 192, 203);
+    --b: #333;
+    --g: #ddd;
+    --bg: #f8f8f8;
+    --w: #fff;
+
+    --side: 20%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#top-bar {
+    height: 60px;
+    padding: 0 var(--side);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    font-size: 24px;
+    line-height: 60px;
+}
+
+.hl {
+    background: var(--theme);
+    color: var(--w);
+}
+
+#middle {
+    padding: 0 var(--side);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+labels {
+    display: inline-block;
+    margin: 20px 0 15px;
+    border: 0.1px solid var(--g);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+label {
+    float: left;
+    padding: 5px 15px;
+}
+
+#middle>div {
+    padding: 2px 8px;
+    border: 0.1px solid var(--g);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr {
+    height: 42px;
+}
+
+th {
+    position: relative;
+    border-bottom: 1px solid var(--g);
+    white-space: nowrap;
+}
+
+th:nth-child(1) {
+    width: 50px;
+}
+
+th:nth-child(2) {
+    min-width: 233px;
+}
+
+th:nth-child(3) {
+    width: 150px;
+}
+
+th:nth-child(4) {
+    width: 100px;
+}
+
+th:nth-child(5),
+th:nth-child(6) {
+    width: 100px;
+}
+
+th:nth-child(7),
+th:nth-child(8) {
+    width: 100px;
+    color: #a00;
+}
+
+ps {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    zoom: 80%;
+    color: var(--g);
+    font-weight: normal;
+    font-size: 12px;
+}
+
+tbody tr:nth-child(odd) {
+    background: var(--bg);
+}
+
+td:nth-child(8n + 2),
+td:nth-child(8n + 3) {
+    max-width: 0;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+#bottom-bar {
+    padding: 30px;
+    color: var(--g);
+    font-size: 12px;
+    text-align: center;
+}
+
+@media screen and (max-width: 900px) {
+    :root {
+        --side: 5%;
+    }
+
+    table {
+        min-width: 933px;
+    }
+}
