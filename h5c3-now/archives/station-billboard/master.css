@@ -19,40 +19,40 @@
 * {
     margin: 0;
     padding: 0;
+    border-radius: 1px;
+    color: white;
     font-family: 思源黑体;
     font-weight: bold;
-    color: white;
-    border-radius: 1px;
 }
 
 body {
-    background-color: var(--ui-black);
+    background: var(--ui-black);
 }
 
 .frame {
-    background-color: var(--ui-black);
     padding: 20px;
+    background: var(--ui-black);
 }
 
 .se-sign {
+    overflow: hidden;
     margin: 0 0 20px 20px;
     height: 90px;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .se-icon {
     float: left;
     width: 90px;
     height: 90px;
-    background-color: var(--at-gray);
+    background: var(--at-gray);
 }
 
 .se-info {
     float: left;
-    text-indent: 10px;
     width: 322px;
     margin-right: 20px;
+    text-indent: 10px;
 }
 
 .se-title {
@@ -66,70 +66,71 @@ body {
 }
 
 .sek-i {
-    background-color: var(--at-blue);
+    background: var(--at-blue);
 }
 
 .sek-ii {
-    background-color: var(--at-pink);
+    background: var(--at-pink);
 }
 
 .info-list {
-    background-color: black;
+    overflow: auto;
     padding: 16px;
-    height: 384px;
+    background: black;
 }
 
 .event {
+    display: grid;
+    grid-template-columns: 60px 33px 33px 84px 327px 327px auto;
     font-size: 32px;
     line-height: 44px;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .time {
-    background-color: var(--ui-black);
     float: left;
-    font-weight: normal;
     margin: 10px 4px;
     padding: 0 3px;
+    background: var(--ui-black);
+    font-weight: normal;
 }
 
-.date {
-    background-color: var(--ui-gray);
+.platform {
     float: left;
-    padding: 0 24px;
     margin: 10px 8px;
+    background: var(--ui-gray);
+    text-align: center;
 }
 
 .info {
-    background-color: var(--ui-black);
     float: left;
     margin: 10px 10px;
     padding-right: 15px;
+    background: var(--ui-black);
 }
 
 .attribute {
     float: left;
     width: 24px;
-    color: transparent;
     margin: 2px 6px 2px 2px;
+    color: transparent;
     line-height: 40px;
 }
 
 .normal {
-    background-color: var(--at-gray);
+    background: var(--at-gray);
 }
 
 .hurry-i {
-    background-color: var(--at-green);
+    background: var(--at-green);
 }
 
 .hurry-ii {
-    background-color: var(--at-orange);
+    background: var(--at-orange);
 }
 
 .hurry-iii {
-    background-color: var(--at-red);
+    background: var(--at-red);
 }
 
 .big-text {
@@ -154,13 +155,12 @@ body {
 
 .stream {
     float: right;
+    min-width: 300px;
     margin: 16px 15px;
     line-height: 32px;
-    background-color: var(--ui-black);
-    width: calc(100% - 889px);
+    background: var(--ui-black);
     font-weight: normal;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
