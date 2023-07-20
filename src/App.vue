@@ -8,6 +8,12 @@ import Layout from "./views/Layout.vue";
 </template>
 
 <style>
+:root {
+  --pd-c: #303133;
+  --pd-sub-c: #888;
+  --pd-bgc: #f6f8fa;
+}
+
 * {
   margin: 0;
   padding: 0;
