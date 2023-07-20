@@ -52,20 +52,36 @@ export default {
       footer: {
         cards: [
           {
-            title: "测试标题",
+            title: "应用与参考",
             links: [
               {
-                displayName: "测试链接",
-                url: "",
+                displayName: "Node.js",
+                url: "//nodejs.org/zh-cn/",
+              },
+              {
+                displayName: "Vue.js",
+                url: "//cn.vuejs.org/",
+              },
+              {
+                displayName: "Element Plus",
+                url: "//element-plus.org/zh-CN/",
+              },
+              {
+                displayName: "保罗的小窝",
+                url: "//paul.ren/",
               },
             ],
           },
           {
-            title: "测试标题",
+            title: "关于 Penyo",
             links: [
               {
-                displayName: "测试链接",
-                url: "",
+                displayName: "Penyo Blog",
+                url: "//penyoofficial.github.io/blog/",
+              },
+              {
+                displayName: "Penyo Blog 中国大陆",
+                url: "//penyo.wang/",
               },
             ],
           },
@@ -76,6 +92,11 @@ export default {
   mounted() {
     window.addEventListener("resize", () => {
       this.setWidthHeightRatio();
+    });
+    ElNotification.info({
+      title: "你好！",
+      message: "新版 Penyo 门户即将上线！敬请期待！",
+      duration: 6000,
     });
   },
   methods: {
@@ -143,6 +164,11 @@ export default {
     <router-view></router-view>
     <el-footer class="pd-footer">
       <div class="pd-footer-siteinfo">
+        <el-card class="pd-footer-card pd-footer-card-header" shadow="never">
+          <h1>PENYO DEV</h1>
+          <p>为了实现更高的价值。</p>
+          <p>To produce higher value.</p>
+        </el-card>
         <el-card
           class="pd-footer-card"
           v-for="c in footer.cards"
@@ -151,15 +177,23 @@ export default {
           <template #header>
             <span>{{ c.title }}</span>
           </template>
-          <el-link v-for="l in c.links" :href="l.url">
-            {{ l.displayName }}
-          </el-link>
+          <el-row v-for="l in c.links">
+            <el-link
+              class="pd-footer-card-link"
+              :href="l.url"
+              :underline="false"
+              target="_blank"
+            >
+              {{ l.displayName }}
+            </el-link>
+          </el-row>
         </el-card>
       </div>
       <p class="pd-footer-copyright">
         版权归 Penyo 所有。保留所有权利。<br v-if="whRatio <= 1.33" />Copyright
         (c) Penyo. All rights reserved.
       </p>
+      <el-backtop :right="50" :bottom="50" />
     </el-footer>
   </el-container>
 </template>
@@ -200,6 +234,7 @@ export default {
 
 .pd-footer {
   padding: 0;
+  border-top: 1px solid var(--el-border-color);
 }
 
 .pd-footer-siteinfo {
@@ -209,8 +244,41 @@ export default {
 
 .pd-footer-card {
   display: inline-block;
+  vertical-align: top;
   margin: 1em 2em;
   width: 15em;
+}
+
+.pd-footer-card-header {
+  user-select: none;
+  text-align: left;
+}
+
+.pd-footer-card-header:hover {
+  background: var(--pd-c);
+}
+
+.pd-footer-card-header:hover * {
+  color: #ffd700;
+}
+
+.pd-footer-card-header h1 {
+  margin-bottom: 1vh;
+  color: var(--pd-c);
+}
+
+.pd-footer-card-header p {
+  color: var(--pd-sub-c);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.pd-footer-logo {
+  width: 3em;
+}
+
+.pd-footer-card-link {
+  margin: 0.5em auto;
 }
 
 .pd-footer-copyright {

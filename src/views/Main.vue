@@ -107,7 +107,7 @@ export default {
 
 <template>
   <el-main class="pd-main">
-    <el-carousel height="90vh" :interval="5000">
+    <el-carousel height="90vh" :interval="6000">
       <el-carousel-item
         class="pd-main-carousel-item"
         v-for="t in carouselThemes"
@@ -127,7 +127,7 @@ export default {
     <p class="pd-main-2-subtitle">{{ t.subtitle }}</p>
     <el-tabs class="pd-main-2-tabs" v-model="t.selected">
       <el-tab-pane v-for="(c, i) in t.contains" :label="c.label" :name="`${i}`">
-        <p>{{ c.body }}</p>
+        <p>{{ false ? c.body : "unable to fetch the data" }}</p>
       </el-tab-pane>
     </el-tabs>
   </el-main>
@@ -200,8 +200,11 @@ export default {
 
 .pd-main-2-tabs {
   padding-bottom: 10vh;
-  text-align: center;
-  font-size: 18px;
+}
+
+.pd-main-2-tabs p {
+  padding: 3vh 5vw 0;
+  color: var(--pd-sub-c);
 }
 
 @media screen and (max-width: 600px) and (min-height: 450px) {
