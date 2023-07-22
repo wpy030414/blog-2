@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import Layout from "./views/Layout.vue";
+import TopBar from '@/components/TopBar.vue';
+import FooterBay from '@/components/FooterBay.vue';
+import PageSpirit from '@/components/PageSpirit.vue';
 </script>
 
 <template>
-  <layout></layout>
+  <top-bar></top-bar>
+  <router-view></router-view>
+  <footer-bay></footer-bay>
+  <page-spirit></page-spirit>
 </template>
 
 <style>
-:root {
-  --pd-c: #303133;
-  --pd-sub-c: #888;
-  --pd-bgc: #f6f8fa;
-}
-
 * {
   margin: 0;
   padding: 0;
