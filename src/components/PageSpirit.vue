@@ -1,6 +1,76 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { mdiArrowUp, mdiWeatherNight, mdiMusic } from "@mdi/js";
+
+const buttons = ref([
+  { icon: mdiArrowUp },
+  { icon: mdiWeatherNight },
+  { icon: mdiMusic },
+]);
+
+function spirit(i: number) {
+  switch (i) {
+    case 0:
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      break;
+    case 1:
+      document.documentElement.classList.add("dark");
+      break;
+    case 2:
+      const player = document.querySelector(".player") as HTMLAudioElement;
+      if (player.paused) player.play();
+      else player.pause();
+      break;
+  }
+}
 </script>
 
-<template></template>
+<template>
+  <div class="buttons">
+    <button v-for="(b, index) in buttons" @click="spirit(index)">
+      <svg width="24" height="24">
+        <path :d="b.icon" fill="#fff"></path>
+      </svg>
+    </button>
+  </div>
+  <audio
+    class="player"
+    src="http://music.163.com/song/media/outer/url?id=1983016236.mp3"
+    loop
+  ></audio>
+</template>
 
-<style scoped></style>
+<style scoped>
+.buttons {
+  position: fixed;
+  z-index: 900;
+  bottom: 36px;
+  right: 36px;
+  --div-width: 50px;
+  width: var(--div-width);
+}
+
+.buttons > button {
+  width: var(--div-width);
+  height: var(--div-width);
+  margin-top: 15px;
+  background: var(--theme-deep);
+  border: none;
+  outline: none;
+  border-radius: calc(var(--div-width) / 2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.buttons > button:active {
+  transform: scale(0.9);
+  transition: none;
+}
+
+.player {
+  display: none;
+}
+</style>

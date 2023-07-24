@@ -1,10 +1,8 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
   const nickname = ref(null);
   const token = ref(null);
-  function login(nickname: string, token: string) {
-
-  };
+  function login(nickname: string, token: string) {}
 });

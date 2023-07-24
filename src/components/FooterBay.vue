@@ -1,6 +1,12 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
-<template></template>
+<template>
+  <footer>这是页尾。</footer>
+</template>
 
-<style scoped></style>
+<style scoped>
+footer {
+  height: 50vh;
+  background: var(--timetheme);
+}
+</style>
