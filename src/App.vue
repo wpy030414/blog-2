@@ -5,10 +5,12 @@ import PageSpirit from '@/components/PageSpirit.vue';
 </script>
 
 <template>
-  <top-bar></top-bar>
-  <keep-alive>
-    <router-view></router-view>
-  </keep-alive>
+  <top-bar :mode="$router.currentRoute.value.path.slice(1) || 'PORTAL'"></top-bar>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" who="Penyo" />
+    </keep-alive>
+  </router-view>
   <footer-bay></footer-bay>
   <page-spirit></page-spirit>
 </template>

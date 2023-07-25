@@ -9,6 +9,10 @@ import {
   mdiInformation,
 } from "@mdi/js";
 
+const props = defineProps<{
+  mode: string;
+}>();
+
 const menu = ref([
   { icon: mdiHome, href: "/" },
   { icon: mdiPen, href: "/blog" },
@@ -22,14 +26,14 @@ const menu = ref([
 <template>
   <header>
     <button v-if="0"></button>
-    <h1>{{ "PORTAL" }}</h1>
+    <h1>{{ props.mode }}</h1>
     <ul>
       <li v-for="i in menu">
-        <a :href="i.href">
+        <router-link :to="i.href">
           <svg width="24" height="24">
             <path :d="i.icon" fill="#fff"></path>
           </svg>
-        </a>
+        </router-link>
       </li>
     </ul>
   </header>
