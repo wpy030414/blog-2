@@ -9,10 +9,12 @@ import {
   mdiInformation,
 } from "@mdi/js";
 
-const props = defineProps<{
+defineProps<{
+  /** 当前页面默认路由 */
   mode: string;
 }>();
 
+/** 菜单 */
 const menu = ref([
   { icon: mdiHome, href: "/" },
   { icon: mdiPen, href: "/blog" },
@@ -26,7 +28,7 @@ const menu = ref([
 <template>
   <header>
     <button v-if="0"></button>
-    <h1>{{ props.mode }}</h1>
+    <h1>{{ mode }}</h1>
     <ul>
       <li v-for="i in menu">
         <router-link :to="i.href">
@@ -46,7 +48,7 @@ header {
   top: 0;
   --header-height: 60px;
   height: var(--header-height);
-  background: var(--theme-deep);
+  background: var(--theme-1);
   text-align: center;
 }
 

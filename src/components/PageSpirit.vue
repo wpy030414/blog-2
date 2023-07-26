@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { mdiArrowUp, mdiWeatherNight, mdiMusic } from "@mdi/js";
+import { useThemeStore } from "@/stores/theme";
 
+/** 精灵图标 */
 const buttons = ref([
   { icon: mdiArrowUp },
   { icon: mdiWeatherNight },
   { icon: mdiMusic },
 ]);
 
+/** 精灵行为 */
 function spirit(i: number) {
   switch (i) {
     case 0:
@@ -17,7 +20,7 @@ function spirit(i: number) {
       });
       break;
     case 1:
-      document.documentElement.classList.add("dark");
+      useThemeStore().changeTheme();
       break;
     case 2:
       const player = document.querySelector(".player") as HTMLAudioElement;
@@ -38,7 +41,7 @@ function spirit(i: number) {
   </div>
   <audio
     class="player"
-    src="http://music.163.com/song/media/outer/url?id=1983016236.mp3"
+    src="http://music.163.com/song/media/outer/url?id=27461858.mp3"
     loop
   ></audio>
 </template>
@@ -57,7 +60,7 @@ function spirit(i: number) {
   width: var(--div-width);
   height: var(--div-width);
   margin-top: 15px;
-  background: var(--theme-deep);
+  background: var(--theme-1);
   border: none;
   outline: none;
   border-radius: calc(var(--div-width) / 2);

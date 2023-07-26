@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 /** 句子 */
 const lines = ref([
@@ -21,7 +21,9 @@ const lines = ref([
 ]);
 
 /** 待渲染 */
-const toRender = ref(lines.value[Math.round(Math.random() * 100) % lines.value.length]);
+const toRender = ref(
+  lines.value[Math.round(Math.random() * 100) % lines.value.length],
+);
 
 (() => {
   /** 退格阻塞 */
@@ -33,7 +35,7 @@ const toRender = ref(lines.value[Math.round(Math.random() * 100) % lines.value.l
   /** 是否处于回退模式 */
   let isBackspacing = true;
   /** 渲染预备区 */
-  let readyToRender = '';
+  let readyToRender = "";
   /** 渲染预备位 */
   let readyBit = 0;
   /** 行动线程 ID */
@@ -42,30 +44,30 @@ const toRender = ref(lines.value[Math.round(Math.random() * 100) % lines.value.l
   const action = async () => {
     if (isBackspacing)
       if (toRender.value.length > 0)
-        toRender.value = toRender.value.slice(0, -1)
+        toRender.value = toRender.value.slice(0, -1);
       else {
-        readyToRender = lines.value[Math.round(Math.random() * 100) % lines.value.length];
+        readyToRender =
+          lines.value[Math.round(Math.random() * 100) % lines.value.length];
         isBackspacing = !isBackspacing;
         clearInterval(id);
-        await new Promise(resolve => setTimeout(resolve, blockI));
+        await new Promise((resolve) => setTimeout(resolve, blockI));
         id = setInterval(action, blockI);
         toRender.value = readyToRender.charAt(readyBit++);
       }
-    else
-      if (readyBit < readyToRender.length)
-        toRender.value += readyToRender.charAt(readyBit++);
-      else {
-        readyBit = 0;
-        isBackspacing = !isBackspacing;
-        clearInterval(id);
-        await new Promise(resolve => setTimeout(resolve, blockD));
-        id = setInterval(action, blockB);
-      }
-  }
+    else if (readyBit < readyToRender.length)
+      toRender.value += readyToRender.charAt(readyBit++);
+    else {
+      readyBit = 0;
+      isBackspacing = !isBackspacing;
+      clearInterval(id);
+      await new Promise((resolve) => setTimeout(resolve, blockD));
+      id = setInterval(action, blockB);
+    }
+  };
   setTimeout(() => {
     id = setInterval(action, blockB);
-  }, blockD)
-})()
+  }, blockD);
+})();
 </script>
 
 <template>
@@ -96,7 +98,7 @@ const toRender = ref(lines.value[Math.round(Math.random() * 100) % lines.value.l
 }
 
 p::after {
-  content: ' |';
+  content: " |";
   position: relative;
   top: -0.9px;
   animation: shining 1s infinite;
