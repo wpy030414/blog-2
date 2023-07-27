@@ -375,7 +375,7 @@ const recents = ref([
   }
 
   .recently .cards-shell {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 </style>

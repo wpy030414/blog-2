@@ -20,10 +20,6 @@ const router = createRouter({
       component: () => import("@/views/Blog.vue"),
     },
     {
-      path: "/aphorism",
-      component: () => import("@/views/Aphorism.vue"),
-    },
-    {
       path: "/galary",
       component: () => import("@/views/Galary.vue"),
     },
@@ -42,6 +38,10 @@ const router = createRouter({
     {
       path: "/sponsor",
       component: () => import("@/views/Sponsor.vue"),
+    },
+    {
+      path: "/wall",
+      component: () => import("@/views/Wall.vue"),
     },
   ],
 });

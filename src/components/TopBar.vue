@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  mdiHome,
-  mdiPen,
-  mdiImage,
-  mdiStar,
-  mdiArchiveMusic,
-  mdiInformation,
-} from "@mdi/js";
+import { mdiHome, mdiPen, mdiImage, mdiStar, mdiArchiveMusic } from "@mdi/js";
 
 defineProps<{
   /** 当前页面默认路由 */
@@ -21,7 +14,6 @@ const menu = ref([
   { icon: mdiImage, href: "/galary" },
   { icon: mdiStar, href: "/museum" },
   { icon: mdiArchiveMusic, href: "/mdhu-project" },
-  { icon: mdiInformation, href: "/about" },
 ]);
 </script>
 
