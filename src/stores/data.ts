@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import { type Article } from "@/types/Article";
 
 export const useDataStore = defineStore("data", () => {
@@ -13,6 +13,9 @@ export const useDataStore = defineStore("data", () => {
   /** 动态数据地址 */
   const dynamicDataURL = ref({});
 
+  /** 文章缓存 */
+  const articlesTemp: Ref<Article[]> = ref([]);
+
   /**
    * 获取文章。
    * @param pageNum 页数。
@@ -23,9 +26,11 @@ export const useDataStore = defineStore("data", () => {
     pageSize?: number,
   ): Promise<Article[] | null> {
     if (useStatic.value) {
-      return await (
+      if (articlesTemp.value.length > 0) return articlesTemp.value;
+      articlesTemp.value = await (
         await fetch(staticDataURL.value.prefix + "articles.json")
       ).json();
+      return articlesTemp.value;
     } else {
       return null;
     }

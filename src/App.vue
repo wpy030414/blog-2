@@ -3,6 +3,7 @@ import TopBar from "@/components/TopBar.vue";
 import FooterBay from "@/components/FooterBay.vue";
 import PageSpirit from "@/components/PageSpirit.vue";
 import { useThemeStore } from "./stores/theme";
+import { useDataStore } from "./stores/data";
 
 useThemeStore().setTheme();
 </script>
@@ -10,15 +11,13 @@ useThemeStore().setTheme();
 <template>
   <div id="main-view">
     <top-bar
-      :mode="$router.currentRoute.value.path.slice(1) || 'PORTAL'"
+      :mode="$router.currentRoute.value.path.slice(1).split('/')[0] || 'PORTAL'"
     ></top-bar>
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }" :key="$route.fullPath">
       <keep-alive>
-        <suspense>
-          <div class="main-shell">
-            <component :is="Component" who="Penyo" />
-          </div>
-        </suspense>
+        <div class="main-shell">
+          <component :is="Component" who="Penyo" />
+        </div>
       </keep-alive>
     </router-view>
     <footer-bay></footer-bay>
@@ -71,5 +70,10 @@ useThemeStore().setTheme();
 
 .dark #main-view {
   filter: brightness(0.7);
+}
+
+a {
+  color: var(--theme-1);
+  text-decoration: none;
 }
 </style>

@@ -15,7 +15,7 @@ div {
 
 @keyframes running {
   0% {
-    left: -5%;
+    left: calc(var(--b-length) * -1);
   }
 
   100% {
@@ -23,15 +23,28 @@ div {
   }
 }
 
-div::after {
+div::before {
   content: "";
   position: absolute;
+  --b-length: 54px;
   --b-height: 6px;
   top: calc((var(--height) - var(--b-height)) / 2);
-  left: -6%;
-  width: 6%;
+  left: calc(var(--b-length) * -1);
+  width: var(--b-length);
   height: var(--b-height);
   background: var(--theme-1);
   animation: running 2s infinite;
+}
+
+div::after {
+  content: "LOADING...";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--light-c);
+}
+
+.dark div::after {
+  color: var(--dark-c);
 }
 </style>

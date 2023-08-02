@@ -33,7 +33,7 @@ function spirit(i: number) {
 
 <template>
   <div class="buttons">
-    <button v-for="(b, index) in buttons" @click="spirit(index)">
+    <button v-for="(b, index) in buttons" @click="spirit(index)" class="spirit">
       <svg width="24" height="24">
         <path :d="b.icon" fill="#fff"></path>
       </svg>

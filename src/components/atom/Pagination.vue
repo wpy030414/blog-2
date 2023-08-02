@@ -1,37 +1,54 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import GoButton from "@/components/atom/GoButton.vue";
 
-const props = defineProps<
-  {
-    /** 是否需要接管全部分页工作 */
-    needTaken?: boolean;
-    /** 页数 */
-    pageNum?: number;
-    /** 页容量 */
-    pageSize?: number;
-  } & (
-    | {
-        needTaken: true;
-        /** 未分页的数据 */
-        unpagedData: unknown[];
-      }
-    | {
-        needTaken: false;
-        /** 已分页的数据 */
-        pagedData: unknown[];
-        /** 未分页的数据尺寸 */
-        fullSize: number;
-      }
-  )
->();
+const props = defineProps<{
+  /** 页数 */
+  pageNum: number;
+  /** 页总量 */
+  pageAmount: number;
+}>();
 
-const pageNum = ref(props.pageNum || 1);
-const pageSize = ref(props.pageSize || 10);
+const pageNum = ref(props.pageNum);
+
+defineEmits(["update:pageNum"]);
 </script>
 
 <template>
-  <slot></slot>
-  <div class="op"></div>
+  <div>
+    <go-button
+      :go="false"
+      @click="$emit('update:pageNum', --pageNum)"
+      :disabled="pageNum <= 1 ? true : false"
+      >上一页</go-button
+    >
+    <span>{{ `${pageNum}/${pageAmount}` }}</span>
+    <go-button
+      :go="false"
+      @click="$emit('update:pageNum', ++pageNum)"
+      :disabled="pageNum >= pageAmount ? true : false"
+      >下一页</go-button
+    >
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  margin-top: 2em;
+  text-align: center;
+}
+
+button {
+  margin: 0;
+}
+
+span {
+  margin: 0 2em;
+  color: var(--light-c);
+  user-select: none;
+}
+
+.dark span {
+  color: var(--dark-c);
+}
+</style>

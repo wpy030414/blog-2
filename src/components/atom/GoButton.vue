@@ -3,6 +3,7 @@ withDefaults(
   defineProps<{
     /** 是否需要箭头动效 */
     go?: boolean;
+    /** 是否被选中 */
     chosen?: boolean;
   }>(),
   {
@@ -46,5 +47,10 @@ button > p::after {
 
 button:hover > p::after {
   left: 3px;
+}
+
+button:disabled {
+  border: 2.7px solid var(--light-c-sub);
+  color: var(--light-c-sub);
 }
 </style>

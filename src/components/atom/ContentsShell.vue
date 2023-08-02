@@ -19,4 +19,10 @@ section {
 .dark section {
   background-color: var(--theme-2);
 }
+
+@media screen and (max-width: 1000px) {
+  section {
+    padding: 4.2vh 7.2vw;
+  }
+}
 </style>

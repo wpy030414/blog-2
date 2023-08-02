@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import { mdiChevronDown } from "@mdi/js";
 import DynamicLine from "@/components/atom/DynamicLine.vue";
 import GoButton from "@/components/atom/GoButton.vue";
 import ContentsShell from "@/components/atom/ContentsShell.vue";
 import TopicTitle from "@/components/atom/TopicTitle.vue";
+import { useDataStore } from "@/stores/data";
 
 defineProps<{
   /** 门户主人 */
@@ -84,19 +85,17 @@ interface ArticleCard {
 }
 
 /** 最近动态 */
-const recents = ref([
+const recents: Ref<
+  {
+    logo: string;
+    title: string;
+    cards: unknown[];
+  }[]
+> = ref([
   {
     logo: "articles",
     title: "近期博客",
-    cards: [
-      {
-        poster: "",
-        title: "",
-        summary: "",
-      },
-      {},
-      {},
-    ],
+    cards: [{}, {}, {}],
   },
   {
     logo: "pictures",
@@ -109,6 +108,12 @@ const recents = ref([
     cards: [{}, {}, {}, {}],
   },
 ]);
+
+useDataStore()
+  .getArticles()
+  .then((response) => {
+    if (response) recents.value[0].cards = response.slice(0, 3);
+  });
 </script>
 
 <template>

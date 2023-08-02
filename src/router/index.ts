@@ -20,6 +20,10 @@ const router = createRouter({
       component: () => import("@/views/Blog.vue"),
     },
     {
+      path: "/blog/:id",
+      component: () => import("@/views/Blog.vue"),
+    },
+    {
       path: "/galary",
       component: () => import("@/views/Galary.vue"),
     },
