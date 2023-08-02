@@ -64,7 +64,7 @@ const infos = ref([
 
 <style scoped>
 footer {
-  padding: 10vh 12vw;
+  padding: 8.1vh 12vw;
   background-color: var(--light);
   --day: rgba(33, 230, 193, 0.233);
   background-image: radial-gradient(var(--day) 10%, transparent 0),
@@ -89,7 +89,7 @@ footer {
 .card {
   display: inline-block;
   vertical-align: top;
-  margin-bottom: 9vh;
+  margin-bottom: 7.2vh;
   color: var(--light-c);
 }
 
@@ -98,7 +98,7 @@ footer {
 }
 
 .card > h4 {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.2em;
   font-size: 20px;
 }
 

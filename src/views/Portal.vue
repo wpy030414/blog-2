@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { mdiChevronDown } from "@mdi/js";
 import DynamicLine from "@/components/atom/DynamicLine.vue";
 import GoButton from "@/components/atom/GoButton.vue";
+import ContentsShell from "@/components/atom/ContentsShell.vue";
+import TopicTitle from "@/components/atom/TopicTitle.vue";
 
 defineProps<{
   /** 门户主人 */
@@ -30,7 +32,7 @@ const socials = ref([
     title: "GitHub",
   },
   {
-    href: "//github.com/penyo/",
+    href: "//gitee.com/penyo/",
     path: "//gitee.com/favicon.ico",
     title: "Gitee",
   },
@@ -71,12 +73,30 @@ function goDown() {
   });
 }
 
+/** 文章缩略预览卡 */
+interface ArticleCard {
+  /** 海报 */
+  poster: string;
+  /** 标题 */
+  title: string;
+  /** 正文摘要 */
+  summary: string;
+}
+
 /** 最近动态 */
 const recents = ref([
   {
     logo: "articles",
     title: "近期博客",
-    cards: [{}, {}, {}],
+    cards: [
+      {
+        poster: "",
+        title: "",
+        summary: "",
+      },
+      {},
+      {},
+    ],
   },
   {
     logo: "pictures",
@@ -109,18 +129,18 @@ const recents = ref([
           <img :src="s.path" alt="" width="20" />
         </a>
       </div>
-      <go-button inner-text="了解更多" @click="goDown"></go-button>
+      <go-button @click="goDown">了解更多</go-button>
       <div class="image-shell"></div>
     </section>
   </section>
-  <section class="recently">
+  <contents-shell class="recently">
     <div v-for="t in recents">
-      <h1 :style="`--logo: '${t.logo}';`">{{ t.title }}</h1>
+      <topic-title :logo="t.logo">{{ t.title }}</topic-title>
       <div :class="`cards-shell ${t.logo}`">
         <div v-for="c in t.cards"></div>
       </div>
     </div>
-  </section>
+  </contents-shell>
 </template>
 
 <style scoped>
@@ -257,47 +277,6 @@ const recents = ref([
   background: url("//prts.wiki/images/0/0c/立绘_阿米娅_skin1.png") center /
     cover;
   transform: translateZ(36px);
-}
-
-.recently {
-  position: relative;
-  padding: 15vh 12vw;
-  background: url("//img1.imgtp.com/2023/07/26/2kw8xtPm.png") right / contain
-    no-repeat;
-  background-attachment: fixed;
-  background-color: var(--theme-0);
-}
-
-.dark .recently {
-  background-color: var(--theme-2);
-}
-
-.recently h1 {
-  position: relative;
-  color: var(--theme-1);
-  text-shadow: 0.1em 0.1em 0 var(--light);
-  font-size: 48px;
-  user-select: none;
-}
-
-.dark .recently h1 {
-  text-shadow: 0.1em 0.1em 0 var(--dark);
-}
-
-.recently h1::before {
-  content: var(--logo);
-  position: absolute;
-  top: -1.4em;
-  padding: 0.2em 0.8em;
-  background: var(--theme-1);
-  color: var(--light);
-  text-shadow: none;
-  font-size: 16px;
-  font-family: "Novecento";
-}
-
-.dark .recently h1::before {
-  color: var(--dark);
 }
 
 .recently .cards-shell {

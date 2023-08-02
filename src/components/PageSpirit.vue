@@ -41,7 +41,7 @@ function spirit(i: number) {
   </div>
   <audio
     class="player"
-    src="http://music.163.com/song/media/outer/url?id=27461858.mp3"
+    src="//music.163.com/song/media/outer/url?id=27461858.mp3"
     loop
   ></audio>
 </template>

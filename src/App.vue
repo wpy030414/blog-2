@@ -14,7 +14,11 @@ useThemeStore().setTheme();
     ></top-bar>
     <router-view v-slot="{ Component }">
       <keep-alive>
-        <component :is="Component" who="Penyo" />
+        <suspense>
+          <div class="main-shell">
+            <component :is="Component" who="Penyo" />
+          </div>
+        </suspense>
       </keep-alive>
     </router-view>
     <footer-bay></footer-bay>
@@ -52,7 +56,17 @@ useThemeStore().setTheme();
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+  width: 10px;
+  background: var(--theme-0);
+  transition: all 0.5s;
+}
+
+.dark ::-webkit-scrollbar {
+  background: var(--theme-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-1);
 }
 
 .dark #main-view {

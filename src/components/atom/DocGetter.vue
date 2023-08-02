@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ContentsShell from "@/components/atom/ContentsShell.vue";
+defineProps<{}>();
 </script>
 
 <template>

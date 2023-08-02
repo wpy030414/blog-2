@@ -1,30 +1,44 @@
 <script setup lang="ts">
-defineProps<{
-  /** 按钮内文字 */
-  innerText?: string;
-}>();
+withDefaults(
+  defineProps<{
+    /** 是否需要箭头动效 */
+    go?: boolean;
+    chosen?: boolean;
+  }>(),
+  {
+    go: true,
+  },
+);
 </script>
 
 <template>
-  <button>
-    <p>{{ innerText || "" }}</p>
+  <button :style="chosen ? 'background: var(--day)' : ''">
+    <p :style="go ? `--go: ' >';` : ''">
+      <slot></slot>
+    </p>
   </button>
 </template>
 
 <style scoped>
 button {
+  margin-right: 1.5em;
   padding: 1em;
   outline: none;
   border: 2.7px solid var(--theme-1);
   border-radius: 9px;
+  --day: var(--light);
   background: transparent;
   color: var(--theme-1);
   font-weight: bold;
   letter-spacing: 1px;
 }
 
+.dark button {
+  --day: var(--dark);
+}
+
 button > p::after {
-  content: " >";
+  content: var(--go);
   position: relative;
   left: 0px;
   transition: all 0.2s;
