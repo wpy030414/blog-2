@@ -1,0 +1,10 @@
+:root.dark {
+  --g-bg-c: #333;
+  --g-tp-low: #333333e6;
+  --g-tp-high: #3333330d;
+  --g-tp-high-rev: #ffffff1a;
+  --g-c-main: #fff;
+  --g-c-sub: #999;
+
+  --theme-sub: #222;
+}

@@ -5,7 +5,7 @@ export interface Article {
   /** 标题 */
   title: string;
   /** 起笔日期 */
-  time: {
+  date: {
     $date: string;
   };
   /** 分类 */

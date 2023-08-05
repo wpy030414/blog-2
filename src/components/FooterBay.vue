@@ -65,20 +65,13 @@ const infos = ref([
 <style scoped>
 footer {
   padding: 8.1vh 12vw;
-  background-color: var(--light);
-  --day: rgba(33, 230, 193, 0.233);
-  background-image: radial-gradient(var(--day) 10%, transparent 0),
-    radial-gradient(var(--day) 10%, transparent 0);
+  background-color: var(--g-bg-c);
+  background-image: radial-gradient(var(--theme-main-tp) 10%, transparent 0),
+    radial-gradient(var(--theme-main-tp) 10%, transparent 0);
   background-size: 30px 30px;
   background-position:
     0 0,
     15px 15px;
-  transition: all 0.5s;
-}
-
-.dark footer {
-  background-color: var(--dark);
-  --day: var(--theme-2);
 }
 
 .card-shell {
@@ -90,11 +83,7 @@ footer {
   display: inline-block;
   vertical-align: top;
   margin-bottom: 7.2vh;
-  color: var(--light-c);
-}
-
-.dark .card {
-  color: var(--dark-c);
+  color: var(--g-c-main);
 }
 
 .card > h4 {
@@ -105,14 +94,14 @@ footer {
 .card > li {
   margin-bottom: 1.2em;
   transform: translateX(1em);
-  color: var(--theme-1);
+  color: var(--theme-main);
 }
 
 .card > li > a {
   position: relative;
 }
 
-@keyframes dancing-line {
+@keyframes running {
   0% {
     left: 0;
   }
@@ -129,12 +118,12 @@ footer {
   left: 0;
   width: 16px;
   height: 2px;
-  background: var(--theme-1);
-  animation: dancing-line 1s infinite;
+  background: var(--theme-main);
+  animation: running 1s infinite;
 }
 
 .card > li > a {
-  color: var(--theme-1);
+  color: var(--theme-main);
   text-decoration: none;
 }
 
@@ -159,21 +148,17 @@ footer {
   bottom: -0.6em;
   width: 70%;
   height: 1.5px;
-  background: var(--theme-1);
+  background: var(--theme-main);
 }
 
 .site-info {
-  color: var(--light-c);
+  color: var(--g-c-main);
   font-size: 15px;
-}
-
-.dark .site-info {
-  color: var(--dark-c);
 }
 
 .site-info > a {
   float: right;
-  color: var(--light-c-sub);
+  color: var(--g-c-sub);
   text-decoration: none;
 }
 

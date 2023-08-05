@@ -23,12 +23,12 @@ const menu = ref([
   { icon: mdiArchiveMusic, href: "/mdhu-project" },
 ]);
 
-/**
- * 是否（可能）在移动端上。
- */
-function isOnMobile() {
-  return window.innerWidth <= 1000;
-}
+/** 是否（可能）在移动端上 */
+const isOnMobile = ref(window.innerWidth <= 1000);
+
+window.addEventListener("resize", () => {
+  isOnMobile.value = window.innerWidth <= 1000;
+});
 
 /** 菜单是否已弹出 */
 const isMenuPoped = ref(false);
@@ -36,18 +36,18 @@ const isMenuPoped = ref(false);
 
 <template>
   <header>
-    <button v-if="isOnMobile()" @click="isMenuPoped = !isMenuPoped">
+    <button @click="isMenuPoped = !isMenuPoped">
       <svg width="24" height="24">
-        <path :d="mdiMenu" fill="#fff"></path>
+        <path :d="mdiMenu"></path>
       </svg>
     </button>
     <h1>{{ mode }}</h1>
     <transition name="menu">
-      <ul v-if="!isOnMobile() || isMenuPoped">
-        <li v-for="i in menu">
+      <ul v-if="!isOnMobile || isMenuPoped">
+        <li v-for="i in menu" @click="isMenuPoped = false">
           <router-link :to="i.href">
             <svg width="24" height="24">
-              <path :d="i.icon" fill="#fff"></path>
+              <path :d="i.icon"></path>
             </svg>
           </router-link>
         </li>
@@ -63,11 +63,12 @@ header {
   top: 0;
   --header-height: 60px;
   height: var(--header-height);
-  background: var(--theme-1);
+  background: var(--theme-main);
   text-align: center;
 }
 
 header > button {
+  display: none;
   position: absolute;
   z-index: 1000;
   top: 17px;
@@ -95,7 +96,6 @@ header > ul > li,
 header > ul > li > a {
   display: inline-block;
   height: var(--header-height);
-  transition: all 0.5s;
 }
 
 header > ul > li > a {
@@ -123,6 +123,10 @@ header > ul > li > a > * {
 }
 
 @media screen and (max-width: 1000px) {
+  header > button {
+    display: block;
+  }
+
   header > h1 {
     left: 0;
     width: 100%;
@@ -130,7 +134,7 @@ header > ul > li > a > * {
 
   .menu-enter-active,
   .menu-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.5s;
   }
 
   .menu-enter-from,
@@ -144,7 +148,7 @@ header > ul > li > a > * {
     width: 100vw;
     top: 60px;
     left: 0;
-    background: var(--theme-1);
+    background: var(--theme-main);
   }
 }
 </style>

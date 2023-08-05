@@ -13,8 +13,8 @@ withDefaults(
 </script>
 
 <template>
-  <button :style="chosen ? 'background: var(--day)' : ''">
-    <p :style="go ? `--go: ' >';` : ''">
+  <button :class="chosen ? 'chosen' : ''">
+    <p :class="go ? 'go' : ''">
       <slot></slot>
     </p>
   </button>
@@ -25,24 +25,26 @@ button {
   margin-right: 1.5em;
   padding: 1em;
   outline: none;
-  border: 2.7px solid var(--theme-1);
+  border: 2.7px solid var(--theme-main);
   border-radius: 9px;
-  --day: var(--light);
   background: transparent;
-  color: var(--theme-1);
+  color: var(--theme-main);
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.dark button {
-  --day: var(--dark);
+button.chosen {
+  background: var(--g-bg-c);
 }
 
 button > p::after {
-  content: var(--go);
   position: relative;
   left: 0px;
   transition: all 0.2s;
+}
+
+button > p.go::after {
+  content: " >";
 }
 
 button:hover > p::after {
@@ -50,7 +52,7 @@ button:hover > p::after {
 }
 
 button:disabled {
-  border: 2.7px solid var(--light-c-sub);
-  color: var(--light-c-sub);
+  border: 2.7px solid var(--g-c-sub);
+  color: var(--g-c-sub);
 }
 </style>

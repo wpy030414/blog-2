@@ -35,7 +35,7 @@ function spirit(i: number) {
   <div class="buttons">
     <button v-for="(b, index) in buttons" @click="spirit(index)" class="spirit">
       <svg width="24" height="24">
-        <path :d="b.icon" fill="#fff"></path>
+        <path :d="b.icon"></path>
       </svg>
     </button>
   </div>
@@ -60,7 +60,7 @@ function spirit(i: number) {
   width: var(--div-width);
   height: var(--div-width);
   margin-top: 15px;
-  background: var(--theme-1);
+  background: var(--theme-main);
   border: none;
   outline: none;
   border-radius: calc(var(--div-width) / 2);

@@ -44,11 +44,7 @@ button {
 
 span {
   margin: 0 2em;
-  color: var(--light-c);
+  color: var(--g-c-main);
   user-select: none;
-}
-
-.dark span {
-  color: var(--dark-c);
 }
 </style>

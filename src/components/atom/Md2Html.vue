@@ -17,7 +17,7 @@ defineProps<{
 <style>
 .blog-body {
   margin-top: 1.8em;
-  color: var(--light-c-sub);
+  color: var(--g-c-sub);
 }
 
 .blog-body p {
@@ -31,13 +31,7 @@ defineProps<{
   position: relative;
   margin-top: 0.6em;
   padding: 0.1em 0 0.7em;
-  --blog-body-blockquote-bgc: var(--dark-tp-high);
-  background: var(--blog-body-blockquote-bgc);
-  border-radius: 4px;
-}
-
-.dark .blog-body blockquote {
-  --blog-body-blockquote-bgc: var(--light-tp-high);
+  background: var(--g-tp-high-rev);
 }
 
 .blog-body blockquote::before,
@@ -47,7 +41,7 @@ defineProps<{
   top: 0;
   width: 32px;
   height: 100%;
-  background: var(--blog-body-blockquote-bgc);
+  background: var(--g-tp-high-rev);
 }
 
 .blog-body blockquote::before {
@@ -65,8 +59,8 @@ defineProps<{
 
 .blog-body code {
   padding: 4px 8px;
-  background: var(--theme-1);
+  background: var(--theme-main);
   border-radius: 4px;
-  color: var(--light);
+  color: var(--g-bg-c);
 }
 </style>

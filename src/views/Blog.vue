@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, type Ref, onMounted } from "vue";
+import { ref, watch, type Ref } from "vue";
 import ContentsShell from "@/components/atom/ContentsShell.vue";
 import Loading from "@/components/atom/Loading.vue";
 import { useDataStore } from "@/stores/data";
 import { type Article } from "@/types/Article";
-import Md2Html from "@/components/atom/Md2Html.vue";
+import ArticleCard from "@/components/molecule/ArticleCard.vue";
 import GoButton from "@/components/atom/GoButton.vue";
-import Pagination from "@/components/atom/Pagination.vue";
+import Pagination from "@/components/molecule/Pagination.vue";
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
@@ -19,6 +19,7 @@ const isIDGiven = ref(false);
 
 /**
  * 刷新数据。
+ * @param needDisplayAtOnce 是否需要立即显示
  */
 async function reflash(needDisplayAtOnce?: boolean) {
   await useDataStore()
@@ -81,40 +82,43 @@ function handlePageNumChange(newPageNum: number) {
  * @param id 文章唯一识别码。一旦被给定，则其余条件全部失效
  */
 async function search(id?: string) {
-  let category: string[] = [];
-  document.getElementsByName("blog-category").forEach((e) => {
-    const safeE = e as HTMLInputElement;
-    if (safeE.checked) category.push(safeE.value);
-  });
-
-  let content = (document.querySelector("#blog-content") as HTMLInputElement)
-    .value;
-
-  const dateFromE = document.querySelector(
-    "#blog-date-from",
-  ) as HTMLInputElement;
-  const dateToE = document.querySelector("#blog-date-to") as HTMLInputElement;
-  let dateFrom = dateFromE.value
-    ? new Date(dateFromE.value)
-    : new Date("1970-01-01");
-  let dateTo = dateToE.value ? new Date(dateToE.value) : new Date("2099-12-31");
-
-  isReady.value = false;
-  await reflash(false);
-
-  if (id)
+  if (id) {
     articles.value = articles.value.filter((a) => {
       return a.id === id;
     });
-  else
+  } else {
+    let category: string[] = [];
+    document.getElementsByName("blog-category").forEach((e) => {
+      const safeE = e as HTMLInputElement;
+      if (safeE.checked) category.push(safeE.value);
+    });
+
+    let content = (document.querySelector("#blog-content") as HTMLInputElement)
+      .value;
+
+    const dateFromE = document.querySelector(
+      "#blog-date-from",
+    ) as HTMLInputElement;
+    const dateToE = document.querySelector("#blog-date-to") as HTMLInputElement;
+    let dateFrom = dateFromE.value
+      ? new Date(dateFromE.value)
+      : new Date("1970-01-01");
+    let dateTo = dateToE.value
+      ? new Date(dateToE.value)
+      : new Date("2099-12-31");
+
+    isReady.value = false;
+    await reflash(false);
+
     articles.value = articles.value.filter((a) => {
       return (
         (category.length === 0 || category.includes(a.category)) &&
         (a.title.includes(content) || a.body.includes(content)) &&
-        dateFrom < new Date(a.time.$date) &&
-        new Date(a.time.$date) < dateTo
+        dateFrom < new Date(a.date.$date) &&
+        new Date(a.date.$date) < dateTo
       );
     });
+  }
 
   isReady.value = true;
   handlePageNumChange(1);
@@ -122,30 +126,20 @@ async function search(id?: string) {
 </script>
 
 <template>
-  <div class="id-guard" :id="$route.params.id as string"></div>
+  <div
+    class="id-guard"
+    :id="
+      Array.isArray($route.params.id) ? $route.params.id[0] : $route.params.id
+    "
+  ></div>
   <contents-shell>
     <loading v-if="!isReady" />
-    <div
-      v-if="isReady"
-      class="layout"
-      :style="isIDGiven ? '' : 'display: grid;'"
-    >
-      <div class="articles">
-        <div v-for="a in pagedData" class="article">
-          <h2>{{ a.title }}</h2>
-          <p>
-            <span class="time">
-              {{ new Date(a.time.$date).toISOString().slice(0, 10) }}
-            </span>
-            <span class="category">
-              {{ a.category }}
-            </span>
-          </p>
-          <md2-html :md="a.body" />
-        </div>
+    <div v-if="isReady" class="layout" :class="isIDGiven ? '' : 'given'">
+      <div class="articles-shell">
+        <article-card v-for="a in pagedData" :data="a" />
       </div>
       <p></p>
-      <div v-if="!isIDGiven" class="select article">
+      <div v-show="!isIDGiven" class="select">
         <p class="assistant">按类别搜索</p>
         <div v-for="(cb, i) in ['主题长文章', '随笔杂谈', '评论', '技术参考']">
           <input
@@ -187,78 +181,23 @@ async function search(id?: string) {
 </template>
 
 <style scoped>
-* {
-  transition: all 0.5s;
-}
-
 .layout {
   grid-template-columns: 70% 2em auto;
   align-items: flex-start;
 }
 
-.article {
-  position: relative;
-  margin-bottom: 32px;
-  padding: 2em;
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--light);
-}
-
-.dark .article {
-  background: var(--dark);
-}
-
-.article h2 {
-  opacity: 0.9;
-  color: var(--light-c);
-  font-size: 30px;
-}
-
-.dark .article h2 {
-  color: var(--dark-c);
-}
-
-.article h2::before {
-  content: "# ";
-  color: var(--theme-1);
-}
-
-.article .time {
-  position: absolute;
-  top: 11px;
-  right: 42px;
-  width: 6em;
-  opacity: 0.05;
-  user-select: none;
-  color: var(--light-c);
-  text-align: right;
-  font-size: 64px;
-  font-weight: bold;
-}
-
-.dark .article .time {
-  color: var(--dark-c);
-}
-
-.article .category {
-  position: absolute;
-  top: 0;
-  right: 32px;
-  padding: 2px 1em;
-  border-radius: 0 0 4px 4px;
-  background: var(--theme-1);
-  color: var(--light);
+.layout.given {
+  display: grid;
 }
 
 .select {
   position: sticky;
   top: 90px;
-  color: var(--light-c);
-}
-
-.dark .select {
-  color: var(--dark-c);
+  padding: 2em;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--g-bg-c);
+  color: var(--g-c-main);
 }
 
 .select .assistant {
@@ -276,7 +215,7 @@ async function search(id?: string) {
   left: calc(var(--offset) * -1);
   width: 0.5em;
   height: 1em;
-  background: var(--theme-1);
+  background: var(--theme-main);
 }
 
 .select .assistant:first-child {
@@ -309,15 +248,6 @@ async function search(id?: string) {
 @media screen and (max-width: 1000px) {
   .layout {
     display: block !important;
-  }
-
-  .article {
-    padding: 2.4em 1.5em;
-  }
-
-  .article .time {
-    transform-origin: 100% 0;
-    transform: rotate(-90deg) translate(-10vw, -10vh);
   }
 }
 </style>

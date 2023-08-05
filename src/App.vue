@@ -1,22 +1,23 @@
 <script setup lang="ts">
+import "@/assets/light.css";
+import "@/assets/dark.css";
 import TopBar from "@/components/TopBar.vue";
 import FooterBay from "@/components/FooterBay.vue";
 import PageSpirit from "@/components/PageSpirit.vue";
 import { useThemeStore } from "./stores/theme";
-import { useDataStore } from "./stores/data";
 
 useThemeStore().setTheme();
 </script>
 
 <template>
-  <div id="main-view">
+  <div class="main-view">
     <top-bar
       :mode="$router.currentRoute.value.path.slice(1).split('/')[0] || 'PORTAL'"
     ></top-bar>
     <router-view v-slot="{ Component }" :key="$route.fullPath">
       <keep-alive>
         <div class="main-shell">
-          <component :is="Component" who="Penyo" />
+          <component :is="Component" />
         </div>
       </keep-alive>
     </router-view>
@@ -32,21 +33,8 @@ useThemeStore().setTheme();
 }
 
 :root {
-  --light: #fff;
-  --light-tp-low: #fffffff2;
-  --light-tp-high: #ffffff1a;
-  --light-c: #333;
-  --light-c-sub: #999;
-
-  --dark: var(--light-c);
-  --dark-tp-low: #333333e6;
-  --dark-tp-high: #3333330d;
-  --dark-c: var(--light);
-  --dark-c-sub: var(--light-c-sub);
-
-  --theme-0: #ecfffb;
-  --theme-1: #21e6c1;
-  --theme-2: #222;
+  --theme-main: #21e6c1;
+  --theme-main-tp: #21e6c13b;
 }
 
 * {
@@ -54,26 +42,34 @@ useThemeStore().setTheme();
   padding: 0;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  background: var(--theme-0);
-  transition: all 0.5s;
+*,
+::before,
+::after {
+  transition:
+    background-color 0.5s,
+    color 0.5s,
+    text-shadow 0.5s;
 }
 
-.dark ::-webkit-scrollbar {
-  background: var(--theme-2);
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--theme-sub);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--theme-1);
+  background: var(--theme-main);
 }
 
-.dark #main-view {
+.dark .main-view {
   filter: brightness(0.7);
 }
 
 a {
-  color: var(--theme-1);
+  color: var(--theme-main);
   text-decoration: none;
+}
+
+svg {
+  fill: #fff;
 }
 </style>

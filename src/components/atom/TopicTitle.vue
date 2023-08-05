@@ -14,14 +14,10 @@ defineProps<{
 <style scoped>
 h1 {
   position: relative;
-  color: var(--theme-1);
-  text-shadow: 0.1em 0.1em 0 var(--light);
+  color: var(--theme-main);
+  text-shadow: 0.1em 0.1em 0 var(--g-bg-c);
   font-size: 48px;
   user-select: none;
-}
-
-.dark h1 {
-  text-shadow: 0.1em 0.1em 0 var(--dark);
 }
 
 h1::before {
@@ -29,14 +25,10 @@ h1::before {
   position: absolute;
   top: -1.4em;
   padding: 0.2em 0.8em;
-  background: var(--theme-1);
-  color: var(--light);
+  background: var(--theme-main);
+  color: var(--g-bg-c);
   text-shadow: none;
   font-size: 16px;
   font-family: "Novecento";
-}
-
-.dark h1::before {
-  color: var(--dark);
 }
 </style>

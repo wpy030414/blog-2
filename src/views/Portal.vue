@@ -5,12 +5,13 @@ import DynamicLine from "@/components/atom/DynamicLine.vue";
 import GoButton from "@/components/atom/GoButton.vue";
 import ContentsShell from "@/components/atom/ContentsShell.vue";
 import TopicTitle from "@/components/atom/TopicTitle.vue";
+import ArticleCard from "@/components/molecule/ArticleCard.vue";
+import type { Article } from "@/types/Article";
+import Loading from "@/components/atom/Loading.vue";
 import { useDataStore } from "@/stores/data";
 
-defineProps<{
-  /** 门户主人 */
-  who: string;
-}>();
+/** 门户主人 */
+const who = ref("Penyo");
 
 /** x 轴上翻转的角度 */
 const xDeg = ref(0);
@@ -74,45 +75,46 @@ function goDown() {
   });
 }
 
-/** 文章缩略预览卡 */
-interface ArticleCard {
-  /** 海报 */
-  poster: string;
-  /** 标题 */
-  title: string;
-  /** 正文摘要 */
-  summary: string;
-}
+/** 是否已准备好数据 */
+const isReady = ref([false, false, false]);
 
 /** 最近动态 */
 const recents: Ref<
   {
     logo: string;
-    title: string;
     cards: unknown[];
   }[]
 > = ref([
   {
     logo: "articles",
-    title: "近期博客",
-    cards: [{}, {}, {}],
+    cards: [],
   },
   {
     logo: "pictures",
-    title: "近期捕获",
-    cards: [{}, {}, {}, {}],
+    cards: [],
   },
   {
     logo: "projects",
-    title: "近期作品",
-    cards: [{}, {}, {}, {}],
+    cards: [],
   },
 ]);
 
 useDataStore()
-  .getArticles()
+  .getArticles(1, 2)
   .then((response) => {
-    if (response) recents.value[0].cards = response.slice(0, 3);
+    if (response) {
+      recents.value[0].cards = response;
+      isReady.value[0] = true;
+    }
+  });
+
+useDataStore()
+  .getPictures(1, 3)
+  .then((response) => {
+    if (response) {
+      recents.value[1].cards = response;
+      isReady.value[1] = true;
+    }
   });
 </script>
 
@@ -120,7 +122,7 @@ useDataStore()
   <section class="start">
     <img src="//prts.wiki/images/1/1d/立绘_阿米娅_skin3.png" alt="" />
     <svg width="24" height="24">
-      <path :d="mdiChevronDown" fill="#fff"></path>
+      <path :d="mdiChevronDown"></path>
     </svg>
     <section
       class="nameplate"
@@ -139,10 +141,31 @@ useDataStore()
     </section>
   </section>
   <contents-shell class="recently">
-    <div v-for="t in recents">
-      <topic-title :logo="t.logo">{{ t.title }}</topic-title>
-      <div :class="`cards-shell ${t.logo}`">
-        <div v-for="c in t.cards"></div>
+    <div>
+      <topic-title :logo="recents[0].logo">近期博客</topic-title>
+      <div class="cards-shell" :class="recents[0].logo">
+        <div v-if="!isReady[0]" v-for="c in 2">
+          <loading />
+        </div>
+        <article-card
+          v-if="isReady[0]"
+          v-for="c in recents[0].cards"
+          :data="c as Article"
+          :isSimpleMode="true"
+          @click="$router.push('/blog/' + (c as Article).id)"
+        />
+      </div>
+    </div>
+    <div>
+      <topic-title :logo="recents[1].logo">近期捕获</topic-title>
+      <div class="cards-shell" :class="recents[1].logo">
+        <div v-for="c in 3"></div>
+      </div>
+    </div>
+    <div>
+      <topic-title :logo="recents[2].logo">近期作品</topic-title>
+      <div class="cards-shell" :class="recents[2].logo">
+        <div v-for="c in 4"></div>
       </div>
     </div>
   </contents-shell>
@@ -152,29 +175,24 @@ useDataStore()
 .start {
   position: relative;
   height: calc(100vh - 60px);
-  background: var(--theme-1);
-  --day: var(--light-tp-high);
+  background: var(--theme-main);
   background-image: repeating-linear-gradient(
       45deg,
-      var(--day),
-      var(--day) 15px,
+      var(--g-tp-high),
+      var(--g-tp-high) 15px,
       transparent 0,
       transparent 30px
     ),
     repeating-linear-gradient(
       -45deg,
-      var(--day),
-      var(--day) 15px,
+      var(--g-tp-high),
+      var(--g-tp-high) 15px,
       transparent 0,
       transparent 30px
     );
   text-align: center;
   overflow: hidden;
   perspective: 2333px;
-}
-
-.dark .start {
-  --day: var(--dark-tp-high);
 }
 
 .start > img {
@@ -216,15 +234,10 @@ useDataStore()
   left: calc((100% - var(--np-width)) / 2);
   width: var(--np-width);
   height: var(--np-height);
-  background: var(--light-tp-low);
+  background: var(--g-tp-low);
   border-radius: 15px;
   transform-style: preserve-3d;
   transform: translateZ(233px) rotateX(var(--xDeg)) rotateY(var(--yDeg));
-  transition: background 0.5s;
-}
-
-.dark .nameplate {
-  background: var(--dark-tp-low);
 }
 
 .nameplate > * {
@@ -235,25 +248,20 @@ useDataStore()
 
 .nameplate > p:nth-child(1) {
   top: 50px;
-  color: var(--light-c-sub);
+  color: var(--g-c-sub);
   font-size: 18px;
 }
 
 .nameplate > h1 {
   top: 100px;
-  color: var(--light-c);
+  color: var(--g-c-main);
   font-size: 80px;
   transform: translateZ(36px);
-  transition: all 0.5s;
-}
-
-.dark .nameplate > h1 {
-  color: var(--dark-c);
 }
 
 .nameplate > .line {
   bottom: 180px;
-  color: var(--light-c-sub);
+  color: var(--g-c-sub);
 }
 
 .nameplate > .socials {
@@ -286,45 +294,34 @@ useDataStore()
 
 .recently .cards-shell {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 27px;
   margin: 9vh 0 18vh;
 }
 
-.recently .cards-shell.projects {
+.recently > div:last-child > .cards-shell {
   margin-bottom: 0;
 }
 
 .cards-shell > div {
   display: inline-block;
-  height: 333px;
-  background: var(--light);
+  height: 400px;
+  background: var(--g-bg-c);
   border-radius: 15px;
-  box-shadow: 0 0 18px var(--dark-tp-high);
-  transition: all 0.5s;
-}
-
-.dark .cards-shell > div {
-  background: var(--dark);
+  box-shadow: 0 0 18px #3333330d;
+  transition: all 0.2s;
 }
 
 .cards-shell > div:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 28px #00000026;
   transform: translateY(-8px);
 }
 
-.recently .articles {
+.recently > div:nth-child(2) > .cards-shell {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.recently .pictures {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.recently .projects {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.recently .projects > div {
+.recently > div:nth-child(3) > .cards-shell > div {
   height: 150px;
 }
 
@@ -359,7 +356,7 @@ useDataStore()
   }
 
   .recently .cards-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 </style>

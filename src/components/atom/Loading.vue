@@ -32,19 +32,7 @@ div::before {
   left: calc(var(--b-length) * -1);
   width: var(--b-length);
   height: var(--b-height);
-  background: var(--theme-1);
+  background: var(--theme-main);
   animation: running 2s infinite;
-}
-
-div::after {
-  content: "LOADING...";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: var(--light-c);
-}
-
-.dark div::after {
-  color: var(--dark-c);
 }
 </style>
