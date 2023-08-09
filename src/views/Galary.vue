@@ -1,11 +1,73 @@
 <script setup lang="ts">
-import ContentsShell from "@/components/atom/ContentsShell.vue";
+import { ref, watch, type Ref } from "vue";
+import ContentsShell from "@/components/frame/ContentsShell.vue";
+import Loading from "@/components/basis/Loading.vue";
+import { useDataStore } from "@/stores/data";
+import type { Picture } from "@/types/Picture";
+import PictureCard from "@/components/container/PictureCard.vue";
+import Pagination from "@/components/basis/Pagination.vue";
+
+/** 是否已准备好数据 */
+const isReady = ref(false);
+
+/** 已分页的数据 */
+const pagedData: Ref<Picture[]> = ref([]);
+/** 页数 */
+const pageNum = ref(1);
+/** 页容量 */
+const pageSize = ref(12);
+/** 页总量 */
+const pageAmount = ref(0);
+
+/**
+ * 刷新页面。
+ */
+function reflash() {
+  useDataStore()
+    .getPictures(pageNum.value, pageSize.value)
+    .then((response) => {
+      if (response) {
+        pagedData.value = response;
+        isReady.value = true;
+      }
+    });
+}
+
+reflash();
+
+useDataStore()
+  .getAmount("pictures")
+  .then((response) => {
+    pageAmount.value = Math.ceil(response / pageSize.value);
+  });
+
+watch(pageNum, () => {
+  reflash();
+});
 </script>
 
 <template>
   <contents-shell>
-    <h1>The page isn't ready yet.</h1>
+    <loading v-if="!isReady" />
+    <div v-if="isReady">
+      <div class="cards-shell">
+        <picture-card v-for="p in pagedData" :data="p" />
+      </div>
+      <pagination :page-num="pageNum" :page-amount="pageAmount" />
+    </div>
   </contents-shell>
 </template>
 
-<style scoped></style>
+<style scoped>
+.cards-shell {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 27px;
+}
+
+@media screen and (max-width: 1000px) {
+  .cards-shell {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

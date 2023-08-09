@@ -16,7 +16,7 @@ h1 {
   position: relative;
   color: var(--theme-main);
   text-shadow: 0.1em 0.1em 0 var(--g-bg-c);
-  font-size: 48px;
+  font-size: 44px;
   user-select: none;
 }
 
@@ -28,7 +28,7 @@ h1::before {
   background: var(--theme-main);
   color: var(--g-bg-c);
   text-shadow: none;
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Novecento";
 }
 </style>

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref, type Ref } from "vue";
 import { type Article } from "@/types/Article";
 import { type Picture } from "@/types/Picture";
+import { type Collection } from "@/types/Collection";
 
 export const useDataStore = defineStore("data", () => {
   /** 是否使用静态化数据 */
@@ -33,6 +34,29 @@ export const useDataStore = defineStore("data", () => {
         ? unpagedData.length
         : start + pageSize;
     return unpagedData.slice(start, end);
+  }
+
+  /**
+   * 获取总量。这常常被分页机制需要。
+   * @param target 目标
+   */
+  async function getAmount(target: "articles" | "pictures" | "collections") {
+    switch (target) {
+      case "articles":
+        if (articlesTemp.value.length === 0)
+          return (await getArticles()).length;
+        return articlesTemp.value.length;
+      case "pictures":
+        if (picturesTemp.value.length === 0)
+          return (await getPictures()).length;
+        return picturesTemp.value.length;
+      case "collections":
+        if (collectionsTemp.value.length === 0)
+          return (await getCollections()).length;
+        return collectionsTemp.value.length;
+      default:
+        return -1;
+    }
   }
 
   /** 文章缓存 */
@@ -70,7 +94,7 @@ export const useDataStore = defineStore("data", () => {
   async function getPictures(
     pageNum?: number,
     pageSize?: number,
-  ): Promise<Picture[] | null> {
+  ): Promise<Picture[]> {
     if (picturesTemp.value.length === 0)
       if (useStatic.value) {
         let pictures: Picture[] = [];
@@ -94,10 +118,41 @@ export const useDataStore = defineStore("data", () => {
   }
 
   /** 收藏缓存 */
-  // const collectionsTemp: Ref<Collection[]> = ref([]);
+  const collectionsTemp: Ref<Collection[]> = ref([]);
+
+  /**
+   * 获取文章。
+   * @param pageNum 页数。
+   * @param pageSize 页容量。
+   */
+  async function getCollections(
+    pageNum?: number,
+    pageSize?: number,
+  ): Promise<Collection[]> {
+    if (collectionsTemp.value.length === 0)
+      if (useStatic.value) {
+        collectionsTemp.value = await (
+          await fetch(staticDataURL.value.prefix + "collections.json")
+        ).json();
+      } else {
+      }
+    if (pageNum && pageSize)
+      return getPagedData(
+        collectionsTemp.value,
+        pageNum,
+        pageSize,
+      ) as Collection[];
+    return collectionsTemp.value;
+  }
 
   /** 节目缓存 */
   // const programsTemp: Ref<Program[]> = ref([]);
 
-  return { getArticles, getPictures };
+  return {
+    getPagedData,
+    getAmount,
+    getArticles,
+    getPictures,
+    getCollections,
+  };
 });

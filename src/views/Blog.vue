@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, watch, type Ref } from "vue";
-import ContentsShell from "@/components/atom/ContentsShell.vue";
-import Loading from "@/components/atom/Loading.vue";
+import ContentsShell from "@/components/frame/ContentsShell.vue";
+import Loading from "@/components/basis/Loading.vue";
 import { useDataStore } from "@/stores/data";
 import { type Article } from "@/types/Article";
-import ArticleCard from "@/components/molecule/ArticleCard.vue";
-import GoButton from "@/components/atom/GoButton.vue";
-import Pagination from "@/components/molecule/Pagination.vue";
+import ArticleCard from "@/components/container/ArticleCard.vue";
+import GoButton from "@/components/basis/GoButton.vue";
+import Pagination from "@/components/basis/Pagination.vue";
+import Card from "@/components/basis/Card.vue";
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
@@ -72,9 +73,6 @@ function handlePageNumChange(newPageNum: number) {
       ? articles.value.length
       : start + pageSize.value;
   pagedData.value = articles.value.slice(start, end);
-  setTimeout(() => {
-    (document.querySelector(".spirit") as HTMLButtonElement).click();
-  }, 233);
 }
 
 /**
@@ -139,7 +137,7 @@ async function search(id?: string) {
         <article-card v-for="a in pagedData" :data="a" />
       </div>
       <p></p>
-      <div v-show="!isIDGiven" class="select">
+      <card v-if="!isIDGiven" class="select">
         <p class="assistant">按类别搜索</p>
         <div v-for="(cb, i) in ['主题长文章', '随笔杂谈', '评论', '技术参考']">
           <input
@@ -170,7 +168,7 @@ async function search(id?: string) {
           <input type="date" name="blog-date" :id="`blog-date-${d.en}`" />
         </div>
         <go-button :go="false" @click="search()">搜索</go-button>
-      </div>
+      </card>
     </div>
     <pagination
       v-if="isReady && !isIDGiven"

@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
 import { mdiChevronDown } from "@mdi/js";
-import DynamicLine from "@/components/atom/DynamicLine.vue";
-import GoButton from "@/components/atom/GoButton.vue";
-import ContentsShell from "@/components/atom/ContentsShell.vue";
-import TopicTitle from "@/components/atom/TopicTitle.vue";
-import ArticleCard from "@/components/molecule/ArticleCard.vue";
-import type { Article } from "@/types/Article";
-import Loading from "@/components/atom/Loading.vue";
+import DynamicLine from "@/components/basis/DynamicLine.vue";
+import GoButton from "@/components/basis/GoButton.vue";
+import ContentsShell from "@/components/frame/ContentsShell.vue";
+import TopicTitle from "@/components/basis/TopicTitle.vue";
+import ArticleCard from "@/components/container/ArticleCard.vue";
+import PictureCard from "@/components/container/PictureCard.vue";
+import Card from "@/components/basis/Card.vue";
+import Loading from "@/components/basis/Loading.vue";
 import { useDataStore } from "@/stores/data";
+import { type Article } from "@/types/Article";
+import { type Picture } from "@/types/Picture";
+import { type Collection } from "@/types/Collection";
 
 /** 门户主人 */
 const who = ref("Penyo");
@@ -159,13 +163,20 @@ useDataStore()
     <div>
       <topic-title :logo="recents[1].logo">近期捕获</topic-title>
       <div class="cards-shell" :class="recents[1].logo">
-        <div v-for="c in 3"></div>
+        <div v-if="!isReady[1]" v-for="c in 3">
+          <loading />
+        </div>
+        <picture-card
+          v-if="isReady[1]"
+          v-for="c in recents[1].cards"
+          :data="c as Picture"
+        />
       </div>
     </div>
     <div>
       <topic-title :logo="recents[2].logo">近期作品</topic-title>
       <div class="cards-shell" :class="recents[2].logo">
-        <div v-for="c in 4"></div>
+        <card v-for="c in 4" />
       </div>
     </div>
   </contents-shell>
@@ -294,9 +305,8 @@ useDataStore()
 
 .recently .cards-shell {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-gap: 27px;
-  margin: 9vh 0 18vh;
+  margin: 7vh 0 14vh;
 }
 
 .recently > div:last-child > .cards-shell {
@@ -305,10 +315,6 @@ useDataStore()
 
 .cards-shell > div {
   display: inline-block;
-  height: 400px;
-  background: var(--g-bg-c);
-  border-radius: 15px;
-  box-shadow: 0 0 18px #3333330d;
   transition: all 0.2s;
 }
 
@@ -317,8 +323,16 @@ useDataStore()
   transform: translateY(-8px);
 }
 
+.recently > div:nth-child(1) > .cards-shell {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .recently > div:nth-child(2) > .cards-shell {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.recently > div:nth-child(3) > .cards-shell {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .recently > div:nth-child(3) > .cards-shell > div {

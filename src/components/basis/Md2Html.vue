@@ -63,4 +63,10 @@ defineProps<{
   border-radius: 4px;
   color: var(--g-bg-c);
 }
+
+.blog-body img {
+  display: block;
+  margin: auto;
+  width: 30%;
+}
 </style>

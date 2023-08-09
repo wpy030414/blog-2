@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import "@/assets/light.css";
 import "@/assets/dark.css";
-import TopBar from "@/components/TopBar.vue";
-import FooterBay from "@/components/FooterBay.vue";
-import PageSpirit from "@/components/PageSpirit.vue";
+import "@/assets/pink.css";
+import "@/assets/yellow.css";
+import TopBar from "@/components/frame/TopBar.vue";
+import FooterBay from "@/components/frame/FooterBay.vue";
+import PageSpirit from "@/components/frame/PageSpirit.vue";
 import { useThemeStore } from "./stores/theme";
 
 useThemeStore().setTheme();
@@ -30,11 +32,6 @@ useThemeStore().setTheme();
 @font-face {
   src: url("./assets/Novecento-Wide-Bold-2.otf");
   font-family: "Novecento";
-}
-
-:root {
-  --theme-main: #21e6c1;
-  --theme-main-tp: #21e6c13b;
 }
 
 * {

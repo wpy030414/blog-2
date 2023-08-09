@@ -1,11 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div></div>
+  <div class="loading"></div>
 </template>
 
 <style scoped>
-div {
+.loading {
   position: relative;
   margin: 0 10%;
   --height: 40px;
@@ -23,7 +23,7 @@ div {
   }
 }
 
-div::before {
+.loading::before {
   content: "";
   position: absolute;
   --b-length: 54px;

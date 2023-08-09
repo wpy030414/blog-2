@@ -39,7 +39,7 @@ const toRender = ref(
   /** 渲染预备位 */
   let readyBit = 0;
   /** 行动线程 ID */
-  let id = 0;
+  let id = setTimeout(() => {});
   /** 行动 */
   const action = async () => {
     if (isBackspacing)

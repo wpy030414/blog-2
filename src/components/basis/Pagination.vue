@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import GoButton from "@/components/atom/GoButton.vue";
+import GoButton from "@/components/basis/GoButton.vue";
 
 const props = defineProps<{
   /** 页数 */
@@ -12,20 +12,29 @@ const props = defineProps<{
 const pageNum = ref(props.pageNum);
 
 defineEmits(["update:pageNum"]);
+
+/**
+ * 返回顶部。
+ */
+function goTop() {
+  setTimeout(() => {
+    (document.querySelector(".spirit") as HTMLButtonElement).click();
+  }, 233);
+}
 </script>
 
 <template>
   <div>
     <go-button
       :go="false"
-      @click="$emit('update:pageNum', --pageNum)"
+      @click="$emit('update:pageNum', --pageNum), goTop()"
       :disabled="pageNum <= 1 ? true : false"
       >上一页</go-button
     >
     <span>{{ `${pageNum}/${pageAmount}` }}</span>
     <go-button
       :go="false"
-      @click="$emit('update:pageNum', ++pageNum)"
+      @click="$emit('update:pageNum', ++pageNum), goTop()"
       :disabled="pageNum >= pageAmount ? true : false"
       >下一页</go-button
     >

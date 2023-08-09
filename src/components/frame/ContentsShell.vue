@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+setTimeout(() => {
+  (document.querySelector(".spirit") as HTMLButtonElement).click();
+}, 233);
+</script>
 
 <template>
   <section>

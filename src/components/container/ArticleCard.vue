@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import Card from "@/components/basis/Card.vue";
 import { type Article } from "@/types/Article";
-import Md2Html from "@/components/atom/Md2Html.vue";
-import GoButton from "../atom/GoButton.vue";
+import Md2Html from "@/components/basis/Md2Html.vue";
+import GoButton from "@/components/basis/GoButton.vue";
 
 defineProps<{
   /** 单文章数据 */
@@ -12,8 +13,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="article">
-    <h2>{{ data.title }}</h2>
+  <card class="article" :class="isSimpleMode ? 'simple' : ''">
+    <h2 :id="data.id">{{ data.title }}</h2>
     <p>
       <span class="date">
         {{ new Date(data.date.$date).toISOString().slice(0, 10) }}
@@ -24,11 +25,10 @@ defineProps<{
     </p>
     <md2-html
       class="body"
-      :class="isSimpleMode ? 'simple' : ''"
       :md="isSimpleMode ? data.body.slice(0, 500) : data.body"
     />
     <!-- <go-button v-if="!isSimpleMode" :go="false">赞同</go-button> -->
-  </div>
+  </card>
 </template>
 
 <style scoped>
@@ -75,14 +75,19 @@ defineProps<{
   color: var(--g-bg-c);
 }
 
-.body.simple::after {
+.simple {
+  margin-bottom: 0;
+  height: 388px;
+}
+
+.simple::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 60%;
-  background: linear-gradient(to bottom, transparent, var(--g-bg-c));
+  background: linear-gradient(to bottom, transparent, var(--g-bg-c) 90%);
 }
 
 @media screen and (max-width: 1000px) {

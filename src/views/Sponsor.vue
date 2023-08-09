@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ContentsShell from "@/components/atom/ContentsShell.vue";
+import ContentsShell from "@/components/frame/ContentsShell.vue";
 </script>
 
 <template>
