@@ -10,7 +10,11 @@ const buttons = ref([
   { icon: mdiMusic },
 ]);
 
-/** 精灵行为 */
+/**
+ * 精灵行为。
+ *
+ * @param i 按钮序号
+ */
 function spirit(i: number) {
   switch (i) {
     case 0:

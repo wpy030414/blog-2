@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, watch, type Ref } from "vue";
+import type { Picture } from "@/types/Picture";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
-import { useDataStore } from "@/stores/data";
-import type { Picture } from "@/types/Picture";
 import PictureCard from "@/components/container/PictureCard.vue";
 import Pagination from "@/components/basis/Pagination.vue";
+import { useDataStore } from "@/stores/data";
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
@@ -41,9 +41,7 @@ useDataStore()
     pageAmount.value = Math.ceil(response / pageSize.value);
   });
 
-watch(pageNum, () => {
-  reflash();
-});
+watch(pageNum, reflash);
 </script>
 
 <template>

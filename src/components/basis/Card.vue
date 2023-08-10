@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{
+  /** 是否需要（下面的）外边距 */
   needMargin?: boolean;
 }>();
 </script>

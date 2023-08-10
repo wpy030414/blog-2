@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { Article } from "@/types/Article";
 import Card from "@/components/basis/Card.vue";
-import { type Article } from "@/types/Article";
 import Md2Html from "@/components/basis/Md2Html.vue";
 import GoButton from "@/components/basis/GoButton.vue";
 
 defineProps<{
-  /** 单文章数据 */
+  /** 单数据 */
   data: Article;
   /** 是否为简单模式 */
   isSimpleMode?: boolean;
@@ -27,14 +27,13 @@ defineProps<{
       class="body"
       :md="isSimpleMode ? data.body.slice(0, 500) : data.body"
     />
-    <!-- <go-button v-if="!isSimpleMode" :go="false">赞同</go-button> -->
+    <!-- <go-button v-if="!isSimpleMode">赞同</go-button> -->
   </card>
 </template>
 
 <style scoped>
 .article {
   position: relative;
-  margin-bottom: 32px;
   padding: 2em;
   border-radius: 16px;
   overflow: hidden;

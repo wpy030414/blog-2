@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 /** 句子 */
-const lines = ref([
+const lines = [
   "初见，可爱，结婚！（你",
   "JS 创造的世界并非完美......",
   "缺对象就 new 一个！",
@@ -18,12 +18,10 @@ const lines = ref([
   "我不会说其实我在木星计划里藏私货了",
   "怎么可能有人不疯，只是硬撑罢了（",
   "来线下找我玩吧！",
-]);
+];
 
 /** 待渲染 */
-const toRender = ref(
-  lines.value[Math.round(Math.random() * 100) % lines.value.length],
-);
+const toRender = ref(lines[Math.round(Math.random() * 100) % lines.length]);
 
 (() => {
   /** 退格阻塞 */
@@ -40,14 +38,16 @@ const toRender = ref(
   let readyBit = 0;
   /** 行动线程 ID */
   let id = setTimeout(() => {});
-  /** 行动 */
-  const action = async () => {
+
+  /**
+   * 行动。
+   */
+  async function action() {
     if (isBackspacing)
       if (toRender.value.length > 0)
         toRender.value = toRender.value.slice(0, -1);
       else {
-        readyToRender =
-          lines.value[Math.round(Math.random() * 100) % lines.value.length];
+        readyToRender = lines[Math.round(Math.random() * 100) % lines.length];
         isBackspacing = !isBackspacing;
         clearInterval(id);
         await new Promise((resolve) => setTimeout(resolve, blockI));
@@ -63,7 +63,8 @@ const toRender = ref(
       await new Promise((resolve) => setTimeout(resolve, blockD));
       id = setInterval(action, blockB);
     }
-  };
+  }
+
   setTimeout(() => {
     id = setInterval(action, blockB);
   }, blockD);

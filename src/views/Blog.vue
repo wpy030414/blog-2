@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ref, watch, type Ref } from "vue";
+import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
-import { useDataStore } from "@/stores/data";
-import { type Article } from "@/types/Article";
 import ArticleCard from "@/components/container/ArticleCard.vue";
 import GoButton from "@/components/basis/GoButton.vue";
 import Pagination from "@/components/basis/Pagination.vue";
 import Card from "@/components/basis/Card.vue";
+import { useDataStore } from "@/stores/data";
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
 
-/** 文章 */
-const articles: Ref<Article[]> = ref([]);
+/** 文章缓存代理 */
+const articlesProxy: Ref<Article[]> = ref([]);
 
 /** 文章 ID 是否已指定 */
 const isIDGiven = ref(false);
@@ -27,7 +27,7 @@ async function reflash(needDisplayAtOnce?: boolean) {
     .getArticles()
     .then((response) => {
       if (response) {
-        articles.value = response;
+        articlesProxy.value = response;
         if (needDisplayAtOnce) {
           isReady.value = true;
           handlePageNumChange(1);
@@ -54,7 +54,7 @@ const pagedData: Ref<Article[]> = ref([]);
  * 获取总页数。
  */
 function getPageAmount() {
-  return Math.ceil(articles.value.length / pageSize.value);
+  return Math.ceil(articlesProxy.value.length / pageSize.value);
 }
 
 watch(pageNum, (pageNum) => {
@@ -69,10 +69,10 @@ function handlePageNumChange(newPageNum: number) {
   pageNum.value = newPageNum;
   const start = (pageNum.value - 1) * pageSize.value;
   const end =
-    start + pageSize.value > articles.value.length
-      ? articles.value.length
+    start + pageSize.value > articlesProxy.value.length
+      ? articlesProxy.value.length
       : start + pageSize.value;
-  pagedData.value = articles.value.slice(start, end);
+  pagedData.value = articlesProxy.value.slice(start, end);
 }
 
 /**
@@ -81,7 +81,7 @@ function handlePageNumChange(newPageNum: number) {
  */
 async function search(id?: string) {
   if (id) {
-    articles.value = articles.value.filter((a) => {
+    articlesProxy.value = articlesProxy.value.filter((a) => {
       return a.id === id;
     });
   } else {
@@ -108,7 +108,7 @@ async function search(id?: string) {
     isReady.value = false;
     await reflash(false);
 
-    articles.value = articles.value.filter((a) => {
+    articlesProxy.value = articlesProxy.value.filter((a) => {
       return (
         (category.length === 0 || category.includes(a.category)) &&
         (a.title.includes(content) || a.body.includes(content)) &&
@@ -134,7 +134,7 @@ async function search(id?: string) {
     <loading v-if="!isReady" />
     <div v-if="isReady" class="layout" :class="isIDGiven ? '' : 'given'">
       <div class="articles-shell">
-        <article-card v-for="a in pagedData" :data="a" />
+        <article-card v-for="a in pagedData" :data="a" :need-margin="true" />
       </div>
       <p></p>
       <card v-if="!isIDGiven" class="select">
@@ -167,7 +167,7 @@ async function search(id?: string) {
           <label :for="`blog-date-${d.en}`">{{ d.zh }}</label>
           <input type="date" name="blog-date" :id="`blog-date-${d.en}`" />
         </div>
-        <go-button :go="false" @click="search()">搜索</go-button>
+        <go-button @click="search()">搜索</go-button>
       </card>
     </div>
     <pagination

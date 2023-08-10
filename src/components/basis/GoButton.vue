@@ -1,15 +1,10 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    /** 是否需要箭头动效 */
-    go?: boolean;
-    /** 是否被选中 */
-    chosen?: boolean;
-  }>(),
-  {
-    go: true,
-  },
-);
+defineProps<{
+  /** 是否需要箭头动效 */
+  go?: boolean;
+  /** 是否被选中 */
+  chosen?: boolean;
+}>();
 </script>
 
 <template>

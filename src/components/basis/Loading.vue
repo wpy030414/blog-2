@@ -7,7 +7,7 @@
 <style scoped>
 .loading {
   position: relative;
-  margin: 0 10%;
+  margin: 10% 0;
   --height: 40px;
   height: var(--height);
   overflow: hidden;

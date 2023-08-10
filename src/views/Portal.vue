@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
+import type { Article } from "@/types/Article";
+import type { Picture } from "@/types/Picture";
+import type { Collection } from "@/types/Collection";
 import { mdiChevronDown } from "@mdi/js";
 import DynamicLine from "@/components/basis/DynamicLine.vue";
 import GoButton from "@/components/basis/GoButton.vue";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import TopicTitle from "@/components/basis/TopicTitle.vue";
+import Loading from "@/components/basis/Loading.vue";
 import ArticleCard from "@/components/container/ArticleCard.vue";
 import PictureCard from "@/components/container/PictureCard.vue";
 import Card from "@/components/basis/Card.vue";
-import Loading from "@/components/basis/Loading.vue";
 import { useDataStore } from "@/stores/data";
-import { type Article } from "@/types/Article";
-import { type Picture } from "@/types/Picture";
-import { type Collection } from "@/types/Collection";
 
 /** 门户主人 */
 const who = ref("Penyo");
@@ -80,7 +80,7 @@ function goDown() {
 }
 
 /** 是否已准备好数据 */
-const isReady = ref([false, false, false]);
+const isReady = ref([false, false, true]);
 
 /** 最近动态 */
 const recents: Ref<
@@ -140,19 +140,16 @@ useDataStore()
           <img :src="s.path" alt="" width="20" />
         </a>
       </div>
-      <go-button @click="goDown">了解更多</go-button>
+      <go-button :go="true" @click="goDown">了解更多</go-button>
       <div class="image-shell"></div>
     </section>
   </section>
   <contents-shell class="recently">
-    <div>
+    <div class="topic-shell">
       <topic-title :logo="recents[0].logo">近期博客</topic-title>
-      <div class="cards-shell" :class="recents[0].logo">
-        <div v-if="!isReady[0]" v-for="c in 2">
-          <loading />
-        </div>
+      <loading v-if="!isReady[0]" />
+      <div v-if="isReady[0]" class="cards-shell" :class="recents[0].logo">
         <article-card
-          v-if="isReady[0]"
           v-for="c in recents[0].cards"
           :data="c as Article"
           :isSimpleMode="true"
@@ -160,22 +157,17 @@ useDataStore()
         />
       </div>
     </div>
-    <div>
+    <div class="topic-shell">
       <topic-title :logo="recents[1].logo">近期捕获</topic-title>
-      <div class="cards-shell" :class="recents[1].logo">
-        <div v-if="!isReady[1]" v-for="c in 3">
-          <loading />
-        </div>
-        <picture-card
-          v-if="isReady[1]"
-          v-for="c in recents[1].cards"
-          :data="c as Picture"
-        />
+      <loading v-if="!isReady[1]" />
+      <div v-if="isReady[1]" class="cards-shell" :class="recents[1].logo">
+        <picture-card v-for="c in recents[1].cards" :data="c as Picture" />
       </div>
     </div>
-    <div>
+    <div class="topic-shell">
       <topic-title :logo="recents[2].logo">近期作品</topic-title>
-      <div class="cards-shell" :class="recents[2].logo">
+      <loading v-if="!isReady[2]" />
+      <div v-if="isReady[2]" class="cards-shell" :class="recents[2].logo">
         <card v-for="c in 4" />
       </div>
     </div>
@@ -303,13 +295,22 @@ useDataStore()
   transform: translateZ(36px);
 }
 
-.recently .cards-shell {
+.topic-shell {
+  margin-top: 27px;
+  border: 1px solid transparent;
+}
+
+.topic-shell:first-child {
+  margin-top: 0;
+}
+
+.topic-shell > .cards-shell {
   display: grid;
   grid-gap: 27px;
   margin: 7vh 0 14vh;
 }
 
-.recently > div:last-child > .cards-shell {
+.topic-shell:last-child > .cards-shell {
   margin-bottom: 0;
 }
 
@@ -323,19 +324,19 @@ useDataStore()
   transform: translateY(-8px);
 }
 
-.recently > div:nth-child(1) > .cards-shell {
+.topic-shell:nth-child(1) > .cards-shell {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.recently > div:nth-child(2) > .cards-shell {
+.topic-shell:nth-child(2) > .cards-shell {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.recently > div:nth-child(3) > .cards-shell {
+.topic-shell:nth-child(3) > .cards-shell {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.recently > div:nth-child(3) > .cards-shell > div {
+.topic-shell:nth-child(3) > .cards-shell > div {
   height: 150px;
 }
 
@@ -369,7 +370,7 @@ useDataStore()
     padding: 15vh 6vw;
   }
 
-  .recently .cards-shell {
+  .cards-shell {
     grid-template-columns: 1fr !important;
   }
 }

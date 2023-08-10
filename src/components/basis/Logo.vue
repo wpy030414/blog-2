@@ -16,6 +16,7 @@ withDefaults(
 
 /**
  * 根据主题获取颜色。
+ *
  * @param theme 主题
  * @param layer 背景/前景
  * @returns 颜色的 Hex 值

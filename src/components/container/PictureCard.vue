@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Card from "@/components/basis/Card.vue";
 import type { Picture } from "@/types/Picture";
+import Card from "@/components/basis/Card.vue";
 
 defineProps<{
-  /** 单图片数据 */
+  /** 单数据 */
   data: Picture;
 }>();
 </script>

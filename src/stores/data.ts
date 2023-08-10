@@ -17,6 +17,7 @@ export const useDataStore = defineStore("data", () => {
 
   /**
    * 获取分页数据。
+   *
    * @param unpagedData 未分页的数据
    * @param pageNum 页数。从 1 开始计算
    * @param pageSize 页容量。必须是正整数
@@ -38,6 +39,7 @@ export const useDataStore = defineStore("data", () => {
 
   /**
    * 获取总量。这常常被分页机制需要。
+   *
    * @param target 目标
    */
   async function getAmount(target: "articles" | "pictures" | "collections") {
@@ -64,6 +66,7 @@ export const useDataStore = defineStore("data", () => {
 
   /**
    * 获取文章。
+   *
    * @param pageNum 页数。
    * @param pageSize 页容量。
    */
@@ -78,6 +81,7 @@ export const useDataStore = defineStore("data", () => {
         ).json();
       } else {
       }
+
     if (pageNum && pageSize)
       return getPagedData(articlesTemp.value, pageNum, pageSize) as Article[];
     return articlesTemp.value;
@@ -88,6 +92,7 @@ export const useDataStore = defineStore("data", () => {
 
   /**
    * 获取图片。
+   *
    * @param pageNum 页数。
    * @param pageSize 页容量。
    */
@@ -112,6 +117,7 @@ export const useDataStore = defineStore("data", () => {
         picturesTemp.value = pictures;
       } else {
       }
+
     if (pageNum && pageSize)
       return getPagedData(picturesTemp.value, pageNum, pageSize) as Picture[];
     return picturesTemp.value;
@@ -122,6 +128,7 @@ export const useDataStore = defineStore("data", () => {
 
   /**
    * 获取文章。
+   *
    * @param pageNum 页数。
    * @param pageSize 页容量。
    */
@@ -136,6 +143,7 @@ export const useDataStore = defineStore("data", () => {
         ).json();
       } else {
       }
+
     if (pageNum && pageSize)
       return getPagedData(
         collectionsTemp.value,
