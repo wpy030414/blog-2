@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import type { Collection } from "@/types/Collection";
 import Card from "@/components/basis/Card.vue";
+import GoButton from "../basis/GoButton.vue";
 
 defineProps<{
   /** 单数据 */
   data: Collection;
 }>();
+
+/**
+ * 处理用户离开页面。
+ *
+ * @param url 外链
+ */
+function handleUserLeave(url: string) {
+  window.open(url, "_blank");
+}
 </script>
 
 <template>
@@ -18,42 +28,37 @@ defineProps<{
       <p class="name">{{ data.name }}</p>
       <p class="subtitle">——“{{ data.subtitle }}”</p>
       <p class="description">{{ data.description }}</p>
+      <go-button :go="true" @click="handleUserLeave(data.detail.url)"
+        >详情</go-button
+      >
     </span>
   </card>
 </template>
 
 <style scoped>
 .collection {
-  position: relative;
   --pic-width: 300px;
   height: var(--pic-width);
 }
 
 .collection span {
   display: inline-block;
-  position: absolute;
-  top: 0;
-  background-size: cover;
 }
 
 .collection .img {
-  left: 0;
   width: var(--pic-width);
   height: var(--pic-width);
-  -webkit-mask-image: linear-gradient(to right, #000, transparent);
+  background: no-repeat 50% -24% / 144%;
 }
 
 .collection .text {
   --padding-top: 5vh;
-  padding: var(--padding-top) 3vw var(--padding-top) 0;
-  left: var(--pic-width);
+  --padding-right: 3vw;
+  padding: var(--padding-top) var(--padding-right);
+  width: calc(100% - var(--pic-width) - var(--padding-right) * 2);
   height: calc(var(--pic-width) - var(--padding-top) * 2);
-  overflow-y: auto;
+  overflow-y: hidden;
   color: var(--g-c-main);
-}
-
-.collection .text::-webkit-scrollbar {
-  width: 0;
 }
 
 .text .name {
@@ -66,17 +71,30 @@ defineProps<{
 }
 
 .text .description {
-  margin-top: 1.2em;
+  margin: 1.2em 0;
   color: var(--g-c-sub);
 }
 
 @media screen and (max-width: 1000px) {
   .collection {
-    --pic-width: 150px;
+    --pic-width: 500px;
+    height: auto;
+  }
+
+  .collection .img {
+    width: 100%;
+    height: auto;
+    padding-top: 100%;
   }
 
   .collection .text {
     --padding-top: 2vh;
+    --padding-right: 5vw;
+    top: var(--pic-width);
+    left: 0;
+    margin-bottom: 0.6em;
+    width: calc(100% - var(--padding-right) * 2);
+    height: auto;
   }
 
   .text .name {

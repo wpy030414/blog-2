@@ -84,6 +84,10 @@ async function search(id?: string) {
     articlesProxy.value = articlesProxy.value.filter((a) => {
       return a.id === id;
     });
+    const a = articlesProxy.value[0];
+    (
+      document.querySelector("#page-title") as HTMLTitleElement
+    ).innerText = `${a.title} - ${a.category} - 博客 - Penyo 门户 | Penyo Portal`;
   } else {
     let category: string[] = [];
     document.getElementsByName("blog-category").forEach((e) => {

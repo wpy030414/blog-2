@@ -16,7 +16,9 @@ useDataStore()
   .getCollections()
   .then((response) => {
     if (response) {
-      figures.value = response;
+      figures.value = response.filter((c) => {
+        return c.category === "figure";
+      });
       isReady.value[0] = true;
     }
   });

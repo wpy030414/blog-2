@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import ContentsShell from "@/components/frame/ContentsShell.vue";
+import TopicTitle from "@/components/basis/TopicTitle.vue";
 </script>
 
 <template>
   <contents-shell>
-    <h1>The page isn't ready yet.</h1>
+    <topic-title>前面的区域，以后再来探索吧~</topic-title>
   </contents-shell>
 </template>
 

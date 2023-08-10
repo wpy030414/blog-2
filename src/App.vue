@@ -14,7 +14,9 @@ useThemeStore().setTheme();
 <template>
   <div class="main-view">
     <top-bar
-      :mode="$router.currentRoute.value.path.slice(1).split('/')[0] || 'PORTAL'"
+      :page-name="
+        $router.currentRoute.value.path.slice(1).split('/')[0] || 'portal'
+      "
     ></top-bar>
     <router-view v-slot="{ Component }" :key="$route.fullPath">
       <keep-alive>

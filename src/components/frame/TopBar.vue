@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import {
   mdiHome,
   mdiPen,
@@ -9,10 +9,30 @@ import {
   mdiMenu,
 } from "@mdi/js";
 
-defineProps<{
+const props = defineProps<{
   /** 当前页面默认路由 */
-  mode: string;
+  pageName: string;
 }>();
+
+watch(
+  () => props.pageName,
+  (pageName) => {
+    const defaultTitle = "Penyo 门户 | Penyo Portal";
+    const pageTitleMap: { [key: string]: string } = {
+      blog: "博客 - " + defaultTitle,
+      galary: "相册 - " + defaultTitle,
+      museum: "展馆 - " + defaultTitle,
+      "mdhu-project": "MDHu Project - " + defaultTitle,
+      "404": "404 - " + defaultTitle,
+      about: "关于 - " + defaultTitle,
+      sponsor: "赞助 - " + defaultTitle,
+      wall: "标语墙 - " + defaultTitle,
+    };
+    const pageTitle = pageTitleMap[pageName] || defaultTitle;
+    (document.querySelector("#page-title") as HTMLTitleElement).innerText =
+      pageTitle;
+  },
+);
 
 /** 菜单 */
 const menu = ref([
@@ -41,7 +61,7 @@ const isMenuPoped = ref(false);
         <path :d="mdiMenu"></path>
       </svg>
     </button>
-    <h1>{{ mode }}</h1>
+    <h1>{{ pageName }}</h1>
     <transition name="menu">
       <ul v-if="!isOnMobile || isMenuPoped">
         <li v-for="i in menu" @click="isMenuPoped = false">
