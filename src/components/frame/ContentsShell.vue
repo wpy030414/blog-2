@@ -1,7 +1,7 @@
 <script setup lang="ts">
-setTimeout(() => {
-  (document.querySelector(".spirit") as HTMLButtonElement).click();
-}, 233);
+import { goTop } from "@/util";
+
+goTop();
 </script>
 
 <template>

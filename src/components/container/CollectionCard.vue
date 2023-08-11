@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { goOutside } from "@/util";
 import type { Collection } from "@/types/Collection";
 import Card from "@/components/basis/Card.vue";
 import GoButton from "../basis/GoButton.vue";
@@ -7,15 +8,6 @@ defineProps<{
   /** 单数据 */
   data: Collection;
 }>();
-
-/**
- * 处理用户离开页面。
- *
- * @param url 外链
- */
-function handleUserLeave(url: string) {
-  window.open(url, "_blank");
-}
 </script>
 
 <template>
@@ -28,7 +20,7 @@ function handleUserLeave(url: string) {
       <p class="name">{{ data.name }}</p>
       <p class="subtitle">——“{{ data.subtitle }}”</p>
       <p class="description">{{ data.description }}</p>
-      <go-button :go="true" @click="handleUserLeave(data.detail.url)"
+      <go-button :go="true" @click="goOutside(data.detail.url)"
         >详情</go-button
       >
     </span>

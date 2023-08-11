@@ -8,6 +8,7 @@ import {
   mdiArchiveMusic,
   mdiMenu,
 } from "@mdi/js";
+import { usePageTitleStore } from "@/stores/page-title";
 
 const props = defineProps<{
   /** 当前页面默认路由 */
@@ -17,20 +18,17 @@ const props = defineProps<{
 watch(
   () => props.pageName,
   (pageName) => {
-    const defaultTitle = "Penyo 门户 | Penyo Portal";
     const pageTitleMap: { [key: string]: string } = {
-      blog: "博客 - " + defaultTitle,
-      galary: "相册 - " + defaultTitle,
-      museum: "展馆 - " + defaultTitle,
-      "mdhu-project": "MDHu Project - " + defaultTitle,
-      "404": "404 - " + defaultTitle,
-      about: "关于 - " + defaultTitle,
-      sponsor: "赞助 - " + defaultTitle,
-      wall: "标语墙 - " + defaultTitle,
+      // 博客页面的页标题状态交由 Blog.vue 托管
+      galary: "相册",
+      museum: "展馆",
+      "mdhu-project": "MDHu Project",
+      "404": "404",
+      about: "关于",
+      sponsor: "赞助",
+      wall: "标语墙",
     };
-    const pageTitle = pageTitleMap[pageName] || defaultTitle;
-    (document.querySelector("#page-title") as HTMLTitleElement).innerText =
-      pageTitle;
+    usePageTitleStore().setPageTitle([pageTitleMap[pageName]]);
   },
 );
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { goTop } from "@/util";
 import GoButton from "@/components/basis/GoButton.vue";
 
 defineProps<{
@@ -9,15 +10,6 @@ defineProps<{
 }>();
 
 defineEmits(["update:pageNum"]);
-
-/**
- * 返回顶部。
- */
-function goTop() {
-  setTimeout(() => {
-    (document.querySelector(".spirit") as HTMLButtonElement).click();
-  }, 233);
-}
 </script>
 
 <template>

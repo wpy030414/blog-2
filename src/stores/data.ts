@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import { ref, type Ref } from "vue";
-import { type Article } from "@/types/Article";
-import { type Picture } from "@/types/Picture";
-import { type Collection } from "@/types/Collection";
+import type { Article } from "@/types/Article";
+import type { Picture } from "@/types/Picture";
+import type { Project } from "@/types/Project";
+import type { Collection } from "@/types/Collection";
 
 export const useDataStore = defineStore("data", () => {
   /** 是否使用静态化数据 */
@@ -123,6 +124,32 @@ export const useDataStore = defineStore("data", () => {
     return picturesTemp.value;
   }
 
+  /** 项目缓存 */
+  const projectsTemp: Ref<Project[]> = ref([]);
+
+  /**
+   * 获取文章。
+   *
+   * @param pageNum 页数。
+   * @param pageSize 页容量。
+   */
+  async function getProjects(
+    pageNum?: number,
+    pageSize?: number,
+  ): Promise<Project[]> {
+    if (projectsTemp.value.length === 0)
+      if (useStatic.value) {
+        projectsTemp.value = await (
+          await fetch(staticDataURL.value.prefix + "projects.json")
+        ).json();
+      } else {
+      }
+
+    if (pageNum && pageSize)
+      return getPagedData(projectsTemp.value, pageNum, pageSize) as Project[];
+    return projectsTemp.value;
+  }
+
   /** 收藏缓存 */
   const collectionsTemp: Ref<Collection[]> = ref([]);
 
@@ -157,10 +184,10 @@ export const useDataStore = defineStore("data", () => {
   // const programsTemp: Ref<Program[]> = ref([]);
 
   return {
-    getPagedData,
     getAmount,
     getArticles,
     getPictures,
+    getProjects,
     getCollections,
   };
 });

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useLocationStore } from "@/stores/location";
 
+/** 链接 */
 const infos = ref([
   {
     title: "更多",

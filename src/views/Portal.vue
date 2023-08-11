@@ -2,7 +2,7 @@
 import { ref, type Ref } from "vue";
 import type { Article } from "@/types/Article";
 import type { Picture } from "@/types/Picture";
-import type { Collection } from "@/types/Collection";
+import type { Project } from "@/types/Project";
 import { mdiChevronDown } from "@mdi/js";
 import DynamicLine from "@/components/basis/DynamicLine.vue";
 import GoButton from "@/components/basis/GoButton.vue";
@@ -11,7 +11,7 @@ import TopicTitle from "@/components/basis/TopicTitle.vue";
 import Loading from "@/components/basis/Loading.vue";
 import ArticleCard from "@/components/container/ArticleCard.vue";
 import PictureCard from "@/components/container/PictureCard.vue";
-import Card from "@/components/basis/Card.vue";
+import ProjectCard from "@/components/container/ProjectCard.vue";
 import { useDataStore } from "@/stores/data";
 
 /** 门户主人 */
@@ -80,44 +80,41 @@ function goDown() {
 }
 
 /** 是否已准备好数据 */
-const isReady = ref([false, false, true]);
+const isReady = ref([false, false, false]);
 
-/** 最近动态 */
-const recents: Ref<
-  {
-    logo: string;
-    cards: unknown[];
-  }[]
-> = ref([
-  {
-    logo: "articles",
-    cards: [],
-  },
-  {
-    logo: "pictures",
-    cards: [],
-  },
-  {
-    logo: "projects",
-    cards: [],
-  },
-]);
+/** 近期文章 */
+const articles: Ref<Article[]> = ref([]);
 
 useDataStore()
   .getArticles(1, 2)
   .then((response) => {
     if (response) {
-      recents.value[0].cards = response;
+      articles.value = response;
       isReady.value[0] = true;
     }
   });
+
+/** 近期图片 */
+const pictures: Ref<Picture[]> = ref([]);
 
 useDataStore()
   .getPictures(1, 3)
   .then((response) => {
     if (response) {
-      recents.value[1].cards = response;
+      pictures.value = response;
       isReady.value[1] = true;
+    }
+  });
+
+/** 近期项目 */
+const projects: Ref<Project[]> = ref([]);
+
+useDataStore()
+  .getProjects(1, 4)
+  .then((response) => {
+    if (response) {
+      projects.value = response;
+      isReady.value[2] = true;
     }
   });
 </script>
@@ -146,29 +143,29 @@ useDataStore()
   </section>
   <contents-shell class="recently">
     <div class="topic-shell">
-      <topic-title :logo="recents[0].logo">近期博客</topic-title>
+      <topic-title logo="blogs">近期博客</topic-title>
       <loading v-if="!isReady[0]" />
-      <div v-if="isReady[0]" class="cards-shell" :class="recents[0].logo">
+      <div v-if="isReady[0]" class="cards-shell">
         <article-card
-          v-for="c in recents[0].cards"
-          :data="c as Article"
+          v-for="c in articles"
+          :data="c"
           :isSimpleMode="true"
-          @click="$router.push('/blog/' + (c as Article).id)"
+          @click="$router.push('/blog/' + c.id)"
         />
       </div>
     </div>
     <div class="topic-shell">
-      <topic-title :logo="recents[1].logo">近期捕获</topic-title>
+      <topic-title logo="pictures">近期捕获</topic-title>
       <loading v-if="!isReady[1]" />
-      <div v-if="isReady[1]" class="cards-shell" :class="recents[1].logo">
-        <picture-card v-for="c in recents[1].cards" :data="c as Picture" />
+      <div v-if="isReady[1]" class="cards-shell">
+        <picture-card v-for="c in pictures" :data="c" />
       </div>
     </div>
     <div class="topic-shell">
-      <topic-title :logo="recents[2].logo">近期作品</topic-title>
+      <topic-title logo="projects">近期示范项目</topic-title>
       <loading v-if="!isReady[2]" />
-      <div v-if="isReady[2]" class="cards-shell" :class="recents[2].logo">
-        <card v-for="c in 4" />
+      <div v-if="isReady[2]" class="cards-shell">
+        <project-card v-for="c in projects" :data="c" />
       </div>
     </div>
   </contents-shell>
@@ -334,10 +331,6 @@ useDataStore()
 
 .topic-shell:nth-child(3) > .cards-shell {
   grid-template-columns: repeat(2, 1fr);
-}
-
-.topic-shell:nth-child(3) > .cards-shell > div {
-  height: 150px;
 }
 
 @media screen and (max-width: 1000px) {

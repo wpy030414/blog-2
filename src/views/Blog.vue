@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, type Ref } from "vue";
+import { goTop } from "@/util";
 import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
@@ -8,6 +9,7 @@ import GoButton from "@/components/basis/GoButton.vue";
 import Pagination from "@/components/basis/Pagination.vue";
 import Card from "@/components/basis/Card.vue";
 import { useDataStore } from "@/stores/data";
+import { usePageTitleStore } from "@/stores/page-title";
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
@@ -20,6 +22,7 @@ const isIDGiven = ref(false);
 
 /**
  * 刷新数据。
+ *
  * @param needDisplayAtOnce 是否需要立即显示
  */
 async function reflash(needDisplayAtOnce?: boolean) {
@@ -34,11 +37,16 @@ async function reflash(needDisplayAtOnce?: boolean) {
         }
       }
     });
+
   const id = (document.querySelector(".id-guard") as HTMLElement).id;
   if (id) {
+    const a = articlesProxy.value.filter((a) => {
+      return a.id === id;
+    })[0];
+    if (a) usePageTitleStore().setPageTitle([a.category, a.title]);
     isIDGiven.value = true;
     search(id);
-  }
+  } else usePageTitleStore().setPageTitle(["博客"]);
 }
 
 reflash(true);
@@ -63,6 +71,7 @@ watch(pageNum, (pageNum) => {
 
 /**
  * 处理页数变动。
+ *
  * @param newPageNum 新的页数
  */
 function handlePageNumChange(newPageNum: number) {
@@ -77,6 +86,7 @@ function handlePageNumChange(newPageNum: number) {
 
 /**
  * 执行多重搜索。
+ *
  * @param id 文章唯一识别码。一旦被给定，则其余条件全部失效
  */
 async function search(id?: string) {
@@ -84,10 +94,6 @@ async function search(id?: string) {
     articlesProxy.value = articlesProxy.value.filter((a) => {
       return a.id === id;
     });
-    const a = articlesProxy.value[0];
-    (
-      document.querySelector("#page-title") as HTMLTitleElement
-    ).innerText = `${a.title} - ${a.category} - 博客 - Penyo 门户 | Penyo Portal`;
   } else {
     let category: string[] = [];
     document.getElementsByName("blog-category").forEach((e) => {
@@ -120,6 +126,8 @@ async function search(id?: string) {
         new Date(a.date.$date) < dateTo
       );
     });
+
+    goTop();
   }
 
   isReady.value = true;

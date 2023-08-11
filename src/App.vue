@@ -7,8 +7,10 @@ import TopBar from "@/components/frame/TopBar.vue";
 import FooterBay from "@/components/frame/FooterBay.vue";
 import PageSpirit from "@/components/frame/PageSpirit.vue";
 import { useThemeStore } from "./stores/theme";
+import { usePageTitleStore } from "./stores/page-title";
 
 useThemeStore().setTheme();
+usePageTitleStore().setPageTitle([]);
 </script>
 
 <template>
