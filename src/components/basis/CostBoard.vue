@@ -4,23 +4,31 @@ import { ref } from "vue";
 const props = defineProps<{
   /** 初始费用 */
   originalCost?: number;
+  /** 费用异动因素 */
+  abnormalFactor?: {
+    /** 行商数量（不考虑模组） */
+    withMerchants?: number;
+  };
 }>();
 
 const cost = ref(props.originalCost || 10);
+/** 费用上限 */
+const limit = ref(99);
 
 setInterval(() => {
-  cost.value += 1;
+  if (cost.value < limit.value) cost.value += 1;
 }, 1000);
 
 setTimeout(() => {
   setInterval(() => {
-    cost.value -= 3;
+    const decrease = props?.abnormalFactor?.withMerchants || 0;
+    cost.value -= decrease * 3;
   }, 3000);
 }, 400);
 </script>
 
 <template>
-  <div>
+  <div :class="cost >= limit ? 'full' : ''">
     <span class="key"></span>
     <span class="value">{{ cost }}</span>
   </div>
@@ -59,6 +67,10 @@ div::after {
 div::after {
   background: #fff;
   animation: running 1s infinite linear;
+}
+
+.full::after {
+  animation: none;
 }
 
 .key {

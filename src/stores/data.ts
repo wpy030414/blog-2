@@ -4,6 +4,7 @@ import type { Article } from "@/types/Article";
 import type { Picture } from "@/types/Picture";
 import type { Project } from "@/types/Project";
 import type { Collection } from "@/types/Collection";
+import type { Program } from "@/types/Program";
 
 export const useDataStore = defineStore("data", () => {
   /** 是否使用静态化数据 */
@@ -46,24 +47,24 @@ export const useDataStore = defineStore("data", () => {
   async function getAmount(target: "articles" | "pictures" | "collections") {
     switch (target) {
       case "articles":
-        if (articlesTemp.value.length === 0)
+        if (articlesCache.value.length === 0)
           return (await getArticles()).length;
-        return articlesTemp.value.length;
+        return articlesCache.value.length;
       case "pictures":
-        if (picturesTemp.value.length === 0)
+        if (picturesCache.value.length === 0)
           return (await getPictures()).length;
-        return picturesTemp.value.length;
+        return picturesCache.value.length;
       case "collections":
-        if (collectionsTemp.value.length === 0)
+        if (collectionsCache.value.length === 0)
           return (await getCollections()).length;
-        return collectionsTemp.value.length;
+        return collectionsCache.value.length;
       default:
         return -1;
     }
   }
 
   /** 文章缓存 */
-  const articlesTemp: Ref<Article[]> = ref([]);
+  const articlesCache: Ref<Article[]> = ref([]);
 
   /**
    * 获取文章。
@@ -75,21 +76,30 @@ export const useDataStore = defineStore("data", () => {
     pageNum?: number,
     pageSize?: number,
   ): Promise<Article[]> {
-    if (articlesTemp.value.length === 0)
+    if (articlesCache.value.length === 0)
       if (useStatic.value) {
-        articlesTemp.value = await (
+        type ArticleRawEx = {
+          date: {
+            $date: string;
+          };
+        };
+        const raws: (Article | ArticleRawEx)[] = await (
           await fetch(staticDataURL.value.prefix + "articles.json")
         ).json();
+        raws.forEach((r) => {
+          r.date = new Date((r as ArticleRawEx).date.$date);
+          articlesCache.value.push(r as Article);
+        });
       } else {
       }
 
     if (pageNum && pageSize)
-      return getPagedData(articlesTemp.value, pageNum, pageSize) as Article[];
-    return articlesTemp.value;
+      return getPagedData(articlesCache.value, pageNum, pageSize) as Article[];
+    return articlesCache.value;
   }
 
   /** 照片缓存 */
-  const picturesTemp: Ref<Picture[]> = ref([]);
+  const picturesCache: Ref<Picture[]> = ref([]);
 
   /**
    * 获取图片。
@@ -101,7 +111,7 @@ export const useDataStore = defineStore("data", () => {
     pageNum?: number,
     pageSize?: number,
   ): Promise<Picture[]> {
-    if (picturesTemp.value.length === 0)
+    if (picturesCache.value.length === 0)
       if (useStatic.value) {
         let pictures: Picture[] = [];
         ((await getArticles()) as Article[]).forEach((a) => {
@@ -110,22 +120,22 @@ export const useDataStore = defineStore("data", () => {
             picsRaw.forEach((p) => {
               pictures.push({
                 id: a.id,
-                date: new Date(a.date.$date),
+                date: new Date(a.date),
                 url: (p.match(/!\[.*?\]\((.+?)\)/) as RegExpMatchArray)[1],
               });
             });
         });
-        picturesTemp.value = pictures;
+        picturesCache.value = pictures;
       } else {
       }
 
     if (pageNum && pageSize)
-      return getPagedData(picturesTemp.value, pageNum, pageSize) as Picture[];
-    return picturesTemp.value;
+      return getPagedData(picturesCache.value, pageNum, pageSize) as Picture[];
+    return picturesCache.value;
   }
 
   /** 项目缓存 */
-  const projectsTemp: Ref<Project[]> = ref([]);
+  const projectsCache: Ref<Project[]> = ref([]);
 
   /**
    * 获取文章。
@@ -137,21 +147,21 @@ export const useDataStore = defineStore("data", () => {
     pageNum?: number,
     pageSize?: number,
   ): Promise<Project[]> {
-    if (projectsTemp.value.length === 0)
+    if (projectsCache.value.length === 0)
       if (useStatic.value) {
-        projectsTemp.value = await (
+        projectsCache.value = await (
           await fetch(staticDataURL.value.prefix + "projects.json")
         ).json();
       } else {
       }
 
     if (pageNum && pageSize)
-      return getPagedData(projectsTemp.value, pageNum, pageSize) as Project[];
-    return projectsTemp.value;
+      return getPagedData(projectsCache.value, pageNum, pageSize) as Project[];
+    return projectsCache.value;
   }
 
   /** 收藏缓存 */
-  const collectionsTemp: Ref<Collection[]> = ref([]);
+  const collectionsCache: Ref<Collection[]> = ref([]);
 
   /**
    * 获取文章。
@@ -163,9 +173,9 @@ export const useDataStore = defineStore("data", () => {
     pageNum?: number,
     pageSize?: number,
   ): Promise<Collection[]> {
-    if (collectionsTemp.value.length === 0)
+    if (collectionsCache.value.length === 0)
       if (useStatic.value) {
-        collectionsTemp.value = await (
+        collectionsCache.value = await (
           await fetch(staticDataURL.value.prefix + "collections.json")
         ).json();
       } else {
@@ -173,15 +183,41 @@ export const useDataStore = defineStore("data", () => {
 
     if (pageNum && pageSize)
       return getPagedData(
-        collectionsTemp.value,
+        collectionsCache.value,
         pageNum,
         pageSize,
       ) as Collection[];
-    return collectionsTemp.value;
+    return collectionsCache.value;
   }
 
   /** 节目缓存 */
-  // const programsTemp: Ref<Program[]> = ref([]);
+  const programsCache: Ref<Program[]> = ref([]);
+
+  /**
+   * 获取节目。
+   */
+  async function getPrograms(): Promise<Program[]> {
+    if (programsCache.value.length === 0)
+      if (useStatic.value) {
+        type ProgramRawEx = {
+          releaseDate: {
+            $date: string;
+          };
+          urls: [string, string][];
+        };
+        const raws: (Program | ProgramRawEx)[] = await (
+          await fetch(staticDataURL.value.prefix + "programs.json")
+        ).json();
+        raws.forEach((r) => {
+          r.releaseDate = new Date((r as ProgramRawEx).releaseDate.$date);
+          r.urls = new Map((r as ProgramRawEx).urls);
+          programsCache.value.push(r as Program);
+        });
+      } else {
+      }
+
+    return programsCache.value;
+  }
 
   return {
     getAmount,
@@ -189,5 +225,6 @@ export const useDataStore = defineStore("data", () => {
     getPictures,
     getProjects,
     getCollections,
+    getPrograms,
   };
 });

@@ -29,12 +29,10 @@ async function reflash(needDisplayAtOnce?: boolean) {
   await useDataStore()
     .getArticles()
     .then((response) => {
-      if (response) {
-        articlesProxy.value = response;
-        if (needDisplayAtOnce) {
-          isReady.value = true;
-          handlePageNumChange(1);
-        }
+      articlesProxy.value = response;
+      if (needDisplayAtOnce) {
+        isReady.value = true;
+        handlePageNumChange(1);
       }
     });
 
@@ -43,7 +41,7 @@ async function reflash(needDisplayAtOnce?: boolean) {
     const a = articlesProxy.value.filter((a) => {
       return a.id === id;
     })[0];
-    if (a) usePageTitleStore().setPageTitle([a.category, a.title]);
+    if (a) usePageTitleStore().setPageTitle(["博客", a.category, a.title]);
     isIDGiven.value = true;
     search(id);
   } else usePageTitleStore().setPageTitle(["博客"]);
@@ -122,8 +120,8 @@ async function search(id?: string) {
       return (
         (category.length === 0 || category.includes(a.category)) &&
         (a.title.includes(content) || a.body.includes(content)) &&
-        dateFrom < new Date(a.date.$date) &&
-        new Date(a.date.$date) < dateTo
+        dateFrom < a.date &&
+        a.date < dateTo
       );
     });
 

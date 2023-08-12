@@ -88,10 +88,8 @@ const articles: Ref<Article[]> = ref([]);
 useDataStore()
   .getArticles(1, 2)
   .then((response) => {
-    if (response) {
-      articles.value = response;
-      isReady.value[0] = true;
-    }
+    articles.value = response;
+    isReady.value[0] = true;
   });
 
 /** 近期图片 */
@@ -100,10 +98,8 @@ const pictures: Ref<Picture[]> = ref([]);
 useDataStore()
   .getPictures(1, 3)
   .then((response) => {
-    if (response) {
-      pictures.value = response;
-      isReady.value[1] = true;
-    }
+    pictures.value = response;
+    isReady.value[1] = true;
   });
 
 /** 近期项目 */
@@ -112,10 +108,8 @@ const projects: Ref<Project[]> = ref([]);
 useDataStore()
   .getProjects(1, 4)
   .then((response) => {
-    if (response) {
-      projects.value = response;
-      isReady.value[2] = true;
-    }
+    projects.value = response;
+    isReady.value[2] = true;
   });
 </script>
 
@@ -149,7 +143,7 @@ useDataStore()
         <article-card
           v-for="c in articles"
           :data="c"
-          :isSimpleMode="true"
+          :is-simple-mode="true"
           @click="$router.push('/blog/' + c.id)"
         />
       </div>

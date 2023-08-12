@@ -4,11 +4,25 @@ defineProps<{
   go?: boolean;
   /** 是否被选中 */
   chosen?: boolean;
+  /** 跳转链接 */
+  to?: string;
 }>();
+
+/**
+ * 处理用户离开页面。
+ *
+ * @param url 外链
+ */
+function handleUserLeave(url: string) {
+  window.open(url, "_blank");
+}
 </script>
 
 <template>
-  <button :class="chosen ? 'chosen' : ''">
+  <button
+    :class="chosen ? 'chosen' : ''"
+    @click="to ? handleUserLeave(to) : void 0"
+  >
     <p :class="go ? 'go' : ''">
       <slot></slot>
     </p>

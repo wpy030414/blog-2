@@ -24,7 +24,7 @@ function spirit(i: number) {
       });
       break;
     case 1:
-      useThemeStore().changeTheme();
+      useThemeStore().changeDayTheme();
       break;
     case 2:
       const player = document.querySelector(".player") as HTMLAudioElement;

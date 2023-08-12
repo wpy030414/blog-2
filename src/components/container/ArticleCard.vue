@@ -9,15 +9,17 @@ defineProps<{
   data: Article;
   /** 是否为简单模式 */
   isSimpleMode?: boolean;
+  /** 是否为核心模式 */
+  isCoreMode?: boolean;
 }>();
 </script>
 
 <template>
   <card class="article" :class="isSimpleMode ? 'simple' : ''">
-    <h2 :id="data.id">{{ data.title }}</h2>
-    <p>
+    <h2 :id="isCoreMode ? '' : data.id">{{ data.title }}</h2>
+    <p v-if="!isCoreMode">
       <span class="date">
-        {{ new Date(data.date.$date).toISOString().slice(0, 10) }}
+        {{ data.date.toISOString().slice(0, 10) }}
       </span>
       <span class="category">
         {{ data.category }}

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import "@/assets/light.css";
 import "@/assets/dark.css";
-import "@/assets/pink.css";
-import "@/assets/yellow.css";
+import "@/assets/vermillion.css";
 import TopBar from "@/components/frame/TopBar.vue";
 import FooterBay from "@/components/frame/FooterBay.vue";
 import PageSpirit from "@/components/frame/PageSpirit.vue";

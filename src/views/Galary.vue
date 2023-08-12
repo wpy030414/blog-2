@@ -26,10 +26,8 @@ function reflash() {
   useDataStore()
     .getPictures(pageNum.value, pageSize.value)
     .then((response) => {
-      if (response) {
-        pagedData.value = response;
-        isReady.value = true;
-      }
+      pagedData.value = response;
+      isReady.value = true;
     });
 }
 

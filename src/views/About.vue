@@ -1,11 +1,25 @@
 <script setup lang="ts">
+import { type Ref, ref } from "vue";
+import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
-import TopicTitle from "@/components/basis/TopicTitle.vue";
+import Loading from "@/components/basis/Loading.vue";
+import ArticleCard from "@/components/container/ArticleCard.vue";
+import { useUniqueDataStore } from "@/stores/unique-data";
+
+/** 自述 */
+const readme: Ref<Article | undefined> = ref();
+
+useUniqueDataStore()
+  .getReadme()
+  .then((response) => {
+    readme.value = response;
+  });
 </script>
 
 <template>
   <contents-shell>
-    <topic-title>前面的区域，以后再来探索吧~</topic-title>
+    <loading v-if="!readme" />
+    <article-card v-if="readme" :data="readme" :is-core-mode="true" />
   </contents-shell>
 </template>
 

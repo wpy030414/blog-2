@@ -44,8 +44,12 @@ const router = createRouter({
       component: () => import("@/views/Sponsor.vue"),
     },
     {
-      path: "/wall",
-      component: () => import("@/views/Wall.vue"),
+      path: "/shrine",
+      component: () => import("@/views/Shrine.vue"),
+    },
+    {
+      path: "/easter-egg",
+      component: () => import("@/views/EasterEgg.vue"),
     },
   ],
 });

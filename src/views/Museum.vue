@@ -15,12 +15,10 @@ const figures: Ref<Collection[]> = ref([]);
 useDataStore()
   .getCollections()
   .then((response) => {
-    if (response) {
-      figures.value = response.filter((c) => {
-        return c.category === "figure";
-      });
-      isReady.value[0] = true;
-    }
+    figures.value = response.filter((c) => {
+      return c.category === "figure";
+    });
+    isReady.value[0] = true;
   });
 </script>
 
@@ -49,7 +47,11 @@ useDataStore()
 .cards-shell {
   display: grid;
   grid-gap: 27px;
-  margin-top: 7vh;
+  margin: 7vh 0 14vh;
+}
+
+.topic-shell:last-child > .cards-shell {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 1000px) {

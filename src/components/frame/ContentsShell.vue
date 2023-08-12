@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { goTop } from "@/util";
 
+defineProps<{
+  /** 自选背景 */
+  optionalBgi?: string;
+}>();
+
 goTop();
 </script>
 
 <template>
-  <section>
+  <section
+    :class="optionalBgi ? 'optional' : 'default'"
+    :style="optionalBgi ? `--bgi: url(${optionalBgi})` : ''"
+  >
     <slot></slot>
   </section>
 </template>
@@ -14,10 +22,16 @@ goTop();
 section {
   position: relative;
   padding: 15vh 12vw;
-  background: url("//img1.imgtp.com/2023/07/26/2kw8xtPm.png") right / contain
-    no-repeat;
+}
+
+section.default {
+  background: var(--theme-sub) url("//img1.imgtp.com/2023/07/26/2kw8xtPm.png")
+    right / contain no-repeat;
   background-attachment: fixed;
-  background-color: var(--theme-sub);
+}
+
+section.optional {
+  background: var(--bgi) center / cover no-repeat;
 }
 
 @media screen and (max-width: 1000px) {

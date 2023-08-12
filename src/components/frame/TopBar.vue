@@ -26,7 +26,7 @@ watch(
       "404": "404",
       about: "关于",
       sponsor: "赞助",
-      wall: "标语墙",
+      shrine: "赤牧神社",
     };
     usePageTitleStore().setPageTitle([pageTitleMap[pageName]]);
   },

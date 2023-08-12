@@ -1,12 +1,56 @@
 <script setup lang="ts">
+import { ref, type Ref } from "vue";
+import type { Program } from "@/types/Program";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import TopicTitle from "@/components/basis/TopicTitle.vue";
+import ProgramCard from "@/components/container/ProgramCard.vue";
+import { useDataStore } from "@/stores/data";
+
+/** 节目 */
+const programs: Ref<Program[]> = ref([]);
+/** 年份 */
+const years = ref(new Set<number>());
+
+useDataStore()
+  .getPrograms()
+  .then((response) => {
+    programs.value = response;
+    programs.value.forEach((p) => {
+      years.value.add(p.releaseDate.getFullYear());
+    });
+  });
 </script>
 
 <template>
-  <contents-shell>
-    <topic-title>前面的区域，以后再来探索吧~</topic-title>
+  <contents-shell class="years">
+    <div v-for="y in years" class="year">
+      <topic-title>{{ y }}</topic-title>
+      <div class="cards-shell">
+        <program-card
+          v-for="p in programs.filter((sp) => {
+            return sp.releaseDate.getFullYear() === y;
+          })"
+          :data="p"
+        />
+      </div>
+    </div>
   </contents-shell>
 </template>
 
-<style scoped></style>
+<style scoped>
+.cards-shell {
+  display: grid;
+  grid-gap: 27px;
+  margin: 7vh 0 9vh;
+}
+
+.year:last-child > .cards-shell {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .years {
+    padding: 10vh 6vw;
+  }
+}
+</style>

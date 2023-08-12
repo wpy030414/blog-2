@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { goOutside } from "@/util";
 import type { Collection } from "@/types/Collection";
 import Card from "@/components/basis/Card.vue";
 import GoButton from "../basis/GoButton.vue";
@@ -20,9 +19,7 @@ defineProps<{
       <p class="name">{{ data.name }}</p>
       <p class="subtitle">——“{{ data.subtitle }}”</p>
       <p class="description">{{ data.description }}</p>
-      <go-button :go="true" @click="goOutside(data.detail.url)"
-        >详情</go-button
-      >
+      <go-button :go="true" :to="data.detail.url">详情</go-button>
     </span>
   </card>
 </template>

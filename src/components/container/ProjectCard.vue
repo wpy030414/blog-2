@@ -2,7 +2,6 @@
 import type { Project } from "@/types/Project";
 import Card from "@/components/basis/Card.vue";
 import GoButton from "../basis/GoButton.vue";
-import { goOutside } from "@/util";
 
 defineProps<{
   /** 单数据 */
@@ -15,9 +14,7 @@ defineProps<{
     <span :style="`background-image: url(${data.picture.url});`"></span>
     <h2>{{ data.name }}</h2>
     <p>{{ data.description }}</p>
-    <go-button :go="true" @click="goOutside(data.detail.url)"
-      >详情</go-button
-    >
+    <go-button :go="true" :to="data.detail.url">详情</go-button>
   </card>
 </template>
 

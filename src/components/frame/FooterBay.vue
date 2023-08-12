@@ -7,10 +7,10 @@ const infos = ref([
   {
     title: "更多",
     items: [
-      { name: "自述", href: "/about" },
+      { name: "关于", href: "/about" },
       { name: "赞助", href: "/sponsor" },
-      { name: "标语墙", href: "/wall" },
-      { name: "蓝色记录", href: "/blue-record" },
+      { name: "赤牧神社", href: "/shrine" },
+      { name: "？", href: "/easter-egg" },
     ],
   },
   {

@@ -5,9 +5,7 @@ export interface Article {
   /** 标题 */
   title: string;
   /** 起笔日期 */
-  date: {
-    $date: string;
-  };
+  date: Date;
   /** 分类 */
   category: "主题长文章" | "随笔杂谈" | "评论" | "技术参考";
   /** Markdown 正文 */

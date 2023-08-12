@@ -1,11 +1,25 @@
 <script setup lang="ts">
+import { type Ref, ref } from "vue";
+import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
-import TopicTitle from "@/components/basis/TopicTitle.vue";
+import Loading from "@/components/basis/Loading.vue";
+import ArticleCard from "@/components/container/ArticleCard.vue";
+import { useUniqueDataStore } from "@/stores/unique-data";
+
+/** 赞助书 */
+const sponsorship: Ref<Article | undefined> = ref();
+
+useUniqueDataStore()
+  .getSponsorship()
+  .then((response) => {
+    sponsorship.value = response;
+  });
 </script>
 
 <template>
   <contents-shell>
-    <topic-title>前面的区域，以后再来探索吧~</topic-title>
+    <loading v-if="!sponsorship" />
+    <article-card v-if="sponsorship" :data="sponsorship" :is-core-mode="true" />
   </contents-shell>
 </template>
 
