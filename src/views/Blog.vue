@@ -16,6 +16,12 @@ const isReady = ref(false);
 
 /** 文章缓存代理 */
 const articlesProxy: Ref<Article[]> = ref([]);
+/** 现在应该展示的页数据 */
+const pagedData: Ref<Article[]> = ref([]);
+/** 页数 */
+const pageNum = ref(1);
+/** 页容量 */
+const pageSize = ref(5);
 
 /** 文章 ID 是否已指定 */
 const isIDGiven = ref(false);
@@ -29,7 +35,7 @@ async function reflash(needDisplayAtOnce?: boolean) {
   await useDataStore()
     .getArticles()
     .then((response) => {
-      articlesProxy.value = response;
+      articlesProxy.value = response.data;
       if (needDisplayAtOnce) {
         isReady.value = true;
         handlePageNumChange(1);
@@ -48,13 +54,6 @@ async function reflash(needDisplayAtOnce?: boolean) {
 }
 
 reflash(true);
-
-/** 页数 */
-const pageNum = ref(1);
-/** 页容量 */
-const pageSize = ref(5);
-/** 现在应该展示的页数据 */
-const pagedData: Ref<Article[]> = ref([]);
 
 /**
  * 获取总页数。
@@ -82,6 +81,23 @@ function handlePageNumChange(newPageNum: number) {
   pagedData.value = articlesProxy.value.slice(start, end);
 }
 
+/** 搜索参数 */
+const searchParas: Ref<{
+  categories: string[];
+  contents: string;
+  datePeriod: {
+    from: string;
+    to: string;
+  };
+}> = ref({
+  categories: [],
+  contents: "",
+  datePeriod: {
+    from: "",
+    to: "",
+  },
+});
+
 /**
  * 执行多重搜索。
  *
@@ -93,35 +109,20 @@ async function search(id?: string) {
       return a.id === id;
     });
   } else {
-    let category: string[] = [];
-    document.getElementsByName("blog-category").forEach((e) => {
-      const safeE = e as HTMLInputElement;
-      if (safeE.checked) category.push(safeE.value);
-    });
-
-    let content = (document.querySelector("#blog-content") as HTMLInputElement)
-      .value;
-
-    const dateFromE = document.querySelector(
-      "#blog-date-from",
-    ) as HTMLInputElement;
-    const dateToE = document.querySelector("#blog-date-to") as HTMLInputElement;
-    let dateFrom = dateFromE.value
-      ? new Date(dateFromE.value)
-      : new Date("1970-01-01");
-    let dateTo = dateToE.value
-      ? new Date(dateToE.value)
-      : new Date("2099-12-31");
-
     isReady.value = false;
     await reflash(false);
 
     articlesProxy.value = articlesProxy.value.filter((a) => {
       return (
-        (category.length === 0 || category.includes(a.category)) &&
-        (a.title.includes(content) || a.body.includes(content)) &&
-        dateFrom < a.date &&
-        a.date < dateTo
+        (!searchParas.value.categories.length ||
+          searchParas.value.categories.includes(a.category)) &&
+        (!searchParas.value.contents ||
+          a.title.includes(searchParas.value.contents) ||
+          a.body.includes(searchParas.value.contents)) &&
+        new Date(searchParas.value.datePeriod.from || "1970-01-01").getTime() <
+          a.date.getTime() &&
+        a.date.getTime() <
+          new Date(searchParas.value.datePeriod.to || "2099-12-31").getTime()
       );
     });
 
@@ -152,9 +153,9 @@ async function search(id?: string) {
         <div v-for="(cb, i) in ['主题长文章', '随笔杂谈', '评论', '技术参考']">
           <input
             type="checkbox"
-            name="blog-category"
             :id="`blog-category-${i}`"
             :value="cb"
+            v-model="searchParas.categories"
           />
           <label :for="`blog-category-${i}`">{{ cb }}</label>
         </div>
@@ -162,9 +163,8 @@ async function search(id?: string) {
         <div>
           <input
             type="text"
-            name="blog-content"
-            id="blog-content"
             placeholder="标题/正文"
+            v-model="searchParas.contents"
           />
         </div>
         <p class="assistant">按日期搜索</p>
@@ -175,7 +175,11 @@ async function search(id?: string) {
           ]"
         >
           <label :for="`blog-date-${d.en}`">{{ d.zh }}</label>
-          <input type="date" name="blog-date" :id="`blog-date-${d.en}`" />
+          <input
+            type="date"
+            :id="`blog-date-${d.en}`"
+            v-model="searchParas.datePeriod[d.en as 'from' | 'to']"
+          />
         </div>
         <go-button @click="search()">搜索</go-button>
       </card>

@@ -24,8 +24,8 @@ export const useDataStore = defineStore("data", () => {
    * @param pageNum 页数。从 1 开始计算
    * @param pageSize 页容量。必须是正整数
    */
-  function getPagedData(
-    unpagedData: unknown[],
+  function getPagedData<T>(
+    unpagedData: T[],
     pageNum: number,
     pageSize: number,
   ) {
@@ -39,35 +39,25 @@ export const useDataStore = defineStore("data", () => {
     return unpagedData.slice(start, end);
   }
 
-  /**
-   * 获取总量。这常常被分页机制需要。
-   *
-   * @param target 目标
-   */
-  async function getAmount(target: "articles" | "pictures" | "collections") {
-    switch (target) {
-      case "articles":
-        if (articlesCache.value.length === 0)
-          return (await getArticles()).length;
-        return articlesCache.value.length;
-      case "pictures":
-        if (picturesCache.value.length === 0)
-          return (await getPictures()).length;
-        return picturesCache.value.length;
-      case "collections":
-        if (collectionsCache.value.length === 0)
-          return (await getCollections()).length;
-        return collectionsCache.value.length;
-      default:
-        return -1;
-    }
-  }
+  /** 是否未初始化 */
+  const isUninitialized = ref(new Map([["articles", true]]));
+
+  /** 是否已初始化 */
+  const isInitialized = ref(
+    new Map([
+      ["articles", false],
+      ["pictures", false],
+      ["projects", false],
+      ["collections", false],
+      ["programs", false],
+    ]),
+  );
 
   /** 文章缓存 */
   const articlesCache: Ref<Article[]> = ref([]);
 
   /**
-   * 获取文章。
+   * 获取文章信息。
    *
    * @param pageNum 页数。
    * @param pageSize 页容量。
@@ -75,8 +65,9 @@ export const useDataStore = defineStore("data", () => {
   async function getArticles(
     pageNum?: number,
     pageSize?: number,
-  ): Promise<Article[]> {
-    if (articlesCache.value.length === 0)
+  ): Promise<{ data: Article[]; totalSize: number }> {
+    if (!isInitialized.value.get("articles")) {
+      isUninitialized.value.set("articles", false);
       if (useStatic.value) {
         type ArticleRawEx = {
           date: {
@@ -92,17 +83,25 @@ export const useDataStore = defineStore("data", () => {
         });
       } else {
       }
+      isInitialized.value.set("articles", true);
+    }
 
     if (pageNum && pageSize)
-      return getPagedData(articlesCache.value, pageNum, pageSize) as Article[];
-    return articlesCache.value;
+      return {
+        data: getPagedData(articlesCache.value, pageNum, pageSize),
+        totalSize: articlesCache.value.length,
+      };
+    return {
+      data: articlesCache.value,
+      totalSize: articlesCache.value.length,
+    };
   }
 
   /** 照片缓存 */
   const picturesCache: Ref<Picture[]> = ref([]);
 
   /**
-   * 获取图片。
+   * 获取图片信息。
    *
    * @param pageNum 页数。
    * @param pageSize 页容量。
@@ -110,35 +109,43 @@ export const useDataStore = defineStore("data", () => {
   async function getPictures(
     pageNum?: number,
     pageSize?: number,
-  ): Promise<Picture[]> {
-    if (picturesCache.value.length === 0)
+  ): Promise<{ data: Picture[]; totalSize: number }> {
+    if (!isInitialized.value.get("pictures")) {
+      while (
+        !isInitialized.value.get("articles") &&
+        !isUninitialized.value.get("articles")
+      )
+        await new Promise((resolve) => setTimeout(resolve, 100));
       if (useStatic.value) {
-        let pictures: Picture[] = [];
-        ((await getArticles()) as Article[]).forEach((a) => {
-          const picsRaw = a.body.match(/!\[.*?\]\(.+?\)/g);
-          if (picsRaw)
-            picsRaw.forEach((p) => {
-              pictures.push({
+        (await getArticles()).data.forEach((a) => {
+          const raws = a.body.match(/!\[.*?\]\(.+?\)/g);
+          if (raws)
+            raws.forEach((p) => {
+              picturesCache.value.push({
                 id: a.id,
                 date: new Date(a.date),
                 url: (p.match(/!\[.*?\]\((.+?)\)/) as RegExpMatchArray)[1],
               });
             });
         });
-        picturesCache.value = pictures;
       } else {
       }
+      isInitialized.value.set("pictures", true);
+    }
 
     if (pageNum && pageSize)
-      return getPagedData(picturesCache.value, pageNum, pageSize) as Picture[];
-    return picturesCache.value;
+      return {
+        data: getPagedData(picturesCache.value, pageNum, pageSize),
+        totalSize: picturesCache.value.length,
+      };
+    return { data: picturesCache.value, totalSize: picturesCache.value.length };
   }
 
   /** 项目缓存 */
   const projectsCache: Ref<Project[]> = ref([]);
 
   /**
-   * 获取文章。
+   * 获取项目信息。
    *
    * @param pageNum 页数。
    * @param pageSize 页容量。
@@ -146,47 +153,42 @@ export const useDataStore = defineStore("data", () => {
   async function getProjects(
     pageNum?: number,
     pageSize?: number,
-  ): Promise<Project[]> {
-    if (projectsCache.value.length === 0)
+  ): Promise<{ data: Project[]; totalSize: number }> {
+    if (!isInitialized.value.get("projects")) {
       if (useStatic.value) {
         projectsCache.value = await (
           await fetch(staticDataURL.value.prefix + "projects.json")
         ).json();
       } else {
       }
+      isInitialized.value.set("projects", true);
+    }
 
     if (pageNum && pageSize)
-      return getPagedData(projectsCache.value, pageNum, pageSize) as Project[];
-    return projectsCache.value;
+      return {
+        data: getPagedData(projectsCache.value, pageNum, pageSize),
+        totalSize: projectsCache.value.length,
+      };
+    return { data: projectsCache.value, totalSize: projectsCache.value.length };
   }
 
   /** 收藏缓存 */
   const collectionsCache: Ref<Collection[]> = ref([]);
 
   /**
-   * 获取文章。
-   *
-   * @param pageNum 页数。
-   * @param pageSize 页容量。
+   * 获取收藏信息。
    */
-  async function getCollections(
-    pageNum?: number,
-    pageSize?: number,
-  ): Promise<Collection[]> {
-    if (collectionsCache.value.length === 0)
+  async function getCollections(): Promise<Collection[]> {
+    if (!isInitialized.value.get("collections")) {
+      isInitialized.value.set("collections", true);
       if (useStatic.value) {
         collectionsCache.value = await (
           await fetch(staticDataURL.value.prefix + "collections.json")
         ).json();
       } else {
       }
+    }
 
-    if (pageNum && pageSize)
-      return getPagedData(
-        collectionsCache.value,
-        pageNum,
-        pageSize,
-      ) as Collection[];
     return collectionsCache.value;
   }
 
@@ -194,10 +196,11 @@ export const useDataStore = defineStore("data", () => {
   const programsCache: Ref<Program[]> = ref([]);
 
   /**
-   * 获取节目。
+   * 获取节目信息。
    */
   async function getPrograms(): Promise<Program[]> {
-    if (programsCache.value.length === 0)
+    if (!isInitialized.value.get("programs")) {
+      isInitialized.value.set("programs", true);
       if (useStatic.value) {
         type ProgramRawEx = {
           releaseDate: {
@@ -215,12 +218,12 @@ export const useDataStore = defineStore("data", () => {
         });
       } else {
       }
+    }
 
     return programsCache.value;
   }
 
   return {
-    getAmount,
     getArticles,
     getPictures,
     getProjects,

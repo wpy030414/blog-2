@@ -26,18 +26,13 @@ function reflash() {
   useDataStore()
     .getPictures(pageNum.value, pageSize.value)
     .then((response) => {
-      pagedData.value = response;
+      pagedData.value = response.data;
+      pageAmount.value = Math.ceil(response.totalSize / pageSize.value);
       isReady.value = true;
     });
 }
 
 reflash();
-
-useDataStore()
-  .getAmount("pictures")
-  .then((response) => {
-    pageAmount.value = Math.ceil(response / pageSize.value);
-  });
 
 watch(pageNum, reflash);
 </script>

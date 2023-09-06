@@ -88,7 +88,7 @@ const articles: Ref<Article[]> = ref([]);
 useDataStore()
   .getArticles(1, 2)
   .then((response) => {
-    articles.value = response;
+    articles.value = response.data;
     isReady.value[0] = true;
   });
 
@@ -98,7 +98,7 @@ const pictures: Ref<Picture[]> = ref([]);
 useDataStore()
   .getPictures(1, 3)
   .then((response) => {
-    pictures.value = response;
+    pictures.value = response.data;
     isReady.value[1] = true;
   });
 
@@ -108,7 +108,7 @@ const projects: Ref<Project[]> = ref([]);
 useDataStore()
   .getProjects(1, 4)
   .then((response) => {
-    projects.value = response;
+    projects.value = response.data;
     isReady.value[2] = true;
   });
 </script>

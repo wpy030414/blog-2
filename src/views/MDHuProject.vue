@@ -2,9 +2,13 @@
 import { ref, type Ref } from "vue";
 import type { Program } from "@/types/Program";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
+import Loading from "@/components/basis/Loading.vue";
 import TopicTitle from "@/components/basis/TopicTitle.vue";
 import ProgramCard from "@/components/container/ProgramCard.vue";
 import { useDataStore } from "@/stores/data";
+
+/** 是否已准备好数据 */
+const isReady = ref(false);
 
 /** 节目 */
 const programs: Ref<Program[]> = ref([]);
@@ -23,7 +27,8 @@ useDataStore()
 
 <template>
   <contents-shell class="years">
-    <div v-for="y in years" class="year">
+    <loading v-if="!isReady" />
+    <div v-if="isReady" v-for="y in years" class="year">
       <topic-title>{{ y }}</topic-title>
       <div class="cards-shell">
         <program-card
