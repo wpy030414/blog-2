@@ -22,28 +22,24 @@ defineProps<{
 .project {
   position: relative;
   padding: 1.5em 1.8em;
-}
-
-.project span {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background-size: cover;
-  -webkit-mask-image: linear-gradient(to left, #000, transparent);
-  opacity: 0.9;
-  filter: blur(2px);
-}
-
-.project h2 {
-  color: var(--g-c-main);
-  font-size: 28px;
-}
-
-.project p {
-  margin: 0.3em 0 1.8em;
-  color: var(--g-c-sub);
+  & span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    -webkit-mask-image: linear-gradient(to left, #000, transparent);
+    opacity: 0.9;
+    filter: blur(2px);
+  }
+  & h2 {
+    color: var(--g-c-main);
+    font-size: 28px;
+  }
+  & p {
+    margin: 0.3em 0 1.8em;
+    color: var(--g-c-sub);
+  }
 }
 </style>

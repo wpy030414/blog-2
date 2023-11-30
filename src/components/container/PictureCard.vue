@@ -18,19 +18,18 @@ defineProps<{
 <style scoped>
 .picture {
   user-select: none;
-}
+  & span {
+    display: block;
+    margin: 5% 5% 0;
+    padding-top: 90%;
+    background-size: cover;
+    border-radius: 10px;
+  }
 
-.picture span {
-  display: block;
-  margin: 5% 5% 0;
-  padding-top: 90%;
-  background-size: cover;
-  border-radius: 10px;
-}
-
-.picture p {
-  margin: 1em 0 1.2em;
-  color: var(--g-c-sub);
-  text-indent: 5%;
+  & p {
+    margin: 1em 0 1.2em;
+    color: var(--g-c-sub);
+    text-indent: 5%;
+  }
 }
 </style>

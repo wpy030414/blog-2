@@ -17,9 +17,8 @@ div {
   border-radius: 15px;
   box-shadow: 0 0 18px #3333330d;
   overflow: hidden;
-}
-
-.need-margin {
-  margin-bottom: 27px;
+  &.need-margin {
+    margin-bottom: 27px;
+  }
 }
 </style>

@@ -31,7 +31,6 @@ function handleUserLeave(url: string) {
 
 <style scoped>
 button {
-  margin-right: 1.5em;
   padding: 1em;
   outline: none;
   border: 2.7px solid var(--theme-main);
@@ -40,28 +39,25 @@ button {
   color: var(--theme-main);
   font-weight: bold;
   letter-spacing: 1px;
-}
-
-button.chosen {
-  background: var(--g-bg-c);
-}
-
-button > p::after {
-  position: relative;
-  left: 0px;
-  transition: all 0.2s;
-}
-
-button > p.go::after {
-  content: " >";
-}
-
-button:hover > p::after {
-  left: 3px;
-}
-
-button:disabled {
-  border: 2.7px solid var(--g-c-sub);
-  color: var(--g-c-sub);
+  &.chosen {
+    background: var(--g-bg-c);
+  }
+  & p {
+    &::after {
+      position: relative;
+      left: 0px;
+      transition: all 0.2s;
+    }
+    &.go::after {
+      content: " >";
+    }
+  }
+  &:hover > p::after {
+    left: 3px;
+  }
+  &:disabled {
+    border: 2.7px solid var(--g-c-sub);
+    color: var(--g-c-sub);
+  }
 }
 </style>

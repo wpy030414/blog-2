@@ -2,7 +2,6 @@
 import type { Article } from "@/types/Article";
 import Card from "@/components/basis/Card.vue";
 import Md2Html from "@/components/basis/Md2Html.vue";
-import GoButton from "@/components/basis/GoButton.vue";
 
 defineProps<{
   /** 单数据 */
@@ -40,65 +39,58 @@ defineProps<{
   border-radius: 16px;
   overflow: hidden;
   background: var(--g-bg-c);
-}
-
-.article h2 {
-  opacity: 0.9;
-  color: var(--g-c-main);
-  font-size: 30px;
-}
-
-.article h2::before {
-  content: "# ";
-  color: var(--theme-main);
-}
-
-.article .date {
-  position: absolute;
-  top: 11px;
-  right: 42px;
-  width: 6em;
-  opacity: 0.05;
-  user-select: none;
-  color: var(--g-c-main);
-  text-align: right;
-  font-size: 64px;
-  font-weight: bold;
-}
-
-.article .category {
-  position: absolute;
-  top: 0;
-  right: 32px;
-  padding: 2px 1em;
-  border-radius: 0 0 4px 4px;
-  background: var(--theme-main);
-  color: var(--g-bg-c);
-}
-
-.simple {
-  margin-bottom: 0;
-  height: 388px;
-}
-
-.simple::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(to bottom, transparent, var(--g-bg-c) 90%);
+  & h2 {
+    opacity: 0.9;
+    color: var(--g-c-main);
+    font-size: 30px;
+    &::before {
+      content: "# ";
+      color: var(--theme-main);
+    }
+  }
+  & .date {
+    position: absolute;
+    top: 11px;
+    right: 42px;
+    width: 6em;
+    opacity: 0.05;
+    user-select: none;
+    color: var(--g-c-main);
+    text-align: right;
+    font-size: 64px;
+    font-weight: bold;
+  }
+  & .category {
+    position: absolute;
+    top: 0;
+    right: 32px;
+    padding: 2px 1em;
+    border-radius: 0 0 4px 4px;
+    background: var(--theme-main);
+    color: var(--g-bg-c);
+  }
+  &.simple {
+    margin-bottom: 0;
+    height: 388px;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(to bottom, transparent, var(--g-bg-c) 90%);
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
   .article {
     padding: 2.4em 1.5em;
-  }
-
-  .article .date {
-    transform-origin: 100% 0;
-    transform: rotate(-90deg) translate(-10vw, -10vh);
+    & .date {
+      transform-origin: 100% 0;
+      transform: rotate(-90deg) translate(-10vw, -10vh);
+    }
   }
 }
 </style>

@@ -53,7 +53,7 @@ function spirit(i: number) {
 <style scoped>
 .buttons {
   position: fixed;
-  z-index: 900;
+  z-index: 990;
   bottom: 36px;
   right: 36px;
   --div-width: 50px;

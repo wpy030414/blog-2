@@ -48,13 +48,13 @@ function getColor(theme: Theme, layer: "b" | "f") {
         points="42,16 86,32 78,85 47,73"
         :style="`fill: ${getColor(theme, 'f')};`"
       />
-      <polygon class="door-shadow" points="47,73 78,85 78,100 0,100" />
+      <polygon points="47,73 78,85 78,100 0,100" />
     </svg>
   </span>
 </template>
 
 <style scoped>
-.door-shadow {
+polygon {
   fill: #efefef;
 }
 </style>

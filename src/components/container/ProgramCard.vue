@@ -19,7 +19,7 @@ const ssnMap = ref(
 
 <template>
   <card class="program">
-    <span class="basic-info">
+    <span>
       <span class="name">
         <p>
           {{ data.name }}
@@ -41,50 +41,44 @@ const ssnMap = ref(
 <style scoped>
 .program {
   padding: 1.5em;
-}
-
-.program > span {
-  display: inline-block;
-  color: var(--g-c-main);
-}
-
-.program > .urls {
-  float: right;
-  display: flex;
-  align-items: center;
-  height: 59.2px;
-}
-
-.program > .urls a {
-  margin-left: 1em;
-}
-
-.name > p {
-  font-size: 22px;
-}
-
-.name > p > i {
-  color: var(--g-c-sub);
-  font-style: normal;
-}
-
-.date > p {
-  margin: 0.3em 0 0;
+  & > span {
+    display: inline-block;
+    color: var(--g-c-main);
+    & .name > p {
+      font-size: 22px;
+      & > i {
+        color: var(--g-c-sub);
+        font-style: normal;
+      }
+    }
+    & .date > p {
+      margin: 0.3em 0 0;
+    }
+  }
+  & > .urls {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 59.2px;
+    & a {
+      margin-left: 1em;
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
-  .program > .urls {
-    float: none;
-    display: block;
-    height: auto;
-  }
-
-  .program > .urls a {
-    margin: 0 1em 0 0;
-  }
-
-  .date > p {
-    margin: 0.3em 0 0.6em;
+  .program {
+    & .date > p {
+      margin: 0.3em 0 0.6em;
+    }
+    & > .urls {
+      float: none;
+      display: block;
+      height: auto;
+      & a {
+        margin: 0 1em 0 0;
+      }
+    }
   }
 }
 </style>

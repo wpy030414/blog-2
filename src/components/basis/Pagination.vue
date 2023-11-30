@@ -32,15 +32,10 @@ defineEmits(["update:pageNum"]);
 div {
   margin-top: 2em;
   text-align: center;
-}
-
-button {
-  margin: 0;
-}
-
-span {
-  margin: 0 2em;
-  color: var(--g-c-main);
-  user-select: none;
+  & span {
+    margin: 0 2em;
+    color: var(--g-c-main);
+    user-select: none;
+  }
 }
 </style>

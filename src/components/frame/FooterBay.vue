@@ -30,7 +30,7 @@ const infos = ref([
 
 <template>
   <footer>
-    <div class="card-shell">
+    <div>
       <ul class="card h-card">
         <li>
           <h4>Penyo Development</h4>
@@ -73,11 +73,10 @@ footer {
   background-position:
     0 0,
     15px 15px;
-}
-
-.card-shell {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  & div {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 .card {

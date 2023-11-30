@@ -11,10 +11,10 @@ goTop();
 
 <template>
   <section
-    :class="optionalBgi ? 'optional' : 'default'"
+    :class="optionalBgi ? 'optional' : ''"
     :style="optionalBgi ? `--bgi: url(${optionalBgi})` : ''"
   >
-    <slot></slot>
+    <slot class="slot"></slot>
   </section>
 </template>
 
@@ -22,16 +22,13 @@ goTop();
 section {
   position: relative;
   padding: 15vh 12vw;
-}
-
-section.default {
-  background: var(--theme-sub) url("//img1.imgtp.com/2023/07/26/2kw8xtPm.png")
+  background: var(--theme-sub)
+    url("//prts.wiki/images/5/50/立绘_纯烬艾雅法拉_1.png?image_process=format,webp/quality,Q_10")
     right / contain no-repeat;
   background-attachment: fixed;
-}
-
-section.optional {
-  background: var(--bgi) center / cover no-repeat;
+  &.optional {
+    background: var(--bgi) center / cover no-repeat;
+  }
 }
 
 @media screen and (max-width: 1000px) {

@@ -22,7 +22,7 @@ watch(
       // 博客页面的页标题状态交由 Blog.vue 托管
       galary: "相册",
       museum: "展馆",
-      "mdhu-project": "MDHu Project",
+      "project-mdhu": "Project MDHu",
       "404": "404",
       about: "关于",
       sponsor: "赞助",
@@ -38,7 +38,7 @@ const menu = ref([
   { icon: mdiPen, href: "/blog" },
   { icon: mdiImage, href: "/galary" },
   { icon: mdiStar, href: "/museum" },
-  { icon: mdiArchiveMusic, href: "/mdhu-project" },
+  { icon: mdiArchiveMusic, href: "/project-mdhu" },
 ]);
 
 /** 是否（可能）在移动端上 */
@@ -77,7 +77,7 @@ const isMenuPoped = ref(false);
 <style scoped>
 header {
   position: sticky;
-  z-index: 999;
+  z-index: 900;
   top: 0;
   --header-height: 60px;
   height: var(--header-height);
@@ -88,7 +88,7 @@ header {
 header > button {
   display: none;
   position: absolute;
-  z-index: 1000;
+  z-index: 910;
   top: 17px;
   left: 24px;
   width: 24px;
@@ -128,7 +128,6 @@ header > ul > li > a {
 header > ul > li > a:hover::before {
   content: "";
   position: absolute;
-  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;
@@ -162,7 +161,6 @@ header > ul > li > a > * {
 
   header > ul {
     position: relative;
-    z-index: 800;
     width: 100vw;
     top: 60px;
     left: 0;

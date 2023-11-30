@@ -32,8 +32,8 @@ const router = createRouter({
       component: () => import("@/views/Museum.vue"),
     },
     {
-      path: "/mdhu-project",
-      component: () => import("@/views/MDHuProject.vue"),
+      path: "/project-mdhu",
+      component: () => import("@/views/ProjectMDHu.vue"),
     },
     {
       path: "/about",

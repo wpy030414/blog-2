@@ -64,7 +64,7 @@ const socials = ref([
   },
   {
     href: "//t.me/penyoofficial",
-    path: "//www.telegcn.org/img/t_logo.svg",
+    path: "//web.tel.onl/assets/img/favicon-32x32.png",
     title: "Telegram",
   },
 ]);
