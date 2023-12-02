@@ -12,7 +12,7 @@ export const useDataStore = defineStore("data", () => {
   /** 静态数据地址 */
   const staticDataURL = ref({
     /** 通用前缀 */
-    prefix: "//raw.githubusercontent.com/penyoofficial/penyo-portal-rd/main/",
+    prefix: "//raw.githubusercontent.com/pen-yo/penyo-portal-rd/main/",
   });
   /** 动态数据地址 */
   const dynamicDataURL = ref({});

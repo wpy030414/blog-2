@@ -22,6 +22,7 @@ useDataStore()
     programs.value.forEach((p) => {
       years.value.add(p.releaseDate.getFullYear());
     });
+    isReady.value = true;
   });
 </script>
 

@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "format": "prettier --write src/* src/*/* src/*/*/*"
+    "format": "prettier --w **/*"
   },
   "dependencies": {
     "@mdi/js": "^7.2.96",

@@ -33,7 +33,7 @@ document.addEventListener("mousemove", (event) => {
 /** 社交网站外链 */
 const socials = ref([
   {
-    href: "//github.com/penyoofficial/",
+    href: "//github.com/pen-yo/",
     path: "//icons.bootcss.com/assets/icons/github.svg",
     title: "GitHub",
   },
