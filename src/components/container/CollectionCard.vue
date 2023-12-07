@@ -28,14 +28,17 @@ defineProps<{
 .collection {
   --pic-width: 300px;
   height: var(--pic-width);
+
   & span {
     display: inline-block;
   }
+
   & .img {
     width: var(--pic-width);
     height: var(--pic-width);
     background: no-repeat 50% -24% / 144%;
   }
+
   & .text {
     --padding-top: 5vh;
     --padding-right: 3vw;
@@ -44,13 +47,16 @@ defineProps<{
     height: calc(var(--pic-width) - var(--padding-top) * 2);
     overflow-y: hidden;
     color: var(--g-c-main);
+
     & .name {
       font-size: 24px;
     }
+
     & .subtitle {
       margin-top: 0.6em;
       font-style: italic;
     }
+
     & .description {
       margin: 1.2em 0;
       color: var(--g-c-sub);
@@ -62,11 +68,13 @@ defineProps<{
   .collection {
     --pic-width: 500px;
     height: auto;
+
     & .img {
       width: 100%;
       height: auto;
       padding-top: 100%;
     }
+
     & .text {
       --padding-top: 2vh;
       --padding-right: 5vw;
@@ -75,9 +83,11 @@ defineProps<{
       margin-bottom: 0.6em;
       width: calc(100% - var(--padding-right) * 2);
       height: auto;
+
       & .name {
         font-size: 18px;
       }
+
       & .subtitle {
         font-size: 12px;
       }

@@ -32,6 +32,7 @@ defineEmits(["update:pageNum"]);
 div {
   margin-top: 2em;
   text-align: center;
+
   & span {
     margin: 0 2em;
     color: var(--g-c-main);

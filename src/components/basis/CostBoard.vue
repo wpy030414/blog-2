@@ -51,6 +51,7 @@ div {
   height: 1.5em;
   background: rgba(0, 0, 0, 0.7);
   user-select: none;
+
   &::before,
   &::after {
     content: "";
@@ -61,13 +62,16 @@ div {
     height: 0.15em;
     background: rgba(0, 0, 0, 0.3);
   }
+
   &::after {
     background: #fff;
     animation: running 1s infinite linear;
   }
+
   &.full::after {
     animation: none;
   }
+
   & .key {
     position: absolute;
     top: 0.36em;
@@ -87,6 +91,7 @@ div {
       font-weight: bold;
     }
   }
+
   & .value {
     position: absolute;
     top: -0.06em;

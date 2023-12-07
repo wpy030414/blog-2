@@ -18,6 +18,7 @@ h1 {
   text-shadow: 0.1em 0.1em 0 var(--g-bg-c);
   font-size: 44px;
   user-select: none;
+
   &::before {
     content: var(--logo);
     position: absolute;

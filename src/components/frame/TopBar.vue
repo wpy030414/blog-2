@@ -83,70 +83,80 @@ header {
   height: var(--header-height);
   background: var(--theme-main);
   text-align: center;
-}
 
-header > button {
-  display: none;
-  position: absolute;
-  z-index: 910;
-  top: 17px;
-  left: 24px;
-  width: 24px;
-  height: 24px;
-  background: transparent;
-  border: none;
-  outline: none;
-  transform: scale(1.25);
-}
+  & > button {
+    display: none;
+    position: absolute;
+    z-index: 910;
+    top: 17px;
+    left: 24px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    outline: none;
+    transform: scale(1.25);
+  }
 
-header > h1 {
-  position: absolute;
-  left: 2em;
-  color: #fff;
-  font-family: "Novecento";
-  line-height: var(--header-height);
-  transform: translateY(-3.5px);
-  user-select: none;
-}
+  & > h1 {
+    position: absolute;
+    left: 2em;
+    color: #fff;
+    font-family: "Novecento";
+    line-height: var(--header-height);
+    transform: translateY(-3.5px);
+    user-select: none;
+  }
 
-header > ul,
-header > ul > li,
-header > ul > li > a {
-  display: inline-block;
-  height: var(--header-height);
-}
+  & > ul,
+  & > ul > li,
+  & > ul > li > a {
+    display: inline-block;
+    height: var(--header-height);
+  }
 
-header > ul > li > a {
-  position: relative;
-  width: 75px;
-  height: 40px;
-  margin: 10px 0;
-  border-radius: 4px;
-  overflow: hidden;
-}
+  & > ul > li > a {
+    position: relative;
+    width: 75px;
+    height: 40px;
+    margin: 10px 0;
+    border-radius: 4px;
+    overflow: hidden;
 
-header > ul > li > a:hover::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-}
+    & > * {
+      transform: scale(1.25) translateY(6.5px);
+    }
 
-header > ul > li > a > * {
-  transform: scale(1.25) translateY(6.5px);
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
-  header > button {
-    display: block;
-  }
+  header {
+    & > button {
+      display: block;
+    }
 
-  header > h1 {
-    left: 0;
-    width: 100%;
+    & > h1 {
+      left: 0;
+      width: 100%;
+    }
+
+    & > ul {
+      position: relative;
+      width: 100vw;
+      top: 60px;
+      left: 0;
+      background: var(--theme-main);
+    }
   }
 
   .menu-enter-active,
@@ -157,14 +167,6 @@ header > ul > li > a > * {
   .menu-enter-from,
   .menu-leave-to {
     left: -100vw;
-  }
-
-  header > ul {
-    position: relative;
-    width: 100vw;
-    top: 60px;
-    left: 0;
-    background: var(--theme-main);
   }
 }
 </style>

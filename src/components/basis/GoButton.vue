@@ -39,22 +39,27 @@ button {
   color: var(--theme-main);
   font-weight: bold;
   letter-spacing: 1px;
+
   &.chosen {
     background: var(--g-bg-c);
   }
+
   & p {
     &::after {
       position: relative;
       left: 0px;
       transition: all 0.2s;
     }
+
     &.go::after {
       content: " >";
     }
   }
+
   &:hover > p::after {
     left: 3px;
   }
+
   &:disabled {
     border: 2.7px solid var(--g-c-sub);
     color: var(--g-c-sub);

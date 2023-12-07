@@ -18,6 +18,7 @@ defineProps<{
 <style scoped>
 .picture {
   user-select: none;
+
   & span {
     display: block;
     margin: 5% 5% 0;

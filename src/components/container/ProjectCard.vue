@@ -22,6 +22,7 @@ defineProps<{
 .project {
   position: relative;
   padding: 1.5em 1.8em;
+
   & span {
     position: absolute;
     top: 0;
@@ -33,10 +34,12 @@ defineProps<{
     opacity: 0.9;
     filter: blur(2px);
   }
+
   & h2 {
     color: var(--g-c-main);
     font-size: 28px;
   }
+
   & p {
     margin: 0.3em 0 1.8em;
     color: var(--g-c-sub);

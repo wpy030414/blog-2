@@ -39,15 +39,18 @@ defineProps<{
   border-radius: 16px;
   overflow: hidden;
   background: var(--g-bg-c);
+
   & h2 {
     opacity: 0.9;
     color: var(--g-c-main);
     font-size: 30px;
+
     &::before {
       content: "# ";
       color: var(--theme-main);
     }
   }
+
   & .date {
     position: absolute;
     top: 11px;
@@ -60,6 +63,7 @@ defineProps<{
     font-size: 64px;
     font-weight: bold;
   }
+
   & .category {
     position: absolute;
     top: 0;
@@ -69,9 +73,11 @@ defineProps<{
     background: var(--theme-main);
     color: var(--g-bg-c);
   }
+
   &.simple {
     margin-bottom: 0;
     height: 388px;
+
     &::after {
       content: "";
       position: absolute;
@@ -87,6 +93,7 @@ defineProps<{
 @media screen and (max-width: 1000px) {
   .article {
     padding: 2.4em 1.5em;
+
     & .date {
       transform-origin: 100% 0;
       transform: rotate(-90deg) translate(-10vw, -10vh);

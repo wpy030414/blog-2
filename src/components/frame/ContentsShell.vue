@@ -26,6 +26,7 @@ section {
     url("//prts.wiki/images/5/50/立绘_纯烬艾雅法拉_1.png?image_process=format,webp/quality,Q_10")
     right / contain no-repeat;
   background-attachment: fixed;
+
   &.optional {
     background: var(--bgi) center / cover no-repeat;
   }

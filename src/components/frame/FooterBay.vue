@@ -23,7 +23,10 @@ const infos = ref([
   },
   {
     title: "服务支持",
-    items: [{ name: "聚合图床", href: "//www.superbed.cn/" }],
+    items: [
+      { name: "聚合图床", href: "//www.superbed.cn/" },
+      { name: "木星计划", href: "//pen-yo.github.io/project-jupiter/" },
+    ],
   },
 ]);
 </script>
@@ -64,43 +67,6 @@ const infos = ref([
 </template>
 
 <style scoped>
-footer {
-  padding: 8.1vh 12vw;
-  background-color: var(--g-bg-c);
-  background-image: radial-gradient(var(--theme-main-tp) 10%, transparent 0),
-    radial-gradient(var(--theme-main-tp) 10%, transparent 0);
-  background-size: 30px 30px;
-  background-position:
-    0 0,
-    15px 15px;
-  & div {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-.card {
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: 7.2vh;
-  color: var(--g-c-main);
-}
-
-.card > h4 {
-  margin-bottom: 1.2em;
-  font-size: 20px;
-}
-
-.card > li {
-  margin-bottom: 1.2em;
-  transform: translateX(1em);
-  color: var(--theme-main);
-}
-
-.card > li > a {
-  position: relative;
-}
-
 @keyframes running {
   0% {
     left: 0;
@@ -111,65 +77,102 @@ footer {
   }
 }
 
-.card > li > a:hover::before {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 16px;
-  height: 2px;
-  background: var(--theme-main);
-  animation: running 1s infinite;
-}
+footer {
+  padding: 8.1vh 12vw;
+  background-color: var(--g-bg-c);
+  background-image: radial-gradient(var(--theme-main-tp) 10%, transparent 0),
+    radial-gradient(var(--theme-main-tp) 10%, transparent 0);
+  background-size: 30px 30px;
+  background-position:
+    0 0,
+    15px 15px;
 
-.card > li > a {
-  color: var(--theme-main);
-  text-decoration: none;
-}
+  & > div {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
 
-.h-card {
-  width: 300px;
-  user-select: none;
-}
+  & .card {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 7.2vh;
+    color: var(--g-c-main);
 
-.h-card > li {
-  list-style: none;
-  transform: none;
-}
+    & > h4 {
+      margin-bottom: 1.2em;
+      font-size: 20px;
+    }
 
-.h-card > li > h4 {
-  position: relative;
-  margin-bottom: 1em;
-}
+    & > li {
+      margin-bottom: 1.2em;
+      transform: translateX(1em);
+      color: var(--theme-main);
+    }
 
-.h-card > li > h4::before {
-  content: "";
-  position: absolute;
-  bottom: -0.6em;
-  width: 70%;
-  height: 1.5px;
-  background: var(--theme-main);
-}
+    & > li > a {
+      position: relative;
 
-.site-info {
-  color: var(--g-c-main);
-  font-size: 15px;
-}
+      &:hover::before {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 16px;
+        height: 2px;
+        background: var(--theme-main);
+        color: var(--theme-main);
+        text-decoration: none;
+        animation: running 1s infinite;
+      }
+    }
+  }
 
-.site-info > a {
-  float: right;
-  color: var(--g-c-sub);
-  text-decoration: none;
+  & .h-card {
+    width: 300px;
+    user-select: none;
+
+    & > li {
+      list-style: none;
+      transform: none;
+
+      & > h4 {
+        position: relative;
+        margin-bottom: 1em;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: -0.6em;
+          width: 70%;
+          height: 1.5px;
+          background: var(--theme-main);
+        }
+      }
+    }
+  }
+
+  .site-info {
+    color: var(--g-c-main);
+    font-size: 15px;
+
+    & > a {
+      float: right;
+      color: var(--g-c-sub);
+      text-decoration: none;
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
-  .card-shell {
-    grid-template-columns: 1fr;
-  }
+  footer {
+    & > div {
+      grid-template-columns: 1fr;
+    }
 
-  .site-info > a {
-    float: none;
-    display: block;
+    & .site-info > a {
+      float: none;
+      display: block;
+    }
   }
 }
 </style>

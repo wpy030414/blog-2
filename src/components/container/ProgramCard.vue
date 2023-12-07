@@ -41,25 +41,31 @@ const ssnMap = ref(
 <style scoped>
 .program {
   padding: 1.5em;
+
   & > span {
     display: inline-block;
     color: var(--g-c-main);
+
     & .name > p {
       font-size: 22px;
+
       & > i {
         color: var(--g-c-sub);
         font-style: normal;
       }
     }
+
     & .date > p {
       margin: 0.3em 0 0;
     }
   }
+
   & > .urls {
     float: right;
     display: flex;
     align-items: center;
     height: 59.2px;
+
     & a {
       margin-left: 1em;
     }
@@ -71,10 +77,12 @@ const ssnMap = ref(
     & .date > p {
       margin: 0.3em 0 0.6em;
     }
+
     & > .urls {
       float: none;
       display: block;
       height: auto;
+
       & a {
         margin: 0 1em 0 0;
       }

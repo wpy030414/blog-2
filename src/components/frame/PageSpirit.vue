@@ -58,23 +58,23 @@ function spirit(i: number) {
   right: 36px;
   --div-width: 50px;
   width: var(--div-width);
-}
 
-.buttons > button {
-  width: var(--div-width);
-  height: var(--div-width);
-  margin-top: 15px;
-  background: var(--theme-main);
-  border: none;
-  outline: none;
-  border-radius: calc(var(--div-width) / 2);
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
-}
+  & > button {
+    width: var(--div-width);
+    height: var(--div-width);
+    margin-top: 15px;
+    background: var(--theme-main);
+    border: none;
+    outline: none;
+    border-radius: calc(var(--div-width) / 2);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
 
-.buttons > button:active {
-  transform: scale(0.9);
-  transition: none;
+    &:active {
+      transform: scale(0.9);
+      transition: none;
+    }
+  }
 }
 
 .player {

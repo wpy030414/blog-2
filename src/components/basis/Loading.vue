@@ -21,6 +21,7 @@ div {
   --height: 40px;
   height: var(--height);
   overflow: hidden;
+
   &::before {
     content: "";
     position: absolute;
