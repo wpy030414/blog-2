@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="blog-body" v-html="marked.parse(md, { mangle: false })"></div>
+  <div class="blog-body" v-html="marked.parse(md)"></div>
 </template>
 
 <style>

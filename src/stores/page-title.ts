@@ -4,8 +4,6 @@ import { ref } from "vue";
 export const usePageTitleStore = defineStore("page-title", () => {
   /** 通用后缀 */
   const postfix = ref("Penyo 门户 | Penyo Portal");
-  /** 页标题“持有者” */
-  const holder = document.querySelector("#page-title") as HTMLTitleElement;
 
   /**
    * 设置页标题。
@@ -17,7 +15,7 @@ export const usePageTitleStore = defineStore("page-title", () => {
     parts.forEach((p) => {
       if (p) temp = p + " - " + temp;
     });
-    holder.innerText = temp;
+    document.title = temp;
   }
 
   return { setPageTitle };
