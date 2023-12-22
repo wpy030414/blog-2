@@ -1,4 +1,6 @@
-/** 节目 */
+/**
+ * 节目
+ */
 export interface Program {
   /** 名称 */
   name: string;

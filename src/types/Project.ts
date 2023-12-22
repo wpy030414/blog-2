@@ -1,4 +1,6 @@
-/** 项目 */
+/**
+ * 项目
+ */
 export interface Project {
   /** 名称 */
   name: string;

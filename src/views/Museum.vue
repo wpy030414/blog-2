@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 import type { Collection } from "@/types/Collection";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
@@ -10,7 +10,7 @@ import { useDataStore } from "@/stores/data";
 /** 是否已准备好数据 */
 const isReady = ref([false]);
 
-const figures: Ref<Collection[]> = ref([]);
+const figures = ref<Collection[]>([]);
 
 useDataStore()
   .getCollections()

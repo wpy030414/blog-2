@@ -1,19 +1,24 @@
 <script setup lang="ts">
+import "@/assets/vermillion.css";
 import { onBeforeUnmount, ref } from "vue";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Card from "@/components/basis/Card.vue";
 import { useThemeStore } from "@/stores/theme";
 import { useBGMStore } from "@/stores/bgm";
 import { useDrawingStore } from "@/stores/drawing";
+import { Theme } from "@/types/Theme";
+import { option } from "@/app.option";
 
-useThemeStore().setTheme("vermillion");
+const outside = useThemeStore().getTheme();
+
+useThemeStore().setTheme(Theme.VERMILLION);
 useBGMStore().setBGM(useBGMStore().vendor.getNeteaseUnit("1879108724"));
-useBGMStore().play();
+useBGMStore().playOrPause("play");
 
 onBeforeUnmount(() => {
-  useThemeStore().setTheme("green");
-  useBGMStore().resetBGM();
-  useBGMStore().pause();
+  useThemeStore().setTheme(outside);
+  useBGMStore().setBGM(option.global.backgroundMusic || "");
+  useBGMStore().playOrPause("pause");
 });
 
 /** 背景图 */
@@ -28,21 +33,8 @@ const result = ref<[string, string]>(["", ""]);
  * 处理御神签选中。
  */
 function handleSelect() {
-  if (useDrawingStore().canDraw()) {
-    useDrawingStore().draw();
-
-    const degreeMap = [["大", "中", "小", "末"], [""]];
-    const directionMap = ["吉", "凶"];
-
-    function getRandom<T>(arr: T[]) {
-      const index = Math.floor(Math.random() * arr.length);
-      return { index: index, element: arr[index] };
-    }
-
-    let r = getRandom(directionMap);
-    result.value[1] = r.element;
-    result.value[0] = getRandom(degreeMap[r.index]).element;
-  } else alert("您不能过于频繁地抽签！请明天再来吧。");
+  if (useDrawingStore().canDraw()) result.value = useDrawingStore().draw();
+  else alert("您不能过于频繁地抽签！请明天再来吧。");
 }
 
 /** 抽签动画是否结束 */

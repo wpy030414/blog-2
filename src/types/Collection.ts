@@ -1,4 +1,6 @@
-/** 收藏 */
+/**
+ *  收藏
+ */
 export interface Collection {
   /** 分类 */
   category: "figure" | "e-product";

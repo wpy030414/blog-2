@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { option } from "@/app.option";
+
+import { ref } from "vue";
 import type { Article } from "@/types/Article";
 import type { Picture } from "@/types/Picture";
 import type { Project } from "@/types/Project";
@@ -16,7 +18,7 @@ import { useDataStore } from "@/stores/data";
 const isReady = ref([false, false, false]);
 
 /** 近期文章 */
-const articles: Ref<Article[]> = ref([]);
+const articles = ref<Article[]>([]);
 
 useDataStore()
   .getArticles(1, 2)
@@ -26,7 +28,7 @@ useDataStore()
   });
 
 /** 近期图片 */
-const pictures: Ref<Picture[]> = ref([]);
+const pictures = ref<Picture[]>([]);
 
 useDataStore()
   .getPictures(1, 3)
@@ -36,7 +38,7 @@ useDataStore()
   });
 
 /** 近期项目 */
-const projects: Ref<Project[]> = ref([]);
+const projects = ref<Project[]>([]);
 
 useDataStore()
   .getProjects(1, 4)
@@ -49,7 +51,7 @@ useDataStore()
 <template>
   <shake-box />
   <contents-shell class="recently">
-    <div class="topic-shell">
+    <div v-if="!(option.portalFunctions?.blogs === false)" class="topic-shell">
       <topic-title logo="blogs">近期博客</topic-title>
       <loading v-if="!isReady[0]" />
       <div v-if="isReady[0]" class="cards-shell">
@@ -61,14 +63,20 @@ useDataStore()
         />
       </div>
     </div>
-    <div class="topic-shell">
+    <div
+      v-if="!(option.portalFunctions?.pictures === false)"
+      class="topic-shell"
+    >
       <topic-title logo="pictures">近期捕获</topic-title>
       <loading v-if="!isReady[1]" />
       <div v-if="isReady[1]" class="cards-shell">
         <picture-card v-for="c in pictures" :data="c" />
       </div>
     </div>
-    <div class="topic-shell">
+    <div
+      v-if="!(option.portalFunctions?.projects === false)"
+      class="topic-shell"
+    >
       <topic-title logo="projects">近期示范项目</topic-title>
       <loading v-if="!isReady[2]" />
       <div v-if="isReady[2]" class="cards-shell">
@@ -121,31 +129,6 @@ useDataStore()
 }
 
 @media screen and (max-width: 1000px) {
-  .start > img {
-    left: -233vw;
-  }
-
-  .nameplate {
-    --np-width: 85vw;
-    overflow: hidden;
-  }
-
-  .nameplate > * {
-    left: 35px;
-  }
-
-  .nameplate > h1 {
-    top: 90px;
-    font-size: 70px;
-  }
-
-  .nameplate > .image-shell {
-    z-index: -1;
-    left: calc(var(--np-width) * 0.21);
-    opacity: 0.45;
-    transform: translateZ(0);
-  }
-
   .recently {
     padding: 15vh 6vw;
   }

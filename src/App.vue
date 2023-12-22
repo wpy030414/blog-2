@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import { option } from "@/app.option";
+
 import "@/assets/light.css";
 import "@/assets/dark.css";
-import "@/assets/vermillion.css";
+import(`@/assets/${option.global.theme}.css`);
 import TopBar from "@/components/frame/TopBar.vue";
 import FooterBay from "@/components/frame/FooterBay.vue";
 import PageSpirit from "@/components/frame/PageSpirit.vue";
-import { useThemeStore } from "./stores/theme";
-import { usePageTitleStore } from "./stores/page-title";
+import { useThemeStore } from "@/stores/theme";
 
-useThemeStore().setTheme();
-usePageTitleStore().setPageTitle([]);
+useThemeStore().setTheme(option.global.theme);
 </script>
 
 <template>

@@ -1,3 +1,5 @@
+import { option } from "@/app.option";
+
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -32,8 +34,8 @@ const router = createRouter({
       component: () => import("@/views/Museum.vue"),
     },
     {
-      path: "/project-mdhu",
-      component: () => import("@/views/ProjectMDHu.vue"),
+      path: "/project",
+      component: () => import("@/views/Project.vue"),
     },
     {
       path: "/about",
@@ -52,6 +54,33 @@ const router = createRouter({
       component: () => import("@/views/EasterEgg.vue"),
     },
   ],
+});
+
+/**
+ * 设置页面标题。
+ */
+export function setPageTitle(parts: string[]) {
+  const postfix = `${option.owner} 门户 | ${option.owner} Portal`;
+  let temp = postfix;
+
+  parts.forEach((p) => {
+    if (p) temp = `${p} - ${temp}`;
+  });
+  document.title = temp;
+}
+
+router.afterEach((to, _alpha, _beta) => {
+  const pathMapper: { [key: string]: string } = {
+    galary: "相册",
+    museum: "展馆",
+    project: option.projectName || "计划",
+    "404": "404",
+    about: "关于",
+    sponsor: "赞助",
+    shrine: "赤牧神社",
+  };
+
+  if (to.path !== "/blog") setPageTitle([pathMapper[to.path.slice(1)]]);
 });
 
 export default router;

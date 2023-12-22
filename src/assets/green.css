@@ -1,0 +1,9 @@
+:root.green {
+  --theme-main: #21e6c1;
+  --theme-main-tp: #21e6c13b;
+  --theme-sub: #ecfffb;
+}
+
+:root.green.dark {
+  --theme-sub: #222;
+}

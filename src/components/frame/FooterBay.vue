@@ -1,32 +1,38 @@
 <script setup lang="ts">
+import { option } from "@/app.option";
+
 import { ref } from "vue";
-import { useLocationStore } from "@/stores/location";
 
 /** 链接 */
 const infos = ref([
   {
     title: "更多",
     items: [
-      { name: "关于", href: "/about" },
-      { name: "赞助", href: "/sponsor" },
-      { name: "赤牧神社", href: "/shrine" },
-      { name: "？", href: "/easter-egg" },
+      { name: "关于", link: "/about" },
+      { name: "赞助", link: "/sponsor" },
+      {
+        name: "赤牧神社",
+        link: "/shrine",
+        enable: !(option.bottomFunctions?.shrine === false),
+      },
+      {
+        name: "？",
+        link: "/easter-egg",
+        enable: !(option.bottomFunctions?.easterEgg === false),
+      },
     ],
   },
   {
     title: "设计参考",
     items: [
-      { name: "保罗的小窝 Beta", href: "//beta.paul.ren/" },
-      { name: "Material Design 3", href: "//m3.material.io/" },
-      { name: "PicToGrammers", href: "//pictogrammers.com/" },
+      { name: "保罗的小窝 Beta", link: "//beta.paul.ren/" },
+      { name: "Material Design 3", link: "//m3.material.io/" },
+      { name: "PicToGrammers", link: "//pictogrammers.com/" },
     ],
   },
   {
     title: "服务支持",
-    items: [
-      { name: "聚合图床", href: "//www.superbed.cn/" },
-      { name: "木星计划", href: "//pen-yo.github.io/project-jupiter/" },
-    ],
+    items: option.bottomFunctions?.support || [],
   },
 ]);
 </script>
@@ -36,31 +42,29 @@ const infos = ref([
     <div>
       <ul class="card h-card">
         <li>
-          <h4>Penyo Development</h4>
+          <h4>{{ option.owner }}</h4>
           <p><i>To archive higher value.</i></p>
         </li>
       </ul>
-      <ul class="card" v-for="i in infos.slice(0, 1)">
+      <ul class="card" v-for="i in [infos[0]]">
         <h4>{{ i.title }}</h4>
         <li v-for="c in i.items">
-          <router-link :to="c.href">{{ c.name }}</router-link>
+          <router-link v-if="c.enable === undefined || c.enable" :to="c.link">{{
+            c.name
+          }}</router-link>
         </li>
       </ul>
       <ul class="card" v-for="i in infos.slice(1)">
         <h4>{{ i.title }}</h4>
         <li v-for="c in i.items">
-          <a :href="c.href" target="_blank">{{ c.name }}</a>
+          <a :href="c.link" target="_blank">{{ c.name }}</a>
         </li>
       </ul>
     </div>
     <p class="site-info">
-      © {{ new Date().getFullYear() }} Penyo. All rights reserved.
-      <a
-        v-if="useLocationStore().isInChinaMainland"
-        href="//beian.miit.gov.cn/"
-        target="_blank"
-      >
-        互联网 ICP 备案：皖ICP备2023005063号
+      © {{ new Date().getFullYear() }} {{ option.owner }}. All rights reserved.
+      <a v-if="option.icpInfo" href="//beian.miit.gov.cn/" target="_blank">
+        {{ option.icpInfo }}
       </a>
     </p>
   </footer>
@@ -151,7 +155,7 @@ footer {
     }
   }
 
-  .site-info {
+  & .site-info {
     color: var(--g-c-main);
     font-size: 15px;
 
@@ -170,7 +174,7 @@ footer {
     }
 
     & .site-info > a {
-      float: none;
+      float: none !important;
       display: block;
     }
   }

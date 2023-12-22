@@ -1,5 +1,7 @@
+import { option } from "@/app.option";
+
 import { defineStore } from "pinia";
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 import type { Article } from "@/types/Article";
 import type { Picture } from "@/types/Picture";
 import type { Project } from "@/types/Project";
@@ -7,15 +9,8 @@ import type { Collection } from "@/types/Collection";
 import type { Program } from "@/types/Program";
 
 export const useDataStore = defineStore("data", () => {
-  /** 是否使用静态化数据 */
-  const useStatic = ref(true);
-  /** 静态数据地址 */
-  const staticDataURL = ref({
-    /** 通用前缀 */
-    prefix: "//raw.githubusercontent.com/pen-yo/penyo-portal-rd/main/",
-  });
-  /** 动态数据地址 */
-  const dynamicDataURL = ref({});
+  /** 数据源 */
+  const dataSource = option.dataSource;
 
   /**
    * 获取分页数据。
@@ -54,7 +49,7 @@ export const useDataStore = defineStore("data", () => {
   );
 
   /** 文章缓存 */
-  const articlesCache: Ref<Article[]> = ref([]);
+  const articlesCache = ref<Article[]>([]);
 
   /**
    * 获取文章信息。
@@ -68,21 +63,20 @@ export const useDataStore = defineStore("data", () => {
   ): Promise<{ data: Article[]; totalSize: number }> {
     if (!isInitialized.value.get("articles")) {
       isUninitialized.value.set("articles", false);
-      if (useStatic.value) {
-        type ArticleRawEx = {
-          date: {
-            $date: string;
-          };
+
+      type ArticleRawEx = {
+        date: {
+          $date: string;
         };
-        const raws: (Article | ArticleRawEx)[] = await (
-          await fetch(staticDataURL.value.prefix + "articles.json")
-        ).json();
-        raws.forEach((r) => {
-          r.date = new Date((r as ArticleRawEx).date.$date);
-          articlesCache.value.push(r as Article);
-        });
-      } else {
-      }
+      };
+      const raws: (Article | ArticleRawEx)[] = await (
+        await fetch(dataSource + "articles.json")
+      ).json();
+      raws.forEach((r) => {
+        r.date = new Date((r as ArticleRawEx).date.$date);
+        articlesCache.value.push(r as Article);
+      });
+
       isInitialized.value.set("articles", true);
     }
 
@@ -98,7 +92,7 @@ export const useDataStore = defineStore("data", () => {
   }
 
   /** 照片缓存 */
-  const picturesCache: Ref<Picture[]> = ref([]);
+  const picturesCache = ref<Picture[]>([]);
 
   /**
    * 获取图片信息。
@@ -116,20 +110,19 @@ export const useDataStore = defineStore("data", () => {
         !isUninitialized.value.get("articles")
       )
         await new Promise((resolve) => setTimeout(resolve, 100));
-      if (useStatic.value) {
-        (await getArticles()).data.forEach((a) => {
-          const raws = a.body.match(/!\[.*?\]\(.+?\)/g);
-          if (raws)
-            raws.forEach((p) => {
-              picturesCache.value.push({
-                id: a.id,
-                date: new Date(a.date),
-                url: (p.match(/!\[.*?\]\((.+?)\)/) as RegExpMatchArray)[1],
-              });
+
+      (await getArticles()).data.forEach((a) => {
+        const raws = a.body.match(/!\[.*?\]\(.+?\)/g);
+        if (raws)
+          raws.forEach((p) => {
+            picturesCache.value.push({
+              id: a.id,
+              date: new Date(a.date),
+              url: (p.match(/!\[.*?\]\((.+?)\)/) as RegExpMatchArray)[1],
             });
-        });
-      } else {
-      }
+          });
+      });
+
       isInitialized.value.set("pictures", true);
     }
 
@@ -142,7 +135,7 @@ export const useDataStore = defineStore("data", () => {
   }
 
   /** 项目缓存 */
-  const projectsCache: Ref<Project[]> = ref([]);
+  const projectsCache = ref<Project[]>([]);
 
   /**
    * 获取项目信息。
@@ -155,12 +148,10 @@ export const useDataStore = defineStore("data", () => {
     pageSize?: number,
   ): Promise<{ data: Project[]; totalSize: number }> {
     if (!isInitialized.value.get("projects")) {
-      if (useStatic.value) {
-        projectsCache.value = await (
-          await fetch(staticDataURL.value.prefix + "projects.json")
-        ).json();
-      } else {
-      }
+      projectsCache.value = await (
+        await fetch(dataSource + "projects.json")
+      ).json();
+
       isInitialized.value.set("projects", true);
     }
 
@@ -173,7 +164,7 @@ export const useDataStore = defineStore("data", () => {
   }
 
   /** 收藏缓存 */
-  const collectionsCache: Ref<Collection[]> = ref([]);
+  const collectionsCache = ref<Collection[]>([]);
 
   /**
    * 获取收藏信息。
@@ -181,19 +172,17 @@ export const useDataStore = defineStore("data", () => {
   async function getCollections(): Promise<Collection[]> {
     if (!isInitialized.value.get("collections")) {
       isInitialized.value.set("collections", true);
-      if (useStatic.value) {
-        collectionsCache.value = await (
-          await fetch(staticDataURL.value.prefix + "collections.json")
-        ).json();
-      } else {
-      }
+
+      collectionsCache.value = await (
+        await fetch(dataSource + "collections.json")
+      ).json();
     }
 
     return collectionsCache.value;
   }
 
   /** 节目缓存 */
-  const programsCache: Ref<Program[]> = ref([]);
+  const programsCache = ref<Program[]>([]);
 
   /**
    * 获取节目信息。
@@ -201,23 +190,21 @@ export const useDataStore = defineStore("data", () => {
   async function getPrograms(): Promise<Program[]> {
     if (!isInitialized.value.get("programs")) {
       isInitialized.value.set("programs", true);
-      if (useStatic.value) {
-        type ProgramRawEx = {
-          releaseDate: {
-            $date: string;
-          };
-          urls: [string, string][];
+
+      type ProgramRawEx = {
+        releaseDate: {
+          $date: string;
         };
-        const raws: (Program | ProgramRawEx)[] = await (
-          await fetch(staticDataURL.value.prefix + "programs.json")
-        ).json();
-        raws.forEach((r) => {
-          r.releaseDate = new Date((r as ProgramRawEx).releaseDate.$date);
-          r.urls = new Map((r as ProgramRawEx).urls);
-          programsCache.value.push(r as Program);
-        });
-      } else {
-      }
+        urls: [string, string][];
+      };
+      const raws: (Program | ProgramRawEx)[] = await (
+        await fetch(dataSource + "programs.json")
+      ).json();
+      raws.forEach((r) => {
+        r.releaseDate = new Date((r as ProgramRawEx).releaseDate.$date);
+        r.urls = new Map((r as ProgramRawEx).urls);
+        programsCache.value.push(r as Program);
+      });
     }
 
     return programsCache.value;

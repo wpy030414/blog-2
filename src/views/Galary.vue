@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, type Ref } from "vue";
+import { ref, watch } from "vue";
 import type { Picture } from "@/types/Picture";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
@@ -11,7 +11,7 @@ import { useDataStore } from "@/stores/data";
 const isReady = ref(false);
 
 /** 已分页的数据 */
-const pagedData: Ref<Picture[]> = ref([]);
+const pagedData = ref<Picture[]>([]);
 /** 页数 */
 const pageNum = ref(1);
 /** 页容量 */

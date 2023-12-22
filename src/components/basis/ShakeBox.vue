@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { option } from "@/app.option";
+
 import { ref } from "vue";
 import { mdiChevronDown } from "@mdi/js";
 import DynamicLine from "@/components/basis/DynamicLine.vue";
 import GoButton from "@/components/basis/GoButton.vue";
 
 /** 门户主人 */
-const who = ref("Penyo");
+const who = ref(option.owner);
 
 /** x 轴上翻转的角度 */
 const xDeg = ref(0);
@@ -21,43 +23,7 @@ document.addEventListener("mousemove", (event) => {
 });
 
 /** 社交网站外链 */
-const socials = ref([
-  {
-    href: "//github.com/pen-yo/",
-    path: "//github.githubassets.com/favicons/favicon.png",
-    title: "GitHub",
-  },
-  {
-    href: "//gitee.com/penyo/",
-    path: "//gitee.com/favicon.ico",
-    title: "Gitee",
-  },
-  {
-    href: "//steamcommunity.com/id/penyoofficial/",
-    path: "//store.steamchina.com/favicon.ico",
-    title: "Steam",
-  },
-  {
-    href: "//account.xbox.com/profile?gamertag=penyoofficial",
-    path: "//support.xbox.com/favicon.png",
-    title: "Xbox",
-  },
-  {
-    href: "//music.163.com/#/user/home?id=507084557",
-    path: "//s1.music.126.net/style/favicon.ico",
-    title: "Netease Music",
-  },
-  {
-    href: "//space.bilibili.com/92465406",
-    path: "//www.bilibili.com/favicon.ico",
-    title: "Bilibili",
-  },
-  {
-    href: "//t.me/penyoofficial",
-    path: "//web.tel.onl/assets/img/favicon-32x32.png",
-    title: "Telegram",
-  },
-]);
+const socials = ref(option.socialLinks);
 
 function handleKnowingMore() {
   window.scrollBy({
@@ -84,8 +50,8 @@ function handleKnowingMore() {
       <h1>{{ who || `Penyo` }}</h1>
       <dynamic-line class="line"></dynamic-line>
       <div class="socials">
-        <a v-for="s in socials" :href="s.href" :title="s.title" target="_blank">
-          <img :src="s.path" alt="" width="20" />
+        <a v-for="s in socials" :href="s.link" :title="s.name" target="_blank">
+          <img :src="s.icon" alt="" width="20" />
         </a>
       </div>
       <go-button :go="true" @click="handleKnowingMore">了解更多</go-button>
@@ -211,6 +177,35 @@ function handleKnowingMore() {
       background: url("//prts.wiki/images/0/0c/立绘_阿米娅_skin1.png?image_process=format,webp/quality,Q_10")
         center / cover;
       transform: translateZ(36px);
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .start {
+    & > img {
+      left: -233vw;
+    }
+
+    & .nameplate {
+      --np-width: 85vw;
+      overflow: hidden;
+
+      & > * {
+        left: 35px;
+      }
+
+      & > h1 {
+        top: 90px;
+        font-size: 70px;
+      }
+
+      & > .image-shell {
+        z-index: -1;
+        left: calc(var(--np-width) * 0.21);
+        opacity: 0.45;
+        transform: translateZ(0);
+      }
     }
   }
 }

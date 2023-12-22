@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 import type { Program } from "@/types/Program";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
@@ -11,7 +11,7 @@ import { useDataStore } from "@/stores/data";
 const isReady = ref(false);
 
 /** 节目 */
-const programs: Ref<Program[]> = ref([]);
+const programs = ref<Program[]>([]);
 /** 年份 */
 const years = ref(new Set<number>());
 

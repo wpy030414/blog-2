@@ -1,4 +1,6 @@
-/** 图片 */
+/**
+ * 图片
+ */
 export interface Picture {
   /** 来源文章 ID */
   id: string;

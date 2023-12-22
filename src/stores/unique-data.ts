@@ -1,44 +1,38 @@
+import { option } from "@/app.option";
+
 import { defineStore } from "pinia";
-import { ref, type Ref } from "vue";
 import type { Article } from "@/types/Article";
 
 export const useUniqueDataStore = defineStore("unique-store", () => {
-  /** 静态数据地址 */
-  const staticDataURL = ref({
-    /** 通用前缀 */
-    prefix: "//raw.githubusercontent.com/pen-yo/penyo-portal-rd/main/",
-  });
+  /** 数据源 */
+  const dataSource = option.dataSource;
 
   /** 自述缓存 */
-  const readmeCache: Ref<Article | undefined> = ref();
+  let readmeCache: Article;
 
   /**
    * 获取自述。
    */
-  async function getReadme(): Promise<Article> {
-    if (!readmeCache.value) {
-      readmeCache.value = await (
-        await fetch(staticDataURL.value.prefix + "readme.json")
-      ).json();
-    }
+  async function getReadme() {
+    if (!readmeCache)
+      readmeCache = await (await fetch(dataSource + "readme.json")).json();
 
-    return readmeCache.value as Article;
+    return readmeCache;
   }
 
   /** 赞助页缓存 */
-  const sponsorshipCache: Ref<Article | undefined> = ref();
+  let sponsorshipCache: Article;
 
   /**
    * 获取自述。
    */
-  async function getSponsorship(): Promise<Article> {
-    if (!sponsorshipCache.value) {
-      sponsorshipCache.value = await (
-        await fetch(staticDataURL.value.prefix + "sponsorship.json")
+  async function getSponsorship() {
+    if (!sponsorshipCache)
+      sponsorshipCache = await (
+        await fetch(dataSource + "sponsorship.json")
       ).json();
-    }
 
-    return sponsorshipCache.value as Article;
+    return sponsorshipCache;
   }
 
   return { getReadme, getSponsorship };

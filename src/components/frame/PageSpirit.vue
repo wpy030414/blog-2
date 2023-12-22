@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { option } from "@/app.option";
+
 import { ref } from "vue";
 import { mdiArrowUp, mdiWeatherNight, mdiMusic } from "@mdi/js";
 import { useThemeStore } from "@/stores/theme";
+import { useBGMStore } from "@/stores/bgm";
 
 /** 精灵图标 */
 const buttons = ref([
@@ -27,9 +30,7 @@ function spirit(i: number) {
       useThemeStore().changeDayTheme();
       break;
     case 2:
-      const player = document.querySelector(".player") as HTMLAudioElement;
-      if (player.paused) player.play();
-      else player.pause();
+      useBGMStore().playOrPause();
       break;
   }
 }
@@ -43,11 +44,7 @@ function spirit(i: number) {
       </svg>
     </button>
   </div>
-  <audio
-    class="player"
-    src="//music.163.com/song/media/outer/url?id=27461858.mp3"
-    loop
-  ></audio>
+  <audio id="player" :src="option.global?.backgroundMusic" loop></audio>
 </template>
 
 <style scoped>

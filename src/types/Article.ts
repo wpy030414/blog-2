@@ -1,4 +1,6 @@
-/** 文章 */
+/**
+ * 文章
+ */
 export interface Article {
   /** 标识码 */
   id: string;

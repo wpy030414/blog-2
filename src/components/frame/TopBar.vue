@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { option } from "@/app.option";
+
+import { onMounted, ref } from "vue";
 import {
   mdiHome,
   mdiPen,
@@ -8,44 +10,48 @@ import {
   mdiArchiveMusic,
   mdiMenu,
 } from "@mdi/js";
-import { usePageTitleStore } from "@/stores/page-title";
 
-const props = defineProps<{
+defineProps<{
   /** 当前页面默认路由 */
   pageName: string;
 }>();
 
-watch(
-  () => props.pageName,
-  (pageName) => {
-    const pageTitleMap: { [key: string]: string } = {
-      // 博客页面的页标题状态交由 Blog.vue 托管
-      galary: "相册",
-      museum: "展馆",
-      "project-mdhu": "Project MDHu",
-      "404": "404",
-      about: "关于",
-      sponsor: "赞助",
-      shrine: "赤牧神社",
-    };
-    usePageTitleStore().setPageTitle([pageTitleMap[pageName]]);
-  },
-);
-
 /** 菜单 */
 const menu = ref([
   { icon: mdiHome, href: "/" },
-  { icon: mdiPen, href: "/blog" },
-  { icon: mdiImage, href: "/galary" },
-  { icon: mdiStar, href: "/museum" },
-  { icon: mdiArchiveMusic, href: "/project-mdhu" },
+  {
+    icon: mdiPen,
+    href: "/blog",
+    enable: !(option.coreFunctions?.blog === false),
+  },
+  {
+    icon: mdiImage,
+    href: "/galary",
+    enable: !(option.coreFunctions?.galary === false),
+  },
+  {
+    icon: mdiStar,
+    href: "/museum",
+    enable: !(option.coreFunctions?.museum === false),
+  },
+  {
+    icon: mdiArchiveMusic,
+    href: "/project",
+    enable: !(option.coreFunctions?.project === false),
+  },
 ]);
 
 /** 是否（可能）在移动端上 */
-const isOnMobile = ref(window.innerWidth <= 1000);
+const isOnMobile = ref(false);
 
-window.addEventListener("resize", () => {
-  isOnMobile.value = window.innerWidth <= 1000;
+onMounted(() => {
+  const updateIsOnMobile = () => {
+    isOnMobile.value = window.innerWidth < 1000;
+  };
+
+  updateIsOnMobile();
+
+  window.addEventListener("resize", updateIsOnMobile);
 });
 
 /** 菜单是否已弹出 */
@@ -63,7 +69,7 @@ const isMenuPoped = ref(false);
     <transition name="menu">
       <ul v-if="!isOnMobile || isMenuPoped">
         <li v-for="i in menu" @click="isMenuPoped = false">
-          <router-link :to="i.href">
+          <router-link v-if="i.enable === undefined || i.enable" :to="i.href">
             <svg width="24" height="24">
               <path :d="i.icon"></path>
             </svg>
@@ -152,7 +158,7 @@ header {
 
     & > ul {
       position: relative;
-      width: 100vw;
+      width: 100%;
       top: 60px;
       left: 0;
       background: var(--theme-main);
@@ -166,7 +172,7 @@ header {
 
   .menu-enter-from,
   .menu-leave-to {
-    left: -100vw;
+    left: -100% !important;
   }
 }
 </style>

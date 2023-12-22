@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Ref, ref } from "vue";
+import { ref } from "vue";
 import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Loading from "@/components/basis/Loading.vue";
@@ -7,7 +7,7 @@ import ArticleCard from "@/components/container/ArticleCard.vue";
 import { useUniqueDataStore } from "@/stores/unique-data";
 
 /** 自述 */
-const readme: Ref<Article | undefined> = ref();
+const readme = ref<Article | undefined>();
 
 useUniqueDataStore()
   .getReadme()

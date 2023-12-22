@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Collection } from "@/types/Collection";
 import Card from "@/components/basis/Card.vue";
-import GoButton from "../basis/GoButton.vue";
+import GoButton from "@/components/basis/GoButton.vue";
 
 defineProps<{
   /** 单数据 */

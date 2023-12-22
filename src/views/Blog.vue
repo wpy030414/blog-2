@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, type Ref } from "vue";
+import { ref, watch } from "vue";
 import { goTop } from "@/util";
 import type { Article } from "@/types/Article";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
@@ -9,15 +9,17 @@ import GoButton from "@/components/basis/GoButton.vue";
 import Pagination from "@/components/basis/Pagination.vue";
 import Card from "@/components/basis/Card.vue";
 import { useDataStore } from "@/stores/data";
-import { usePageTitleStore } from "@/stores/page-title";
+import router, { setPageTitle } from "@/router";
+
+setPageTitle(["博客"]);
 
 /** 是否已准备好数据 */
 const isReady = ref(false);
 
 /** 文章缓存代理 */
-const articlesProxy: Ref<Article[]> = ref([]);
+const articlesProxy = ref<Article[]>([]);
 /** 现在应该展示的页数据 */
-const pagedData: Ref<Article[]> = ref([]);
+const pagedData = ref<Article[]>([]);
 /** 页数 */
 const pageNum = ref(1);
 /** 页容量 */
@@ -42,15 +44,15 @@ async function reflash(needDisplayAtOnce?: boolean) {
       }
     });
 
-  const id = (document.querySelector(".id-guard") as HTMLElement).id;
+  const id = router.currentRoute.value.params.id as string;
   if (id) {
     const a = articlesProxy.value.filter((a) => {
       return a.id === id;
     })[0];
-    if (a) usePageTitleStore().setPageTitle(["博客", a.category, a.title]);
+    if (a) setPageTitle(["博客", a.category, a.title]);
     isIDGiven.value = true;
     search(id);
-  } else usePageTitleStore().setPageTitle(["博客"]);
+  }
 }
 
 reflash(true);
@@ -82,14 +84,14 @@ function handlePageNumChange(newPageNum: number) {
 }
 
 /** 搜索参数 */
-const searchParas: Ref<{
+const searchParas = ref<{
   categories: string[];
   contents: string;
   datePeriod: {
     from: string;
     to: string;
   };
-}> = ref({
+}>({
   categories: [],
   contents: "",
   datePeriod: {
@@ -135,12 +137,6 @@ async function search(id?: string) {
 </script>
 
 <template>
-  <div
-    class="id-guard"
-    :id="
-      Array.isArray($route.params.id) ? $route.params.id[0] : $route.params.id
-    "
-  ></div>
   <contents-shell>
     <loading v-if="!isReady" />
     <div v-if="isReady" class="layout" :class="isIDGiven ? '' : 'given'">
