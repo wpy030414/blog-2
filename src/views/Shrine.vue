@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import "@/assets/vermillion.css";
+import "@/assets/colored-theme/vermillion.css";
 import { onBeforeUnmount, ref } from "vue";
 import ContentsShell from "@/components/frame/ContentsShell.vue";
 import Card from "@/components/basis/Card.vue";
@@ -11,12 +11,12 @@ import { option } from "@/app.option";
 
 const outside = useThemeStore().getTheme();
 
-useThemeStore().setTheme(Theme.VERMILLION);
+useThemeStore().applyTheme(Theme.VERMILLION);
 useBGMStore().setBGM(useBGMStore().vendor.getNeteaseUnit("1879108724"));
 useBGMStore().playOrPause("play");
 
 onBeforeUnmount(() => {
-  useThemeStore().setTheme(outside);
+  useThemeStore().applyTheme(outside);
   useBGMStore().setBGM(option.global.backgroundMusic || "");
   useBGMStore().playOrPause("pause");
 });

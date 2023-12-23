@@ -27,7 +27,7 @@ function spirit(i: number) {
       });
       break;
     case 1:
-      useThemeStore().changeDayTheme();
+      useThemeStore().changeTheme();
       break;
     case 2:
       useBGMStore().playOrPause();

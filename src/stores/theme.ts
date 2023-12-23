@@ -15,11 +15,11 @@ export const useThemeStore = defineStore("theme", () => {
   }
 
   /**
-   * 设置主题。
+   * 应用主题。
    *
    * @param color 有色主题
    */
-  function setTheme(color?: Theme) {
+  function applyTheme(color?: Theme) {
     const holder = document.documentElement.classList;
     if (isDark) holder.add("dark");
     else holder.remove("dark");
@@ -35,11 +35,11 @@ export const useThemeStore = defineStore("theme", () => {
   /**
    * 改变时间主题。
    */
-  function changeDayTheme() {
+  function changeTheme() {
     isDark = !isDark;
     localStorage.setItem("isDark", `${isDark}`);
-    setTheme();
+    applyTheme();
   }
 
-  return { getTheme, setTheme, changeDayTheme };
+  return { getTheme, applyTheme, changeTheme };
 });

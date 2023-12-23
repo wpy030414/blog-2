@@ -36,7 +36,7 @@ function handleKnowingMore() {
 <template>
   <section class="start">
     <img
-      src="//prts.wiki/images/1/1d/立绘_阿米娅_skin3.png?image_process=format,webp/quality,Q_10"
+      src="//prts.wiki/images/9/97/立绘_煌_skin1.png?image_process=format,webp/quality,Q_10"
       alt=""
     />
     <svg width="24" height="24">
@@ -102,8 +102,8 @@ function handleKnowingMore() {
 
   & > img {
     position: absolute;
-    top: -25vh;
-    left: -45vw;
+    top: -90vh;
+    left: -55vw;
     opacity: 0.65;
   }
 
@@ -184,7 +184,7 @@ function handleKnowingMore() {
 @media screen and (max-width: 1000px) {
   .start {
     & > img {
-      left: -233vw;
+      left: -180vw;
     }
 
     & .nameplate {
