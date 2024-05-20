@@ -36,7 +36,7 @@ function handleKnowingMore() {
 <template>
   <section class="start">
     <img
-      src="//prts.wiki/images/9/97/立绘_煌_skin1.png?image_process=format,webp/quality,Q_10"
+      src="//media.prts.wiki/9/97/立绘_煌_skin1.png?image_process=format,webp/quality,Q_10"
       alt=""
     />
     <svg width="24" height="24">
@@ -174,7 +174,7 @@ function handleKnowingMore() {
       left: calc(var(--np-width) * 0.45);
       width: calc(var(--np-height) * 1.44 * 0.55);
       height: calc(var(--np-height) * 1.44);
-      background: url("//prts.wiki/images/0/0c/立绘_阿米娅_skin1.png?image_process=format,webp/quality,Q_10")
+      background: url("//media.prts.wiki/0/0c/立绘_阿米娅_skin1.png?image_process=format,webp/quality,Q_10")
         center / cover;
       transform: translateZ(36px);
     }
